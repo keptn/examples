@@ -5,7 +5,7 @@ This example shows how to ...
  * [Step Zero: Prerequisites](#step-zero)
  * [Step One: Provision cluster on Kubernetes](#step-one)
  * [Step Two: Setup service tagging and process group naming in Dynatrace](#step-two)
- * [Step Three: Lab execution](#step-three)
+ * [Step Three: Use case walk through](#step-three)
  * [Step Four: Cleanup](#step-four)
 
 ## Step Zero: Prerequisites <a id="step-zero"></a>

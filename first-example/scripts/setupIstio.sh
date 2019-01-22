@@ -2,7 +2,7 @@
 DT_TENANT_ID=$1
 DT_PAAS_TOKEN=$2
 
-kubectl apply -f ../manifests/istio/crds.yml
+kubectl apply -f ../manifests/istio/istio-crds.yml
 kubectl apply -f ../manifests/istio/istio-demo.yml
 
 sleep 500
