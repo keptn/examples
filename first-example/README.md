@@ -137,11 +137,11 @@ It will take about 30 seconds until the tags are automatically applied to the se
     1. Click on **Preview** to validate rule works.
     1. Click on **Save** for the rule and then **Done**.
 
-## Step Three: Lab execution <a id="step-three"></a>
+## Step Three: Use case walk through <a id="step-three"></a>
 
-* [Performance as a Service](./labs/performance-as-a-service) 
-* [Production Deployments](./labs/production-deployments) 
-* [Runbook Automation and Self-Healing](./labs/runbook-automation-and-self-healing) 
-* [Unbreakable Delivery Pipeline](./labs/unbreakable-delivery-pipeline)
+* [Performance as a Service](./usecases/performance-as-a-service) 
+* [Production Deployments](./usecases/production-deployments) 
+* [Runbook Automation and Self-Healing](./usecases/runbook-automation-and-self-healing) 
+* [Unbreakable Delivery Pipeline](./usecases/unbreakable-delivery-pipeline)
 
 ## Step Four: Cleanup <a id="step-four"></a>
