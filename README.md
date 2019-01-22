@@ -1,2 +1,2 @@
-# examples
+# Keptn Examples
 Keptn example tutorials
