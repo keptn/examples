@@ -3,7 +3,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: jenkins
-  namespace: cicd2
+  namespace: cicd
 spec:
   type: LoadBalancer
   ports:
@@ -22,7 +22,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   name: jenkins-deployment
-  namespace: cicd2
+  namespace: cicd
 spec:
   replicas: 1
   selector:
@@ -35,15 +35,15 @@ spec:
     spec:
       containers:
       - name: jenkins
-        image: dynatraceacm/jenkins-keptn
+        image: dynatraceacm/jenkins:0.2
         imagePullPolicy: Always
         env:
           - name: GITHUB_USER_EMAIL
-            value: bacherflgmail.com
+            value: GITHUB_USER_EMAIL_PLACEHOLDER
           - name: GITHUB_ORGANIZATION
-            value: acmfabric
+            value: GITHUB_ORGANIZATION_PLACEHOLDER
           - name: DOCKER_REGISTRY_IP
-            value: 10.43.249.155
+            value: DOCKER_REGISTRY_IP_PLACEHOLDER
           - name: DT_TENANT_URL
             value: DT_TENANT_URL_PLACEHOLDER
           - name: DT_API_TOKEN

@@ -47,10 +47,10 @@ COPY init.groovy /usr/share/jenkins/ref/init.groovy.d/tcp-slave-agent-port.groov
 
 # jenkins version being bundled in this docker image
 ARG JENKINS_VERSION
-ENV JENKINS_VERSION ${JENKINS_VERSION:-2.138.1}
+ENV JENKINS_VERSION ${JENKINS_VERSION:-2.138.4}
 
 # jenkins.war checksum, download will be validated using it
-ARG JENKINS_SHA=ecb84b6575e86957b902cce5e68e360e6b0768b0921baa405e61d314239e5b27
+ARG JENKINS_SHA=053d2941d558092c934a0f95798ff2177170eecfffab27a46e30744cf12bc3da
 
 # Can be used to customize where jenkins.war get downloaded from
 ARG JENKINS_URL=https://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-war/${JENKINS_VERSION}/jenkins-war-${JENKINS_VERSION}.war
@@ -103,8 +103,7 @@ performance:3.12 \
 performance-signature-dynatracesaas:3.0.1 \
 performance-signature-ui:3.0.1 \
 performance-signature-viewer:3.0.1 \
-github-branch-source:2.4.0 \
-openshift-sync:1.0.31
+github-branch-source:2.4.0
 
 RUN cp -R /tmp/jobs/* "$JENKINS_HOME"/jobs/
 RUN chown -R ${user} "$JENKINS_HOME"
