@@ -1,0 +1,67 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: front-end
+  namespace: production
+spec:
+  replicas: 1
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "true"
+      labels:
+        app: front-end
+        version: v1
+    spec:
+      containers:
+      - name: front-end
+        image: dynatracesockshop/front-end:0.5.0
+        env: 
+        - name: DT_TAGS
+          value: "product=sockshop"
+        - name: DT_CUSTOM_PROP
+          value: "SERVICE_TYPE=FRONTEND"
+        resources:
+          limits:
+            cpu: 300m
+            memory: 1000Mi
+          requests:
+            cpu: 100m
+            memory: 300Mi
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          initialDelaySeconds: 120
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+      nodeSelector:
+        beta.kubernetes.io/os: linux
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: front-end
+  labels:
+    app: front-end
+  namespace: production
+spec:
+  ports:
+  - name: http
+    port: 8080
+    targetPort: 8080
+  selector:
+    app: front-end
+  type: LoadBalancer

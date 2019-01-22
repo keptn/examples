@@ -1,0 +1,12 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<de.tsystems.mms.apm.performancesignature.dynatracesaas.DynatraceGlobalConfiguration plugin="performance-signature-dynatracesaas@3.0.1">
+  <configurations>
+    <de.tsystems.mms.apm.performancesignature.dynatracesaas.model.DynatraceServerConfiguration>
+      <name>Dynatrace Tenant</name>
+      <apiTokenId>perfsig-api-token</apiTokenId>
+      <verifyCertificate>false</verifyCertificate>
+      <useProxy>false</useProxy>
+      <serverUrl>https://DT_TENANT_URL_PLACEHOLDER</serverUrl>
+    </de.tsystems.mms.apm.performancesignature.dynatracesaas.model.DynatraceServerConfiguration>
+  </configurations>
+</de.tsystems.mms.apm.performancesignature.dynatracesaas.DynatraceGlobalConfiguration>

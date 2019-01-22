@@ -1,0 +1,167 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: carts-db-mongodata
+  namespace: dev
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+status: {}
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: carts-db
+  namespace: dev
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        name: carts-db
+    spec:
+      containers:
+      - image: mongo
+        name: carts-db
+        ports:
+        - containerPort: 27017
+        resources: {}
+        volumeMounts:
+        - mountPath: /data/db
+          name: carts-db-mongodata
+      restartPolicy: Always
+      volumes:
+      - name: carts-db-mongodata
+        persistentVolumeClaim:
+          claimName: carts-db-mongodata
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: carts-db
+  namespace: dev
+spec:
+  ports:
+  - name: "27017"
+    port: 27017
+    targetPort: 27017
+  selector:
+    name: carts-db
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: carts-db-mongodata
+  namespace: staging
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+status: {}
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: carts-db
+  namespace: staging
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        name: carts-db
+    spec:
+      containers:
+      - image: mongo
+        name: carts-db
+        ports:
+        - containerPort: 27017
+        resources: {}
+        volumeMounts:
+        - mountPath: /data/db
+          name: carts-db-mongodata
+      restartPolicy: Always
+      volumes:
+      - name: carts-db-mongodata
+        persistentVolumeClaim:
+          claimName: carts-db-mongodata
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: carts-db
+  namespace: staging
+spec:
+  ports:
+  - name: "27017"
+    port: 27017
+    targetPort: 27017
+  selector:
+    name: carts-db
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: carts-db-mongodata
+  namespace: production
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+status: {}
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: carts-db
+  namespace: production
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        sidecar.istio.io/inject: "true"
+      labels:
+        name: carts-db
+    spec:
+      containers:
+      - image: mongo
+        name: carts-db
+        ports:
+        - containerPort: 27017
+        resources: {}
+        volumeMounts:
+        - mountPath: /data/db
+          name: carts-db-mongodata
+      restartPolicy: Always
+      volumes:
+      - name: carts-db-mongodata
+        persistentVolumeClaim:
+          claimName: carts-db-mongodata
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: carts-db
+  namespace: production
+spec:
+  ports:
+  - name: "27017"
+    port: 27017
+    targetPort: 27017
+  selector:
+    name: carts-db

@@ -1,0 +1,18 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<io.fabric8.jenkins.openshiftsync.GlobalPluginConfiguration plugin="openshift-sync@1.0.31">
+  <enabled>true</enabled>
+  <server></server>
+  <credentialsId>openshift-sync</credentialsId>
+  <namespaces>
+    <string>cicd</string>
+  </namespaces>
+  <foldersEnabled>true</foldersEnabled>
+  <jobNamePattern>*</jobNamePattern>
+  <skipOrganizationPrefix></skipOrganizationPrefix>
+  <skipBranchSuffix></skipBranchSuffix>
+  <buildListInterval>300</buildListInterval>
+  <buildConfigListInterval>300</buildConfigListInterval>
+  <secretListInterval>300</secretListInterval>
+  <configMapListInterval>300</configMapListInterval>
+  <imageStreamListInterval>300</imageStreamListInterval>
+</io.fabric8.jenkins.openshiftsync.GlobalPluginConfiguration>

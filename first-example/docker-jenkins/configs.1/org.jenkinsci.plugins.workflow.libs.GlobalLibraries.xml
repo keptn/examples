@@ -1,0 +1,21 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<org.jenkinsci.plugins.workflow.libs.GlobalLibraries plugin="workflow-cps-global-lib@2.12">
+  <libraries>
+    <org.jenkinsci.plugins.workflow.libs.LibraryConfiguration>
+      <name>dynatrace</name>
+      <retriever class="org.jenkinsci.plugins.workflow.libs.SCMSourceRetriever">
+        <scm class="jenkins.plugins.git.GitSCMSource" plugin="git@3.9.1">
+          <id>6813bac3-894e-434d-9abb-bd41eeb72f88</id>
+          <remote>https://github.com/dynatrace-innovationlab/jenkins-extensions.git</remote>
+          <credentialsId></credentialsId>
+          <traits>
+            <jenkins.plugins.git.traits.BranchDiscoveryTrait/>
+          </traits>
+        </scm>
+      </retriever>
+      <implicit>false</implicit>
+      <allowVersionOverride>true</allowVersionOverride>
+      <includeInChangesets>true</includeInChangesets>
+    </org.jenkinsci.plugins.workflow.libs.LibraryConfiguration>
+  </libraries>
+</org.jenkinsci.plugins.workflow.libs.GlobalLibraries>
