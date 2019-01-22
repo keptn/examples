@@ -1,20 +1,30 @@
-# Provision ACM Workshop Cluster on Kubernetes
+# First-Example
+This example shows how to ...
 
-This repository contains all scripts and instructions needed to deploy the ACM Sockshop demo on a Kubernetes Cluster.
-## Prerequisites:
+##### Table of Contents
+ * [Step Zero: Prerequisites](#step-zero)
+ * [Step One: Provision cluster on Kubernetes](#step-one)
+ * [Step Two: Setup service tagging and process group naming in Dynatrace](#step-two)
+ * [Step Three: Lab execution](#step-three)
 
-* jq (https://stedolan.github.io/jq/) has to be installed to run the setup script.
-* A GitHub Organization to fork the Sockshop application to
-* A GitHub Personal Access Token
-* kubectl command line util, and logged in to your cluster
-* Git CLI & [Hub CLI](https://hub.github.com/)
-* A Dynatrace Tenant - you will need the Dynatrace Tenant ID, a Dynatrace API Token and Dynatrace PaaS Token to complete the setup.
+## Step Zero: Prerequisites <a id="step-zero"></a>
 
-## Instructions:
+This example assumes that you have a working cluster. See the [Getting Started Guides](https://kubernetes.io/docs/setup/) for details about creating a cluster.
+
+* [jq](https://stedolan.github.io/jq/) has to be installed to run the setup script
+* A GitHub organization to fork the sockshop application to
+* A GitHub personal access token
+* kubectl CLI, which is logged in to your cluster
+* Git CLI and [Hub CLI](https://hub.github.com/)
+* Dynatrace Tenant: Dynatrace `Tenant ID`, a Dynatrace `API Token` and Dynatrace `PaaS Token`
+
+## Step One: Provision cluster on Kubernetes <a id="step-one"></a>
+
+This directory contains all scripts and instructions needed to deploy the ACM Sockshop demo on a Kubernetes Cluster.
 
 1. Execute the `forkGitHubRepositories.sh` script in the `scripts` directory. This script takes the name of the GitHub organization you have created earlier.
 
-    ```
+    ```console
     $ ./scripts/forkGitHubRepositories.sh <GitHubOrg>
     ```
 
@@ -22,24 +32,22 @@ This repository contains all scripts and instructions needed to deploy the ACM S
     
 1. Insert information in ./scripts/creds.json by executing *./scripts/creds.sh* - This script will prompt you for all information needed to complete the setup, and populate the file *scripts/creds.json* with them. (If for some reason there are problems with this script, you can of course also directly enter the values into creds.json).
 
-
-    ```
+    ```console
     $ ./scripts/creds.sh
     ```
     
 1. Execute *./scripts/setup-infrastructure.sh* - This will deploy a Jenkins service within your OpenShift Cluster, as well as an initial deployment of the sockshop application in the *dev*, *staging* and *production* namespaces. NOTE: If you use a Mac, you can use the script *setup-infrastructure-macos.sh*.
 *Note that the script will run for some time (~5 mins), since it will wait for Jenkins to boot and set up some credentials via the Jenkins REST API.*
 
-
-    ```
+    ```console
     $ ./scripts/setup-infrastructure.sh
     ```
     
 1. Afterwards, you can login using the default Jenkins credentials (admin/AiTx4u8VyUV8tCKk). It's recommended to change these credentials right after the first login. You can get the URL of Jenkins by executing
 
-```
-$ kubectl get svc jenkins -n cicd
-``` 
+    ```console
+    $ kubectl get svc jenkins -n cicd
+    ``` 
 
 1. Verify the installation: In the Jenkins dashboard, you should see the following pipelines:
 
@@ -57,17 +65,19 @@ Further, navigate to Jenkins > Manage Jenkins > Configure System, and see if the
 
 1. Verify your deployment of the Sockshop service: Execute the following commands to retrieve the URLs of your front-end in the dev, staging and production environments:
 
-```
-$ kubectl get svc front-end -n dev
-``` 
-```
-$ kubectl get svc front-end -n staging
-``` 
-```
-$ kubectl get svc front-end -n production
-``` 
+    ```console
+    $ kubectl get svc front-end -n dev
+    ```
 
-## Setup Tagging of Services and Naming of Process Groups in Dynatrace
+    ```console
+    $ kubectl get svc front-end -n staging
+    ```
+
+    ```console
+    $ kubectl get svc front-end -n production
+    ```
+
+## Step Two: Setup service tagging and process group naming in Dynatrace <a id="step-two"></a>
 
 This allows you to query service-level metrics (e.g.: Response Time, Failure Rate, or Throughput) automatically based on meta-data that you have passed during a deployment, e.g.: *Service Type* (frontend, backend), *Deployment Stage* (dev, staging, production). Besides, this lab creates tagging rules based on Kubernetes namespace and Pod name.
 
@@ -125,9 +135,9 @@ It will take about 30 seconds until the tags are automatically applied to the se
 1. Click on **Preview** to validate rule works.
 1. Click on **Save** for the rule and then **Done**.
 
-## Updating your sockshop services:
 
-* To deploy updates you made to your services to the development environment, you can follow the instructions at this location: (Deploy to dev)[https://github.com/dynatrace-innovationlab/acl-docs/tree/master/workshop/05_Developing_Microservices/02_Deploy_Microservice_to_Dev].
 
-* To deploy your changes to the staging environment, please refer to the instructions at this location: (Deploy to Staging)[https://github.com/dynatrace-innovationlab/acl-docs/tree/master/workshop/05_Developing_Microservices/03_Deploy_Microservice_to_Staging].
 
+## Step Three: Lab execution <a id="step-three"></a>
+
+* [Performance as a Service](/labs/performance-as-a-service) 
