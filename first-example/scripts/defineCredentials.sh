@@ -33,6 +33,7 @@ echo "github User Email: $GITE"
 echo "github Organization: $GITO" 
 read -p "Is this all correct?" -n 1 -r
 echo ""
+
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
   rm $CREDS
@@ -44,6 +45,7 @@ then
   sed 's/GITHUB_USER_EMAIL_PLACEHOLDER/'"$GITE"'/' | \
   sed 's/GITHUB_ORG_PLACEHOLDER/'"$GITO"'/' >> $CREDS
 fi
+
 cat $CREDS
 echo ""
 echo "the creds file can be found here:" $CREDS

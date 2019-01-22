@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# convenience script if you don't want to apply all yaml files manually
+# Script if you don't want to apply all yaml files manually
 
 export JENKINS_USER=$(cat creds.json | jq -r '.jenkinsUser')
 export JENKINS_PASSWORD=$(cat creds.json | jq -r '.jenkinsPassword')
@@ -13,54 +13,56 @@ export DT_PAAS_TOKEN=$(cat creds.json | jq -r '.dynatracePaaSToken')
 export GITHUB_ORGANIZATION=$(cat creds.json | jq -r '.githubOrg')
 export DT_TENANT_URL="$DT_TENANT_ID.live.dynatrace.com"
 
-# grant cluster admin rights to gcloud user
+# Grant cluster admin rights to gcloud user
 export GCLOUD_USER=$(gcloud config get-value account)
 kubectl create clusterrolebinding dynatrace-cluster-admin-binding --clusterrole=cluster-admin --user=$GCLOUD_USER
 
+# Create K8s namespaces
 kubectl create -f ../manifests/k8s-namespaces.yml 
 
-# set up the Container registry
-
-kubectl create -f ../manifests/k8s-docker-registry-pvc.yml
-kubectl create -f ../manifests/k8s-docker-registry-deployment.yml
-kubectl create -f ../manifests/k8s-docker-registry-service.yml
+# Create container registry
+kubectl create -f ../manifests/container-registry/k8s-docker-registry-pvc.yml
+kubectl create -f ../manifests/container-registry/k8s-docker-registry-deployment.yml
+kubectl create -f ../manifests/container-registry/k8s-docker-registry-service.yml
 
 sleep 100
 
-# create a route for the docker registry service
-# store the docker registry route in a variable
+# Create a route for the docker registry service
+# Store the docker registry route in a variable
 export REGISTRY_URL=$(kubectl describe svc docker-registry -n cicd | grep IP: | sed 's/IP:[ \t]*//')
 
-cat ../manifests/k8s-jenkins-deployment.yml | sed 's/GITHUB_USER_EMAIL_PLACEHOLDER/'"$GITHUB_USER_EMAIL"'/' | \
+# Create Jenkins
+cat ../manifests/jenkins/k8s-jenkins-deployment.yml | sed 's/GITHUB_USER_EMAIL_PLACEHOLDER/'"$GITHUB_USER_EMAIL"'/' | \
   sed 's/GITHUB_ORGANIZATION_PLACEHOLDER/'"$GITHUB_ORGANIZATION"'/' | \
   sed 's/DOCKER_REGISTRY_IP_PLACEHOLDER/'"$REGISTRY_URL"'/' | \
   sed 's/DT_TENANT_URL_PLACEHOLDER/'"$DT_TENANT_URL"'/' | \
-  sed 's/DT_API_TOKEN_PLACEHOLDER/'"$DT_API_TOKEN"'/' >> ../manifests/k8s-jenkins-deployment_tmp.yml
+  sed 's/DT_API_TOKEN_PLACEHOLDER/'"$DT_API_TOKEN"'/' >> ../manifests/jenkins/k8s-jenkins-deployment_tmp.yml
 
-kubectl create -f ../manifests/k8s-jenkins-pvcs.yml 
-kubectl create -f ../manifests/k8s-jenkins-deployment_tmp.yml
-kubectl create -f ../manifests/k8s-jenkins-rbac.yml
+kubectl create -f ../manifests/jenkins/k8s-jenkins-pvcs.yml 
+kubectl create -f ../manifests/jenkins/k8s-jenkins-deployment_tmp.yml
+kubectl create -f ../manifests/jenkins/k8s-jenkins-rbac.yml
 
-rm ../manifests/k8s-jenkins-deployment_tmp.yml
+rm ../manifests/jenkins/k8s-jenkins-deployment_tmp.yml
 
-# deploy the Dynatrace Operator
-
+# Deploy Dynatrace operator
 kubectl create namespace dynatrace
 kubectl create -f https://raw.githubusercontent.com/Dynatrace/dynatrace-oneagent-operator/master/deploy/kubernetes.yaml
+
 sleep 60
+
 kubectl -n dynatrace create secret generic oneagent --from-literal="apiToken=$DT_API_TOKEN" --from-literal="paasToken=$DT_PAAS_TOKEN"
 cat ../manifests/dynatrace/cr.yml | sed 's/ENVIRONMENTID/'"$DT_TENANT_ID"'/' >> ../manifests/dynatrace/cr_tmp.yml
+
 kubectl create -f ../manifests/dynatrace/cr_tmp.yml
 rm ../manifests/dynatrace/cr_tmp.yml
 
+# Deploy sockshop application
+./deploySockshop.sh
 
-# deploy the sockshop app
-./deploy-sockshop.sh
-
-# set up credentials in Jenkins
+# Set up credentials in Jenkins
 sleep 150
 
-# store the jenkins route in a variable
+# Export Jenkins route in a variable
 export JENKINS_URL=$(kubectl describe svc jenkins -n cicd | grep "LoadBalancer Ingress:" | sed 's/LoadBalancer Ingress:[ \t]*//')
 
 curl -X POST http://$JENKINS_URL:24711/credentials/store/system/domain/_/createCredentials --user $JENKINS_USER:$JENKINS_PASSWORD \
@@ -102,13 +104,13 @@ curl -X POST http://$JENKINS_URL:24711/credentials/store/system/domain/_/createC
 }'
 
 # Install Istio service mesh
-./install-istio.sh $DT_TENANT_ID $DT_PAAS_TOKEN
+./setupIstio.sh $DT_TENANT_ID $DT_PAAS_TOKEN
 
-# Deploy Ansible Tower
-kubectl create -f ../manifests/ansible-tower/ns.yml
-kubectl create -f ../manifests/ansible-tower/dep.yml
-kubectl create -f ../manifests/ansible-tower/svc.yml
+# Create Ansible Tower
+kubectl create -f ../manifests/ansible-tower/namespace.yml
+kubectl create -f ../manifests/ansible-tower/deployment.yml
+kubectl create -f ../manifests/ansible-tower/service.yml
 
 sleep 120
 
-./configure-ansible.sh
+./configureAnsible.sh

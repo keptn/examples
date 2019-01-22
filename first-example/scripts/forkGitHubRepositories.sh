@@ -30,10 +30,10 @@ then
 	exit 1
 fi
 
-declare -a repositories=("carts" "catalogue" "front-end" "k8s-deploy-production" "k8s-deploy-staging" "orders" "payment" "queue-master" "shipping" "jenkins-release-branch" "user")
+declare -a repositories=("carts" "catalogue" "front-end" "jenkins-release-branch" "k8s-deploy-production" "k8s-deploy-staging" "orders" "payment" "queue-master" "shipping" "sockshop-infrastructure" "user")
 
-mkdir repositories
-cd repositories
+mkdir ../repositories
+cd ../repositories
 
 for repo in "${repositories[@]}"
 do

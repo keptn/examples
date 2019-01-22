@@ -34,14 +34,14 @@ This directory contains all scripts and instructions needed to deploy the ACM So
 1. Insert information in ./scripts/creds.json by executing *./scripts/creds.sh* - This script will prompt you for all information needed to complete the setup, and populate the file *scripts/creds.json* with them. (If for some reason there are problems with this script, you can of course also directly enter the values into creds.json).
 
     ```console
-    $ ./scripts/creds.sh
+    $ ./scripts/defineCredentials.sh
     ```
     
 1. Execute *./scripts/setup-infrastructure.sh* - This will deploy a Jenkins service within your OpenShift Cluster, as well as an initial deployment of the sockshop application in the *dev*, *staging* and *production* namespaces. NOTE: If you use a Mac, you can use the script *setup-infrastructure-macos.sh*.
 *Note that the script will run for some time (~5 mins), since it will wait for Jenkins to boot and set up some credentials via the Jenkins REST API.*
 
     ```console
-    $ ./scripts/setup-infrastructure.sh
+    $ ./scripts/setupInfrastructure.sh
     ```
     
 1. Afterwards, you can login using the default Jenkins credentials (admin/AiTx4u8VyUV8tCKk). It's recommended to change these credentials right after the first login. You can get the URL of Jenkins by executing
