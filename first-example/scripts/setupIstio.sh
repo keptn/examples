@@ -15,3 +15,5 @@ kubectl create -f ../manifests/istio/istio-gateway.yml
 sleep 10
 
 kubectl delete pods --all -n production
+
+kubectl delete meshpolicies.authentication.istio.io default # fix for the MySQL connection error caused by Istio
