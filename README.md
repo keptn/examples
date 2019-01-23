@@ -3,13 +3,13 @@ This directory contains an examples of how to ... .
 
 ### Maintained Examples
 
-Maintained Examples are expected to be updated with every keptn release, to
+Maintained examples are expected to be updated with every keptn release, to
 use the latest and greatest features, current guidelines and best practices,
 and to refresh command syntax, output, changed prerequisites, as needed.
 
 |Name | Description | Notable Features Used | Complexity Level|
 ------------- | ------------- | ------------ | ------------ |
-|[first-example](first-example/) | Sockshop | Kubernetes, Dynatrace, Jenkins, Ansible Tower | Beginner |
+|[first-example](first-example/) | Sockshop Application | Kubernetes, Dynatrace, Jenkins, Istio, Ansible Tower | Beginner |
 
 > Note: Please add examples that are maintained to the list above.
 
