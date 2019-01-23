@@ -4,9 +4,10 @@ This example shows how to ...
 ##### Table of Contents
  * [Step Zero: Prerequisites](#step-zero)
  * [Step One: Provision cluster on Kubernetes](#step-one)
- * [Step Two: Setup service tagging and process group naming in Dynatrace](#step-two)
- * [Step Three: Use case walk through](#step-three)
- * [Step Four: Cleanup](#step-four)
+ * [Step Two: Setup process group naming rule in Dynatrace](#step-two)
+ * [Step Three: Setup service tagging rules in Dynatrace](#step-three)
+ * [Step Four: Use case walk through](#step-four)
+ * [Step Five: Cleanup](#step-five)
 
 ## Step Zero: Prerequisites <a id="step-zero"></a>
 
@@ -75,15 +76,9 @@ This directory contains all scripts and instructions needed to deploy the socksh
 
 ![](./assets/jenkins-env-vars.png)
 
-## Step Two: Setup service tagging and process group naming rules in Dynatrace <a id="step-two"></a>
-
-This step creates tagging rules based on Kubernetes namespace and pod name.
-These rules allow you to query service-level metrics such as response time, failure rate, or throughput automatically based on meta-data that you have passed during a deployment, e.g.: *Service Type* (frontend, or backend), *Deployment Stage* (dev, staging, production). 
-
-To tag services, Dynatrace provides **Automated Service Tag Rules**. In this lab you want Dynatrace to create a new service-level tag with the name **SERVICE_TYPE**. It should only apply the tag *if* the underlying Process Group has the custom meta-data property **SERVICE_TYPE**. If that is the case, you also want to take this value and apply it as the tag value for **Service_Type**.
+## Step Two: Setup process group naming rule in Dynatrace <a id="step-two"></a>
 
 1. Create a Naming Rule for Process Groups
-
     1. Go to **Settings**, **Process groups**, and click on **Process group naming**.
     1. Create a new process group naming rule with **Add new rule**. 
     1. Edit that rule:
@@ -95,27 +90,12 @@ To tag services, Dynatrace provides **Automated Service Tag Rules**. In this lab
 Screenshot shows this rule definition.
 ![tagging-rule](./assets/pg_naming.png)
 
-1. Create Service Tag Rule
-    1. Go to **Settings**, **Tags**, and click on **Automatically applied tags**.
-    1. Create a new custom tag with the name `SERVICE_TYPE`.
-    1. Edit that tag and **Add new rule**.
-        * Rule applies to: `Services` 
-        * Optional tag value: `{ProcessGroup:Environment:SERVICE_TYPE}`
-        * Condition on `Process group properties -> SERVICE_TYPE` if `exists`
-    1. Click on **Preview** to validate rule works.
-    1. Click on **Save** for the rule and then **Done**.
+## Step Three: Setup service tagging rules in Dynatrace <a id="step-three"></a>
 
-Screenshot shows this rule definition.
-![tagging-rule](./assets/tagging_rule.png)
+This step creates tagging rules based on Kubernetes pod name and namespaces.
+These rules allow you to query service-level metrics such as response time, failure rate, or throughput automatically based on meta-data that you have passed during a deployment, e.g.: *Deployment Stage* (dev, staging, or production). 
 
-3. Search for Services by Tag
-It will take about 30 seconds until the tags are automatically applied to the services.
-    1. Go to **Transaction & services**.
-    1. Click in **Filtered by** edit field.
-    1. Select `SERVICE_TYPE` and select `FRONTEND`.
-    1. You should see the service `front-end`. Open it up.
-
-4. Create Service Tag for App Name based on K8S Container Name
+1. Create service tag for app name based on K8S container name
     1. Go to **Settings**, **Tags**, and click on **Automatically applied tags**.
     1. Create a new custom tag with the name `app`.
     1. Edit that tag and **Add new rule**.
@@ -125,7 +105,7 @@ It will take about 30 seconds until the tags are automatically applied to the se
     1. Click on **Preview** to validate rule works.
     1. Click on **Save** for the rule and then **Done**.
 
-5. Create Service Tag for Environment based on K8S Namespace
+1. Create service tag for environment based on K8S namespace
     1. Go to **Settings**, **Tags**, and click on **Automatically applied tags**.
     1. Create a new custom tag with the name `environment`.
     1. Edit that tag and **Add new rule**.
@@ -135,11 +115,11 @@ It will take about 30 seconds until the tags are automatically applied to the se
     1. Click on **Preview** to validate rule works.
     1. Click on **Save** for the rule and then **Done**.
 
-## Step Three: Use case walk through <a id="step-three"></a>
+## Step Three: Use case walk through <a id="step-four"></a>
 
 * [Performance as a Service](./usecases/performance-as-a-service) 
 * [Production Deployments](./usecases/production-deployments) 
-* [Runbook Automation and Self-Healing](./usecases/runbook-automation-and-self-healing) 
+* [Runbook Automation and Self-Healing](./usecases/runbook-automation-and-self-healing)
 * [Unbreakable Delivery Pipeline](./usecases/unbreakable-delivery-pipeline)
 
-## Step Four: Cleanup <a id="step-four"></a>
+## Step Four: Cleanup <a id="step-five"></a>
