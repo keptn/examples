@@ -44,7 +44,7 @@ This directory contains all scripts and instructions needed to deploy the socksh
     $ ./scripts/setupInfrastructure.sh
     ```
 
-1. To verify the deployment of the sockshop service, retrieve the URLs of your front-end in the dev, staging, and production environments with the `kubectl get svc` command:
+1. To verify the deployment of the sockshop service, retrieve the URLs of your front-end in the dev, staging, and production environments with the `kubectl get svc` *`service`* `-n` *`namespace`* command:
 
     ```console
     $ kubectl get svc front-end -n dev
