@@ -42,8 +42,8 @@ if [[ $REPLY =~ ^[Yy]$ ]]
 then
     rm $CREDS 2> /dev/null
     cat ./creds.sav >> $CREDS
-    
-    sed -i 's/DYNATRACE_TENANT_PLACEHOLDER/'"$DTENV"'/' $CREDS
+
+    sed -i 's~DYNATRACE_TENANT_PLACEHOLDER~'"$DTENV"'~' $CREDS
     sed -i 's/DYNATRACE_API_TOKEN/'"$DTAPI"'/' $CREDS
     sed -i 's/DYNATRACE_PAAS_TOKEN/'"$DTPAAST"'/' $CREDS
     sed -i 's/GITHUB_USER_NAME_PLACEHOLDER/'"$GITU"'/' $CREDS
