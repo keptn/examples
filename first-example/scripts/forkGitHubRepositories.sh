@@ -13,13 +13,13 @@ fi
 
 if [ -z $1 ]
 then
-	echo "Please provide the target GitHub orgainzation as parameter:"
-	echo ""
-	echo "  e.g.: ./forkGitHubRepositories.sh myorganization"
-	echo ""
-	exit 1
+    echo "Please provide the target GitHub orgainzation as parameter:"
+    echo ""
+    echo "  e.g.: ./forkGitHubRepositories.sh myorganization"
+    echo ""
+    exit 1
 else
-	ORG=$1
+    ORG=$1
 fi
 
 HTTP_RESPONSE=`curl -s -o /dev/null -I -w "%{http_code}" https://github.com/$ORG`
