@@ -10,61 +10,40 @@ This example shows how to ...
 
 ## Step Zero: Prerequisites <a id="step-zero"></a>
 
-This example assumes that you have a working cluster. See the [Getting Started Guides](https://kubernetes.io/docs/setup/) for details about creating a cluster.
+This example assumes that you have a working Kubernetes cluster in Google Container Engine (GKE). See the [Getting Started Guides](https://kubernetes.io/docs/setup/) for details about creating a cluster.
 
-* [jq](https://stedolan.github.io/jq/) has to be installed to run the setup script
-* A GitHub organization to fork the sockshop application to
-* A GitHub personal access token
-* kubectl CLI, which is logged in to your cluster
-* Git CLI and [Hub CLI](https://hub.github.com/)
-* Dynatrace Tenant: Dynatrace `Tenant ID`, a Dynatrace `API Token` and Dynatrace `PaaS Token`
+The scripts provided in this example run in a BASH and require following tools: 
+
+* [`jq`](https://stedolan.github.io/jq/) which is a lightweight and flexible command-line JSON processor
+* `GitHub organization` to store the repositories of the sockshop application
+* `GitHub personal access token` to push changes to the sockshop repositories
+* `kubectl` that is logged in to your cluster. **Tip:** View all the kubectl commands, including their options and descriptions in the [kubectl CLI reference](https://kubernetes.io/docs/user-guide/kubectl-overview/).
+* [`git`](https://git-scm.com/) and [`hub`](https://hub.github.com/)
+* Dynatrace Tenant including the Dynatrace `Tenant ID`, a Dynatrace `API Token`, and Dynatrace `PaaS Token`
 
 ## Step One: Provision cluster on Kubernetes <a id="step-one"></a>
 
-This directory contains all scripts and instructions needed to deploy the ACM Sockshop demo on a Kubernetes Cluster.
+This directory contains all scripts and instructions needed to deploy the sockshop demo on a Kubernetes cluster.
 
-1. Execute the `forkGitHubRepositories.sh` script in the `scripts` directory. This script takes the name of the GitHub organization you have created earlier.
+1. Execute the `forkGitHubRepositories.sh` script in the `scripts` directory. This script takes the name of the GitHub organization you have created earlier. This script clones all needed repositories and uses `hub` to fork those repositories to the passed GitHub organization. Aftewards, the script deletes all repositories and clones them again from the GitHub organization.
 
     ```console
     $ ./scripts/forkGitHubRepositories.sh <GitHubOrg>
     ```
-
-    This script `clone`s all needed repositories and the uses the `hub` command ([hub](https://hub.github.com/)) to fork those repositories to the passed GitHub organization. After that, the script deletes all repositories and `clone`s them again from the new URL.
     
-1. Insert information in ./scripts/creds.json by executing *./scripts/creds.sh* - This script will prompt you for all information needed to complete the setup, and populate the file *scripts/creds.json* with them. (If for some reason there are problems with this script, you can of course also directly enter the values into creds.json).
+1. Insert information in *./scripts/creds.json* by executing `defineCredentials.sh` in the `scripts` directory. This script will prompt you for all information needed to complete the setup, and populate the file *scripts/creds.json* with them.
 
     ```console
     $ ./scripts/defineCredentials.sh
     ```
     
-1. Execute *./scripts/setup-infrastructure.sh* - This will deploy a Jenkins service within your OpenShift Cluster, as well as an initial deployment of the sockshop application in the *dev*, *staging* and *production* namespaces. NOTE: If you use a Mac, you can use the script *setup-infrastructure-macos.sh*.
-*Note that the script will run for some time (~5 mins), since it will wait for Jenkins to boot and set up some credentials via the Jenkins REST API.*
+1. Execute `setupInfrastructure.sh` in the `scripts` directory. This script deploys a container registry and Jenkins service within your cluster, as well as an initial deployment of the sockshop application in the *dev*, *staging*, and *production* namespaces. **Note:** the script will run for some time (~5 mins), since it will wait for Jenkins to boot and set up some credentials via the Jenkins REST API.*
 
     ```console
     $ ./scripts/setupInfrastructure.sh
     ```
-    
-1. Afterwards, you can login using the default Jenkins credentials (admin/AiTx4u8VyUV8tCKk). It's recommended to change these credentials right after the first login. You can get the URL of Jenkins by executing
 
-    ```console
-    $ kubectl get svc jenkins -n cicd
-    ``` 
-
-1. Verify the installation: In the Jenkins dashboard, you should see the following pipelines:
-
-* k8s-deploy-production
-* k8s-deploy-production-canary
-* k8s-deploy-production-update
-* k8s-deploy-staging
-* A folder called *sockshop*
-
-![](./assets/jenkins-dashboard.png)
-
-Further, navigate to Jenkins > Manage Jenkins > Configure System, and see if the Environment Variables used by the build pipelines have been set correctly (Note that the value for the parameter *DT_TENANT_URL* should start with 'https://'):
-
-![](./assets/jenkins-env-vars.png)
-
-1. Verify your deployment of the Sockshop service: Execute the following commands to retrieve the URLs of your front-end in the dev, staging and production environments:
+1. To verify the deployment of the sockshop service, retrieve the URLs of your front-end in the dev, staging, and production environments with the `kubectl get svc` command:
 
     ```console
     $ kubectl get svc front-end -n dev
@@ -78,11 +57,30 @@ Further, navigate to Jenkins > Manage Jenkins > Configure System, and see if the
     $ kubectl get svc front-end -n production
     ```
 
-## Step Two: Setup service tagging and process group naming in Dynatrace <a id="step-two"></a>
+1. Run the `kubectl get svc` command to get the external IP of Jenkins. Then user a browser to open Jenkins and login using the default Jenkins credentials: `admin` / `AiTx4u8VyUV8tCKk`. **Note:** it is recommended to change these credentials right after the first login.
 
-This allows you to query service-level metrics (e.g.: Response Time, Failure Rate, or Throughput) automatically based on meta-data that you have passed during a deployment, e.g.: *Service Type* (frontend, backend), *Deployment Stage* (dev, staging, production). Besides, this lab creates tagging rules based on Kubernetes namespace and Pod name.
+    ```console
+    $ kubectl get svc jenkins -n cicd
+    ``` 
 
-In order to tag services, Dynatrace provides **Automated Service Tag Rules**. In this lab you want Dynatrace to create a new service-level tag with the name **SERVICE_TYPE**. It should only apply the tag *if* the underlying Process Group has the custom meta-data property **SERVICE_TYPE**. If that is the case, you also want to take this value and apply it as the tag value for **Service_Type**.
+1. To verify the correct installation of Jenkins, go to the Jenkins dashboard where you see the following pipelines:
+
+    * k8s-deploy-production
+    * k8s-deploy-production-canary
+    * k8s-deploy-production-update
+    * k8s-deploy-staging
+    * A folder called sockshop
+
+1. Finally, navigate to **Jenkins** > **Manage Jenkins** > **Configure System** and  scroll to the environment variables to verify whether the variables are set correclty. **Note:** the value for the parameter *DT_TENANT_URL* must start with *https://*
+
+![](./assets/jenkins-env-vars.png)
+
+## Step Two: Setup service tagging and process group naming rules in Dynatrace <a id="step-two"></a>
+
+This step creates tagging rules based on Kubernetes namespace and pod name.
+These rules allow you to query service-level metrics such as response time, failure rate, or throughput automatically based on meta-data that you have passed during a deployment, e.g.: *Service Type* (frontend, or backend), *Deployment Stage* (dev, staging, production). 
+
+To tag services, Dynatrace provides **Automated Service Tag Rules**. In this lab you want Dynatrace to create a new service-level tag with the name **SERVICE_TYPE**. It should only apply the tag *if* the underlying Process Group has the custom meta-data property **SERVICE_TYPE**. If that is the case, you also want to take this value and apply it as the tag value for **Service_Type**.
 
 1. Create a Naming Rule for Process Groups
 
