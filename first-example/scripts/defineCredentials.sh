@@ -1,4 +1,5 @@
 #!/bin/bash
+
 CREDS=./creds.json
 rm $CREDS
 
@@ -14,12 +15,12 @@ echo ""
 
 if [[ $DTENV = '' ]]
 then 
-  DTENV=$DTENVC
+    DTENV=$DTENVC
 fi
 
 if [[ $DTAPI = '' ]]
 then 
-  DTAPI=$DTAPIC
+    DTAPI=$DTAPIC
 fi
 
 echo ""
@@ -36,14 +37,14 @@ echo ""
 
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  rm $CREDS
-  cat ./creds.sav | sed 's/DYNATRACE_TENANT_PLACEHOLDER/'"$DTENV"'/' | \
-  sed 's/DYNATRACE_API_TOKEN/'"$DTAPI"'/' | \
-  sed 's/DYNATRACE_PAAS_TOKEN/'"$DTPAAST"'/' | \
-  sed 's/GITHUB_USER_NAME_PLACEHOLDER/'"$GITU"'/' | \
-  sed 's/PERSONAL_ACCESS_TOKEN_PLACEHOLDER/'"$GITAT"'/' | \
-  sed 's/GITHUB_USER_EMAIL_PLACEHOLDER/'"$GITE"'/' | \
-  sed 's/GITHUB_ORG_PLACEHOLDER/'"$GITO"'/' >> $CREDS
+    rm $CREDS
+    cat ./creds.sav | sed 's/DYNATRACE_TENANT_PLACEHOLDER/'"$DTENV"'/' | \
+    sed 's/DYNATRACE_API_TOKEN/'"$DTAPI"'/' | \
+    sed 's/DYNATRACE_PAAS_TOKEN/'"$DTPAAST"'/' | \
+    sed 's/GITHUB_USER_NAME_PLACEHOLDER/'"$GITU"'/' | \
+    sed 's/PERSONAL_ACCESS_TOKEN_PLACEHOLDER/'"$GITAT"'/' | \
+    sed 's/GITHUB_USER_EMAIL_PLACEHOLDER/'"$GITE"'/' | \
+    sed 's/GITHUB_ORG_PLACEHOLDER/'"$GITO"'/' >> $CREDS
 fi
 
 cat $CREDS
