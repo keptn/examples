@@ -41,15 +41,13 @@ echo ""
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
     rm $CREDS 2> /dev/null
-    cat ./creds.sav >> $CREDS
-
-    sed -i 's~DYNATRACE_TENANT_PLACEHOLDER~'"$DTENV"'~' $CREDS
-    sed -i 's/DYNATRACE_API_TOKEN/'"$DTAPI"'/' $CREDS
-    sed -i 's/DYNATRACE_PAAS_TOKEN/'"$DTPAAST"'/' $CREDS
-    sed -i 's/GITHUB_USER_NAME_PLACEHOLDER/'"$GITU"'/' $CREDS
-    sed -i 's/PERSONAL_ACCESS_TOKEN_PLACEHOLDER/'"$GITAT"'/' $CREDS
-    sed -i 's/GITHUB_USER_EMAIL_PLACEHOLDER/'"$GITE"'/' $CREDS
-    sed -i 's/GITHUB_ORG_PLACEHOLDER/'"$GITO"'/' $CREDS
+    cat ./creds.sav | sed 's~DYNATRACE_TENANT_PLACEHOLDER~'"$DTENV"'~' | \
+      sed 's~DYNATRACE_API_TOKEN~'"$DTAPI"'~' | \
+      sed 's~DYNATRACE_PAAS_TOKEN~'"$DTPAAST"'~' | \
+      sed 's~GITHUB_USER_NAME_PLACEHOLDER~'"$GITU"'~' | \
+      sed 's~PERSONAL_ACCESS_TOKEN_PLACEHOLDER~'"$GITAT"'~' | \
+      sed 's~GITHUB_USER_EMAIL_PLACEHOLDER~'"$GITE"'~' | \
+      sed 's~GITHUB_ORG_PLACEHOLDER~'"$GITO"'~' >> $CREDS
 fi
 
 cat $CREDS
