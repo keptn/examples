@@ -12,11 +12,17 @@ declare -a repositories=("carts" "catalogue" "front-end" "orders" "payment" "que
 
 for repo in "${repositories[@]}"
 do
-    cd ../carts/manifest
-    kubectl apply -f .
-    # sed
-    kubectl apply -f .
-    # sed
-    kubectl apply -f .
-    # sed
+    cd ../repositories/$repo/manifest
+    # Deploy service to dev
+    kubectl apply -f ./$repo.yml
+
+    # Deploy service to staging 
+    cat $repo.yml | sed 's#namespace: .*#namespace: staging#' >> staging_tmp.yml
+    kubectl apply -f ./staging_tmp.yml
+    rm staging_tmp.yml
+
+    # Deploy service to production
+    cat $repo.yml | sed 's#namespace: .*#namespace: production#' >> production_tmp.yml
+    kubectl apply -f ./production_tmp.yml
+    rm production_tmp.yml
 done

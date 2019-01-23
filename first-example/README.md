@@ -70,7 +70,7 @@ This directory contains all scripts and instructions needed to deploy the socksh
     * k8s-deploy-production-canary
     * k8s-deploy-production-update
     * k8s-deploy-staging
-    * A folder called sockshop
+    * Folder called sockshop
 
 1. Finally, navigate to **Jenkins** > **Manage Jenkins** > **Configure System** and  scroll to the environment variables to verify whether the variables are set correclty. **Note:** the value for the parameter *DT_TENANT_URL* must start with *https://*
 
