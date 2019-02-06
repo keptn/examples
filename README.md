@@ -9,7 +9,7 @@ and to refresh command syntax, output, changed prerequisites, as needed.
 
 |Name | Description | Notable Features Used | Complexity Level|
 ------------- | ------------- | ------------ | ------------ |
-|[first-example](first-example/) | Sockshop Application | Kubernetes, Dynatrace, Jenkins, Istio, Ansible Tower | Beginner |
+|[Sockshop](first-example/) | This example builds on [keptn v0.1.0](https://github.com/keptn/keptn/tree/v0.1.0) and provides four use cases to explore the functionality of keptn. | Kubernetes, Dynatrace, Jenkins, Istio, Ansible Tower | Intermediate |
 
 > Note: Please add examples that are maintained to the list above.
 
