@@ -1,11 +1,10 @@
 # Keptn Examples
-This directory contains an examples of how to ... .
+
+This directory contains and refers to examples in order to explore the functionality of keptn.
 
 ### Maintained Examples
 
-Maintained examples are expected to be updated with every keptn release, to
-use the latest and greatest features, current guidelines and best practices,
-and to refresh command syntax, output, changed prerequisites, as needed.
+Maintained examples are expected to be updated with every keptn release, to use the latest and greatest features, current guidelines and best practices, and to refresh command syntax, output, changed prerequisites, as needed.
 
 |Name | Description | Notable Features Used | Complexity Level|
 ------------- | ------------- | ------------ | ------------ |
