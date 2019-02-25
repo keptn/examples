@@ -8,7 +8,7 @@ Maintained examples are expected to be updated with every keptn release, to use 
 
 |Name | Description | Notable Features Used | Complexity Level|
 ------------- | ------------- | ------------ | ------------ |
-| **Sockshop** | This example builds on [keptn v0.1.0](https://github.com/keptn/keptn/tree/v0.1.0) and provides four use cases to explore the functionality of keptn. | Kubernetes, Dynatrace, Jenkins, Istio, Ansible Tower | Intermediate |
+| [**Sockshop**](https://github.com/dynatrace-sockshop) | This example builds on [keptn v0.1.0](https://github.com/keptn/keptn/tree/v0.1.0) and provides four use cases to explore the functionality of keptn. | Kubernetes, Dynatrace, Jenkins, Istio, Ansible Tower | Intermediate |
 
 > Note: Please add examples that are maintained to the list above.
 
