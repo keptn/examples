@@ -11,4 +11,4 @@ spec:
     port: {{ .Values.SERVICE_PLACEHOLDER_C.service.externalPort }}
     targetPort: {{ .Values.SERVICE_PLACEHOLDER_C.service.internalPort }}
   selector:
-    name: {{ .Chart.Name }}-selector-SERVICE_PLACEHOLDER_DEC
+    app: {{ .Chart.Name }}-selector-SERVICE_PLACEHOLDER_DEC
