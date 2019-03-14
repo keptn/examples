@@ -1,4 +1,16 @@
 ---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: carts-db-mongodata
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+status: {}
+---
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
@@ -25,4 +37,11 @@ spec:
         ports:
         - containerPort: 27017
         resources: {}
+        volumeMounts:
+        - mountPath: /data/db
+          name: carts-db-mongodata
       restartPolicy: Always
+      volumes:
+      - name: carts-db-mongodata
+        persistentVolumeClaim:
+          claimName: carts-db-mongodata
