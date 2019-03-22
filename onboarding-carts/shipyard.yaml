@@ -1,3 +1,4 @@
+registry: "crsockshop"
 stages:
   - name: "dev"
     deployment_strategy: "direct"
