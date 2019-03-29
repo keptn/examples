@@ -1,4 +1,4 @@
-registry: sockshopcr
+registry: sockshop
 stages:
   - name: "dev"
     deployment_strategy: "direct"
