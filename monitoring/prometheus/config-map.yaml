@@ -46,10 +46,20 @@ data:
           action: keep
           regex: default;kubernetes;https
 
-      - job_name: 'carts'
+      - job_name: 'carts-dev'
         metrics_path: '/prometheus'
         static_configs:
-        - targets: ['carts.dev.svc.cluster.local:80', 'carts.staging.GATEWAY_PLACEHOLDER:80', 'carts.production.GATEWAY_PLACEHOLDER:80']
+        - targets: ['carts.dev.svc.cluster.local:80']
+
+      - job_name: 'carts-staging'
+        metrics_path: '/prometheus'
+        static_configs:
+        - targets: ['carts.staging.GATEWAY_PLACEHOLDER:80']
+
+      - job_name: 'carts-production'
+        metrics_path: '/prometheus'
+        static_configs:
+        - targets: ['carts.production.GATEWAY_PLACEHOLDER:80']
 
       - job_name: 'kubernetes-nodes'
 
