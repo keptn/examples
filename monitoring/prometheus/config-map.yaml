@@ -46,17 +46,17 @@ data:
           action: keep
           regex: default;kubernetes;https
 
-      - job_name: 'carts-dev'
+      - job_name: 'carts-sockshop-dev'
         metrics_path: '/prometheus'
         static_configs:
         - targets: ['carts.sockshop-dev.svc.cluster.local:80']
 
-      - job_name: 'carts-staging'
+      - job_name: 'carts-sockshop-staging'
         metrics_path: '/prometheus'
         static_configs:
         - targets: ['carts.sockshop-staging.GATEWAY_PLACEHOLDER:80']
 
-      - job_name: 'carts-production'
+      - job_name: 'carts-sockshop-production'
         metrics_path: '/prometheus'
         static_configs:
         - targets: ['carts.sockshop-production.GATEWAY_PLACEHOLDER:80']
