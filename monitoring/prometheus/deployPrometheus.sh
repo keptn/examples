@@ -1,8 +1,6 @@
 #!/bin/sh
 
-export GATEWAY=$(kubectl describe svc istio-ingressgateway -n istio-system | grep "LoadBalancer Ingress:" | sed 's~LoadBalancer Ingress:[ \t]*~~')
-
-GATEWAY="$GATEWAY.xip.io"
+export GATEWAY=$(kubectl get configmap -n keptn keptn-domain -oyaml -ojsonpath="{.data.app_domain}")
 
 rm -f gen/config-map.yaml
 
