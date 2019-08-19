@@ -12,7 +12,7 @@ spec:
     spec:
       containers:
         - name: prometheus
-          image: prom/prometheus:v2.1.0
+          image: prom/prometheus:v2.2.1
           args:
             - "--config.file=/etc/prometheus/prometheus.yml"
             - "--storage.tsdb.path=/prometheus/"
@@ -37,6 +37,11 @@ kind: Service
 metadata:
   name: prometheus-service
   namespace: monitoring
+  annotations:
+      prometheus.io/scrape: 'true'
+      prometheus.io/path:   /
+      prometheus.io/port:   '8080'
+  
 spec:
   selector: 
     app: prometheus-server
