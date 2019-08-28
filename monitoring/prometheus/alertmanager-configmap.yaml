@@ -24,4 +24,4 @@ data:
     receivers:
     - name: webhook_demo
       webhook_configs:
-      - url: https://webhook.site/cc9924bf-dd30-446c-955b-bfdfeafc71e6
+      - url: http://alertmanager-service.keptn.svc.cluster.local:8080
