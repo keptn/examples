@@ -1,3 +1,4 @@
+
       - job_name: 'SERVICENAME_PLACEHOLDER-PROJECTNAME_PLACEHOLDER-STAGE_PLACEHOLDER'
         metrics_path: '/prometheus'
         static_configs:

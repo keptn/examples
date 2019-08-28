@@ -48,5 +48,13 @@ rm gen/config-map.yaml
 cp config-map.yaml gen/config-map.yaml
 cat gen/scrape_jobs.yaml >> gen/config-map.yaml
 
+# insert prometheus rules into config-map
+rm -f gen/prometheus-rules.yaml
+cp prometheus-rules.yaml gen/prometheus-rules.yaml
+sed -i '' 's~SERVICENAME_PLACEHOLDER~'"$SERVICENAME"'~g' gen/prometheus-rules.yaml
+sed -i '' 's~PROJECTNAME_PLACEHOLDER~'"$PROJECTNAME"'~g' gen/prometheus-rules.yaml
+awk '/###RULES_PLACEHOLDER###/{system("cat gen/prometheus-rules.yaml");next}1' gen/config-map.yaml > gen/config-map.tmp
+mv gen/config-map.tmp gen/config-map.yaml
+
 kubectl apply -f gen/config-map.yaml
 kubectl delete pod --all -n monitoring
