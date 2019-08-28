@@ -6,18 +6,7 @@ metadata:
     name: prometheus-server-conf
   namespace: monitoring
 data:
-  prometheus.rules: |-
-    groups:
-    - name: demo alert
-      rules:
-      - alert: High Container CPU Usage
-        expr: rate(container_cpu_usage_seconds_total{namespace="sockshop-dev"}[1m]) > 0.05
-        for: 1m
-        labels:
-          severity: webhook
-        annotations:
-          summary: "High Container CPU Usage: {{ $value }}"
-          description: "Pod name {{ $labels.pod_name }}"
+  ###RULES_PLACEHOLDER###
   prometheus.yml: |-
     global:
       scrape_interval: 5s

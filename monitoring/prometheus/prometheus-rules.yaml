@@ -1,0 +1,12 @@
+  prometheus.rules: |-
+    groups:
+    - name: keptn demo production alerts
+      rules:
+      - alert: High Container CPU Usage
+        expr: avg(rate(container_cpu_usage_seconds_total{namespace="PROJECTNAME_PLACEHOLDER-production",pod_name=~"SERVICENAME_PLACEHOLDER-blue-.*|SERVICENAME_PLACEHOLDER-green-.*"}[1m])) > 0.05
+        for: 1m
+        labels:
+          severity: webhook
+        annotations:
+          summary: "High Container CPU Usage: {{ $value }}"
+          description: "Pod name {{ $labels.pod_name }}"
