@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: carts
 spec:
-  replicas: "{{ .Values.replicas }}"
+  replicas: {{ .Values.replicas }}
   strategy:
     rollingUpdate:
       maxUnavailable: 0
@@ -13,7 +13,7 @@ spec:
     matchLabels:
       app: carts
   template:
-    metadata:
+    metadata: 
       labels:
         app: carts
     spec:
