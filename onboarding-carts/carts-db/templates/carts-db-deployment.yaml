@@ -21,6 +21,9 @@ spec:
   replicas: {{ .Values.replicas }}
   strategy:
     type: Recreate
+  selector:
+    matchLabels:
+      app: carts-db
   template:
     metadata:
       labels:
