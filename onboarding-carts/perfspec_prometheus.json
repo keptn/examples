@@ -4,7 +4,7 @@
     {
       "id":"request_latency_seconds",
       "source":"Prometheus",
-      "query":"rate(requests_latency_seconds_sum{job='carts-sockshop-$ENVIRONMENT'}[$DURATION_MINUTESm])/rate(requests_latency_seconds_count{job='carts-sockshop-$ENVIRONMENT'}[$DURATION_MINUTESm])",
+      "query":"rate(requests_latency_seconds_sum{job='carts-sockshop-$ENVIRONMENT'}[$DURATION])/rate(requests_latency_seconds_count{job='carts-sockshop-$ENVIRONMENT'}[$DURATION])",
       "grading":{
           "type":"Threshold",
           "thresholds":{
