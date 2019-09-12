@@ -1,0 +1,27 @@
+{
+  "spec_version": "1.0",
+  "indicators": [
+    {
+      "id": "ResponseTime_Backend",
+      "source": "Dynatrace",
+      "query": {
+        "timeseriesId": "com.dynatrace.builtin:service.responsetime",
+        "aggregation": "AVG",
+        "startTimestamp": "",
+        "endTimestamp": ""
+      },
+      "grading": {
+        "type": "Threshold",
+        "thresholds": {
+          "upperSevere": 1000000,
+          "upperWarning": 800000
+        },
+        "metricScore": 100
+      }
+    }
+  ],
+  "objectives": {
+    "pass": 90,
+    "warning": 75
+  }
+}

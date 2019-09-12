@@ -1,0 +1,21 @@
+{
+  "spec_version": "1.0",
+  "indicators": [
+    {
+      "id":"request_latency_seconds",
+      "source":"Prometheus",
+      "query":"rate(requests_latency_seconds_sum{job='carts-sockshop-$ENVIRONMENT'}[$DURATION])/rate(requests_latency_seconds_count{job='carts-sockshop-$ENVIRONMENT'}[$DURATION])",
+      "grading":{
+          "type":"Threshold",
+          "thresholds":{
+            "upperSevere":0.8
+          },
+          "metricScore":100
+      }
+    }
+  ],
+  "objectives": {
+    "pass": 90,
+    "warning": 75
+  }
+}
