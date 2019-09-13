@@ -7,6 +7,6 @@ objectives:
   timeframe: 5m
   score: 50
 - metric: cpu_usage_sockshop_carts
-  threshold: 0.5
+  threshold: 0.02
   timeframe: 5m
   score: 50
