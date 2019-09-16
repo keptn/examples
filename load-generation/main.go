@@ -2,11 +2,16 @@ package main
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"log"
+	"net"
 	"net/http"
 	"os"
+	"regexp"
+	"strings"
+	"time"
 )
 
 const healthyitemid = "03fef6ac-1896-4ce8-bd69-b798f85c6e0b"
@@ -43,15 +48,56 @@ func main() {
 
 	fmt.Println("Exit program with CTRL+C")
 	fmt.Println()
+
+	req, err := http.NewRequest("POST", url, bytes.NewBuffer(b))
+	if err != nil {
+		log.Fatalln(err)
+	}
+	req.Header.Set("X-Custom-Header", "myvalue")
+	req.Header.Set("Content-Type", "application/json")
+
+	tr := &http.Transport{
+		DialContext: resolveXipIoWithContext,
+	}
+	c := &http.Client{Transport: tr}
+
 	for true {
-		resp, err := http.Post(url, "application/json", bytes.NewBuffer(b))
+
+		resp, err := c.Do(req)
 		if err != nil {
 			log.Fatalln(err)
 		}
 
 		var result map[string]interface{}
-
 		json.NewDecoder(resp.Body).Decode(&result)
 		log.Println(result)
+		resp.Body.Close()
 	}
+}
+
+// resolveXipIo resolves a xip io address
+func resolveXipIoWithContext(ctx context.Context, network, addr string) (net.Conn, error) {
+	dialer := &net.Dialer{
+		Timeout:   30 * time.Second,
+		KeepAlive: 30 * time.Second,
+		DualStack: true,
+	}
+
+	if strings.Contains(addr, "xip.io") {
+
+		regex := `\b(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\b`
+		re := regexp.MustCompile(regex)
+		ip := re.FindString(addr)
+
+		regex = `:\d+$`
+		re = regexp.MustCompile(regex)
+		port := re.FindString(addr)
+
+		var newAddr string
+		if port != "" {
+			newAddr = ip + port
+		}
+		addr = newAddr
+	}
+	return dialer.DialContext(ctx, network, addr)
 }
