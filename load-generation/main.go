@@ -49,28 +49,29 @@ func main() {
 	fmt.Println("Exit program with CTRL+C")
 	fmt.Println()
 
-	req, err := http.NewRequest("POST", url, bytes.NewBuffer(b))
-	if err != nil {
-		log.Fatalln(err)
-	}
-	req.Header.Set("X-Custom-Header", "myvalue")
-	req.Header.Set("Content-Type", "application/json")
-
 	tr := &http.Transport{
 		DialContext: resolveXipIoWithContext,
 	}
-	c := &http.Client{Transport: tr}
+	c := &http.Client{Timeout: 3 * time.Second, Transport: tr}
 
 	for true {
-
-		resp, err := c.Do(req)
+		req, err := http.NewRequest("POST", url, bytes.NewBuffer(b))
 		if err != nil {
 			log.Fatalln(err)
 		}
+		req.Header.Set("X-Custom-Header", "myvalue")
+		req.Header.Set("Content-Type", "application/json")
 
-		var result map[string]interface{}
-		json.NewDecoder(resp.Body).Decode(&result)
-		log.Println(result)
+		resp, err := c.Do(req)
+		if err != nil {
+			panic(err)
+		}
+
+		if resp.StatusCode == 201 {
+			var result map[string]interface{}
+			json.NewDecoder(resp.Body).Decode(&result)
+			log.Println(result)
+		}
 		resp.Body.Close()
 	}
 }
@@ -78,8 +79,6 @@ func main() {
 // resolveXipIo resolves a xip io address
 func resolveXipIoWithContext(ctx context.Context, network, addr string) (net.Conn, error) {
 	dialer := &net.Dialer{
-		Timeout:   30 * time.Second,
-		KeepAlive: 30 * time.Second,
 		DualStack: true,
 	}
 
