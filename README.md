@@ -1,17 +1,18 @@
 # Keptn Examples
 
-This directory contains and refers to examples in order to explore the functionality of keptn.
+This directory contains and refers to examples in order to explore the functionality of Keptn.
 
 ### Maintained Examples
 
-Maintained examples are expected to be updated with every keptn release, to use the latest and greatest features, current guidelines and best practices, and to refresh command syntax, output, changed prerequisites, as needed.
+Maintained examples are updated with every keptn release to use the latest features, current guidelines and best practices, as well as to update command syntax, output, or changed prerequisites.
 
-|Name | Description | Notable Features Used | Complexity Level|
-------------- | ------------- | ------------ | ------------ |
-| **onboard-carts** | This example builds on keptn >=0.2.0 and is required to demonstrate the [onboarding of a service use case](https://keptn.sh/docs/0.3.0/usecases/onboard-carts-service/). | - | Beginner |
-| [**Sockshop**](https://github.com/keptn-sockshop) | This example builds on [keptn 0.1.0](https://github.com/keptn/keptn/tree/0.1.0) and provides four use cases to explore the functionality of keptn. | Kubernetes, Dynatrace, Jenkins, Istio, Ansible Tower | Intermediate |
+|Name | Version | Description | 
+------------- | ------------- | ------------ |
+| **onboard-carts** | [0.5.0.beta](https://github.com/keptn/examples/tree/release-0.5.0.beta) | This example allows to demonstrate the [keptn usecases](https://keptn.sh/docs/0.5.0.beta/usecases/). |
+| **onboard-carts** | [0.4.0](https://github.com/keptn/examples/tree/release-0.4.0) | This example allows to demonstrate the [keptn usecases](https://keptn.sh/docs/0.4.0/usecases/). |
+| **onboard-carts** | [0.3.0](https://github.com/keptn/examples/tree/release-0.3.0) | This example allows to demonstrate the [keptn usecases](https://keptn.sh/docs/0.3.0/usecases/). |
+| **onboard-carts** | [0.2.0, 0.2.1, 0.2.2](https://github.com/keptn/examples/tree/release-0.2.0) | This example allows to demonstrate the [keptn usecases](https://keptn.sh/docs/0.2.2/usecases/). |
 
-> Note: Please add examples that are maintained to the list above.
 
 <!-- See [Example Guidelines](guidelines.md) for a description of what goes
 in this directory, and what examples should contain. -->
