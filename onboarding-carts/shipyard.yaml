@@ -7,5 +7,4 @@ stages:
     test_strategy: "performance"
   - name: "production"
     deployment_strategy: "blue_green_service"
-    test-strategy: "real-user"
     remediation_strategy: "automated"
