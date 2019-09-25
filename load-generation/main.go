@@ -63,8 +63,9 @@ func main() {
 		req.Header.Set("Content-Type", "application/json")
 
 		resp, err := c.Do(req)
+
 		if err != nil {
-			panic(err)
+			continue
 		}
 
 		if resp.StatusCode == 201 {
