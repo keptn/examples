@@ -1,0 +1,8 @@
+---
+pass: 90
+warning: 75
+objectives:
+- metric: request_latency_dt
+  threshold: 1000000
+  timeframe: 5m
+  score: 100
