@@ -1,0 +1,14 @@
+indicators:
+- metric: cpu_usage_sockshop_carts
+  source: Prometheus
+  query: avg(rate(container_cpu_usage_seconds_total{namespace="sockshop-$ENVIRONMENT",pod_name=~"carts-primary-.*"}[5m]))
+- metric: request_latency_seconds
+  source: Prometheus
+  query: rate(requests_latency_seconds_sum{job='carts-sockshop-$ENVIRONMENT'}[$DURATION])/rate(requests_latency_seconds_count{job='carts-sockshop-$ENVIRONMENT'}[$DURATION])
+- metric: request_latency_dt
+  source: Dynatrace
+  queryObject:
+    - key: timeseriesId
+      value: com.dynatrace.builtin:service.responsetime
+    - key: aggregation
+      value: AVG

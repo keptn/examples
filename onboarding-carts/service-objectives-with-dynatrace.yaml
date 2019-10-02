@@ -1,0 +1,16 @@
+---
+pass: 90
+warning: 75
+objectives:
+- metric: request_latency_seconds
+  threshold: 0.8
+  timeframe: 5m
+  score: 25
+- metric: request_latency_dt
+  threshold: 1000000
+  timeframe: 5m
+  score: 25
+- metric: cpu_usage_sockshop_carts
+  threshold: 0.2
+  timeframe: 5m
+  score: 50
