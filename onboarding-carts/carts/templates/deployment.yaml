@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: carts
 spec:
-  replicas: {{ .Values.replicas }}
+  replicas: 1
   strategy:
     rollingUpdate:
       maxUnavailable: 0
@@ -27,7 +27,7 @@ spec:
           containerPort: 8080
         env:
         - name: DT_TAGS
-          value: "application={{ .Chart.Name }}"
+          value: "application=sockshop"
         - name: POD_NAME
           valueFrom:
             fieldRef:
