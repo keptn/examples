@@ -8,7 +8,7 @@ Maintained examples are updated with every keptn release to use the latest featu
 
 |Name | Version | Description | 
 ------------- | ------------- | ------------ |
-| **onboard-carts** | [0.5.0](https://github.com/keptn/examples/tree/release-0.5.0) | This example allows to demonstrate the [keptn usecases](https://keptn.sh/docs/0.5.0/usecases/). |
+| **onboard-carts** | [0.5.0](https://github.com/keptn/examples/tree/release-0.5.0.beta) | This example allows to demonstrate the [keptn usecases](https://keptn.sh/docs/0.5.0/usecases/). |
 | **onboard-carts** | [0.4.0](https://github.com/keptn/examples/tree/release-0.4.0) | This example allows to demonstrate the [keptn usecases](https://keptn.sh/docs/0.4.0/usecases/). |
 | **onboard-carts** | [0.3.0](https://github.com/keptn/examples/tree/release-0.3.0) | This example allows to demonstrate the [keptn usecases](https://keptn.sh/docs/0.3.0/usecases/). |
 | **onboard-carts** | [0.2.0, 0.2.1, 0.2.2](https://github.com/keptn/examples/tree/release-0.2.0) | This example allows to demonstrate the [keptn usecases](https://keptn.sh/docs/0.2.2/usecases/). |
