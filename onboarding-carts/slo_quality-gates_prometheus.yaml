@@ -11,7 +11,7 @@ objectives:
       - criteria:
           - "<=+10%" # relative values require a prefixed sign (plus or minus)
           - "<500"   # absolute values only require a logical operator
-    warning:     # if the response time exceeds 800ms, the result should be a warning
+    warning:     # if the response time is below 800ms, the result should be a warning
       - criteria:
           - "<=800"
 total_score:
