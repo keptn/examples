@@ -4,7 +4,6 @@ spec_version: '1.0'
 # specifies selection criteria for service in the SLI provider; project, stage,
 # and service can be overwritten, if needed
 filter:
-  handler: "ItemsController.addToCart"
 # comparison is mandatory
 comparison:
   # compare_with is mandatory
@@ -25,7 +24,7 @@ comparison:
   # default value: 3
   # possible values are positive integers greater than zero
   # if less than 3 values are available for comparison the evaluation fails
-  number_of_comparison_results: 3
+  number_of_comparison_results: 1
   # aggregate_function is optional
   # decides on the aggregate function which is applied to the previous results
   # before comparison
@@ -57,7 +56,7 @@ objectives:
   - sli: cpu_usage
     pass:
       - criteria:
-          - "<0.2"
+          - "<0.1"
 total_score:  # maximum score = sum of weights
   pass: "90%" # by default this is interpreted as ">="
   warning: 75%
