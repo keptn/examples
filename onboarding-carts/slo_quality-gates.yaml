@@ -1,11 +1,5 @@
 ---
 spec_version: '1.0'
-# filter is optional
-# specifies selection criteria for service in the SLI provider; project, stage,
-# and service can be overwritten, if needed
-filter:
-  dynatraceEntityName: "ItemsController"
-  tags: "test-subject:true"
 comparison:
   compare_with: "single_result"
   include_result_with_score: "pass"
@@ -15,7 +9,7 @@ objectives:
     pass:        # pass if (relative change <= 10% AND absolute value is < 500)
       - criteria:
           - "<=+10%" # relative values require a prefixed sign (plus or minus)
-          - "<500"   # absolute values only require a logical operator
+          - "<600"   # absolute values only require a logical operator
     warning:     # if the response time is below 800ms, the result should be a warning
       - criteria:
           - "<=800"
