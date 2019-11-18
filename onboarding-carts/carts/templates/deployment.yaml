@@ -4,7 +4,7 @@ kind: Deployment
 metadata:
   name: carts
 spec:
-  replicas: 1
+  replicas: {{ .Values.replicaCount }}
   strategy:
     rollingUpdate:
       maxUnavailable: 0
@@ -26,8 +26,8 @@ spec:
           protocol: TCP
           containerPort: 8080
         env:
-        - name: DT_TAGS
-          value: "application=sockshop"
+        - name: DT_CUSTOM_PROP
+          value: "keptn_project={{ .Values.keptn.project }} keptn_service={{ .Values.keptn.service }} keptn_stage={{ .Values.keptn.stage }} keptn_deployment={{ .Values.keptn.deployment }}"
         - name: POD_NAME
           valueFrom:
             fieldRef:
