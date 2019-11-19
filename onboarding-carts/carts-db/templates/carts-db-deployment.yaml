@@ -18,7 +18,7 @@ metadata:
   labels:
     app: carts-db
 spec:
-  replicas: {{ .Values.replicas }}
+  replicas: {{ .Values.replicaCount }}
   strategy:
     type: Recreate
   selector:
