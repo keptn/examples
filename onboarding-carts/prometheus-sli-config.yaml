@@ -1,0 +1,9 @@
+apiVersion: v1
+data:
+  custom-queries: |
+    cpu_usage: avg(rate(container_cpu_usage_seconds_total{namespace="$PROJECT-$STAGE",pod_name=~"$SERVICE-primary-.*"}[5m]))
+    response_time_p95: histogram_quantile(0.95, sum by(le) (rate(http_response_time_milliseconds_bucket{handler="ItemsController.addToCart",job="$SERVICE-$PROJECT-$STAGE-canary"}[$DURATION_SECONDS])))
+kind: ConfigMap
+metadata:
+  name: prometheus-sli-config-sockshop
+  namespace: keptn

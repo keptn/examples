@@ -3,4 +3,4 @@ service:
     externalPort: 27017
     internalPort: 27017
     name: carts-db
-replicas: 1
+replicaCount: 1
