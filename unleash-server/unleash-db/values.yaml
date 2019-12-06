@@ -1,0 +1,2 @@
+image: postgres:10.4
+replicaCount: 1

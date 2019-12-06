@@ -1,0 +1,59 @@
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: unleash-db-claim
+  labels:
+    app: unleash
+spec:
+  storageClassName: standard
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: unleash-db-config
+  labels:
+    app: unleash-db
+data:
+  POSTGRES_DB: db
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: somepassword
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: unleash-db
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: unleash-db
+  template:
+    metadata:
+      labels:
+        app: unleash-db
+    spec:
+      volumes:
+        - name: unleash-db-storage
+          persistentVolumeClaim:
+            claimName: unleash-db-claim
+      containers:
+        - name: unleash
+          image: {{ .Values.image }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5432
+          env:
+          - name: PGDATA 
+            value: /tmp
+          envFrom:
+            - configMapRef:
+                name: unleash-db-config
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: unleash-db-storage

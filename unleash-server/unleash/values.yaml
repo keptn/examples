@@ -1,0 +1,2 @@
+image: docker.io/jetzlstorfer/unleash-server:0.1
+replicaCount: 1
