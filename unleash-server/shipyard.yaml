@@ -1,0 +1,4 @@
+stages:
+  - name: "dev"
+    deployment_strategy: "direct"
+    test_strategy: ""
