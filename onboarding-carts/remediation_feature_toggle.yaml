@@ -1,0 +1,9 @@
+remediations:
+- name: "Response time degradation"
+  actions:
+    - action: featuretoggle
+      value: EnableItemCache:on
+- name: "Failure rate increase"
+  actions:
+    - action: featuretoggle
+      value: EnablePromotion:off

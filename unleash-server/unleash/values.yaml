@@ -1,2 +1,2 @@
-image: docker.io/jetzlstorfer/unleash-server:0.1
+image: docker.io/keptnexamples/unleash:1.0.0
 replicaCount: 1
