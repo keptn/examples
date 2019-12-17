@@ -1,0 +1,13 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: unleash-db
+  labels:
+    app: unleash-db
+spec:
+  type: NodePort
+  ports:
+    - port: 5432
+  selector:
+    app: unleash-db
