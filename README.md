@@ -1,6 +1,6 @@
 # Keptn Examples
 
-This directory contains and refers to examples in order to explore the functionality of Keptn.
+This directory contains and refers to examples in order to explore the functionality of Keptn. Please visit [keptn.sh](https://keptn.sh) for more information about Keptn.
 
 ## Structure
 
