@@ -30,6 +30,8 @@ metadata:
   name: unleash-db
 spec:
   replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: Recreate
   selector:
     matchLabels:
       app: unleash-db
