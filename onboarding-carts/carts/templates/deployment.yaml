@@ -46,6 +46,8 @@ spec:
               fieldPath: "metadata.namespace"
         - name: KEPTN_SERVICE
           value: "carts"
+        - name: UNLEASH_SERVER_URL
+          value: "http://unleash.unleash-dev/api"
         livenessProbe:
           httpGet:
             path: /health
