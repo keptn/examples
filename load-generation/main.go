@@ -10,12 +10,16 @@ import (
 	"net/http"
 	"os"
 	"regexp"
+	"strconv"
 	"strings"
+	"sync"
 	"time"
 )
 
 const healthyitemid = "03fef6ac-1896-4ce8-bd69-b798f85c6e0b"
 const faultyitemid = "03fef6ac-1896-4ce8-bd69-b798f85c6e0f"
+
+var wg sync.WaitGroup
 
 func main() {
 
@@ -32,10 +36,21 @@ func main() {
 
 	item := healthyitemid
 
-	if len(os.Args) == 3 {
+	if len(os.Args) >= 3 {
 		problem := os.Args[2]
 		if problem == "cpu" {
 			item = faultyitemid
+		}
+	}
+
+	var numberOfThreads int
+	numberOfThreads = 1
+	if len(os.Args) >= 4 {
+		numberOfThreadsInt64, err := strconv.ParseInt(os.Args[3], 10, 64)
+		if err != nil {
+			numberOfThreads = 1
+		} else {
+			numberOfThreads = int(numberOfThreadsInt64)
 		}
 	}
 
@@ -54,6 +69,17 @@ func main() {
 	}
 	c := &http.Client{Timeout: 3 * time.Second, Transport: tr}
 
+	wg.Add(numberOfThreads)
+	for i := 0; i < numberOfThreads; i++ {
+		go doRequests(url, b, c)
+		fmt.Println("Created new Thread")
+	}
+	wg.Wait()
+
+}
+
+func doRequests(url string, b []byte, c *http.Client) {
+	defer wg.Done()
 	for true {
 		req, err := http.NewRequest("POST", url, bytes.NewBuffer(b))
 		if err != nil {

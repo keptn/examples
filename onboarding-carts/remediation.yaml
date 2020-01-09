@@ -3,3 +3,7 @@ remediations:
   actions:
   - action: scaling
     value: +1
+- name: Response time degradation
+  actions:
+  - action: scaling
+    value: +1
