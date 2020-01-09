@@ -34,23 +34,23 @@ func main() {
 		return
 	}
 
+	item := healthyitemid
+
+	if len(os.Args) >= 3 {
+		problem := os.Args[2]
+		if problem == "cpu" {
+			item = faultyitemid
+		}
+	}
+
 	var numberOfThreads int
 	numberOfThreads = 1
-	if len(os.Args) >= 3 {
-		numberOfThreadsInt64, err := strconv.ParseInt(os.Args[2], 10, 64)
+	if len(os.Args) >= 4 {
+		numberOfThreadsInt64, err := strconv.ParseInt(os.Args[3], 10, 64)
 		if err != nil {
 			numberOfThreads = 1
 		} else {
 			numberOfThreads = int(numberOfThreadsInt64)
-		}
-	}
-
-	item := healthyitemid
-
-	if len(os.Args) == 4 {
-		problem := os.Args[3]
-		if problem == "cpu" {
-			item = faultyitemid
 		}
 	}
 
