@@ -1,5 +1,5 @@
 remediations:
-- name: cpu_usage
+- name: response_time_p90
   actions:
   - action: scaling
     value: +1
