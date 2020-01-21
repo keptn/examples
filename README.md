@@ -25,7 +25,7 @@ You can find the source code of the carts microservice at https://github.com/kep
 
 |Name | Version | Description | 
 ------------- | ------------- | ------------ |
-| **unleash-server** | master branch | This example allows to demonstrate the [Self healing with Unleash usecase](https://keptn.sh/docs/0.6.0/usecases/). |
+| **unleash-server** | [0.6.0](https://github.com/keptn/examples/tree/release-0.6.0) | This example allows to demonstrate the [Self healing with Feature Flags usecase](https://keptn.sh/docs/0.6.0/usecases/self-healing-with-keptn/dynatrace-unleash/). |
 
 You can find the source of the unleash service at https://github.com/keptn-sockshop/unleash-server
 
