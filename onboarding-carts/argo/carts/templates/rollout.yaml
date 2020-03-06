@@ -1,0 +1,75 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: {{ template "carts.fullname" . }}
+  labels:
+    app: {{ template "carts.name" . }}
+    chart: {{ template "carts.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: {{ template "carts.name" . }}
+      release: {{ .Release.Name }}
+  strategy:
+    blueGreen:
+      autoPromotionEnabled: false
+      activeService: {{ template "carts.name" . }}-primary
+      previewService: {{ template "carts.name" . }}-canary
+  template:
+    metadata:
+      labels:
+        app: {{ template "carts.name" . }}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          env:
+            - name: DT_CUSTOM_PROP
+              value: "keptn_project={{ .Values.keptn.project }} keptn_service={{ .Values.keptn.service }} keptn_stage={{ .Values.keptn.stage }}"
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: "metadata.name"
+            - name: DEPLOYMENT_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: "metadata.labels['deployment']"
+            - name: CONTAINER_IMAGE
+              value: "{{ .Values.image }}"
+            - name: KEPTN_PROJECT
+              value: "{{ .Values.keptn.project }}"
+            - name: KEPTN_STAGE
+              value: "{{ .Values.keptn.stage }}"
+            - name: KEPTN_SERVICE
+              value: "{{ .Values.keptn.service }}"
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 15
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            timeoutSeconds: 15
+          resources:
+            limits:
+                cpu: 1000m
+                memory: 2048Mi
+            requests:
+                cpu: 500m
+                memory: 1024Mi

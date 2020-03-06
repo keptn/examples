@@ -1,0 +1,41 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "carts.name" . }}-primary
+  labels:
+    app: {{ template "carts.name" . }}
+    chart: {{ template "carts.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: 8080
+      protocol: TCP
+      name: http
+  selector:
+    app: {{ template "carts.name" . }}
+    release: {{ .Release.Name }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ template "carts.name" . }}-canary
+  labels:
+    app: {{ template "carts.name" . }}
+    chart: {{ template "carts.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: 8080
+      protocol: TCP
+      name: http
+  selector:
+    app: {{ template "carts.name" . }}
+    release: {{ .Release.Name }}
+  
