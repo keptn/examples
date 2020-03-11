@@ -6,7 +6,6 @@ metadata:
   labels:
     app: unleash
 spec:
-  storageClassName: standard
   accessModes:
     - ReadWriteOnce
   resources:
