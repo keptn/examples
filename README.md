@@ -13,6 +13,7 @@ in this directory, and what examples should contain. -->
 
 |Name | Version | Description | 
 ------------- | ------------- | ------------ |
+| **onboard-carts** | [0.6.1](https://github.com/keptn/examples/tree/release-0.6.1) | This example allows to demonstrate the [keptn usecases](https://keptn.sh/docs/0.6.0/usecases/). |
 | **onboard-carts** | [0.6.0](https://github.com/keptn/examples/tree/release-0.6.0) | This example allows to demonstrate the [keptn usecases](https://keptn.sh/docs/0.6.0/usecases/). |
 | **onboard-carts** | [0.5.0](https://github.com/keptn/examples/tree/release-0.5.0) | This example allows to demonstrate the [keptn usecases](https://keptn.sh/docs/0.5.0/usecases/). |
 | **onboard-carts** | [0.4.0](https://github.com/keptn/examples/tree/release-0.4.0) | This example allows to demonstrate the [keptn usecases](https://keptn.sh/docs/0.4.0/usecases/). |
