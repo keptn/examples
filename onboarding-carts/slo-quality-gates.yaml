@@ -1,11 +1,11 @@
 ---
-spec_version: '0.1.1'
+spec_version: "0.1.1"
 comparison:
   compare_with: "single_result"
   include_result_with_score: "pass"
-  aggregate_function: avg
+  aggregate_function: "avg"
 objectives:
-  - sli: response_time_p95
+  - sli: "response_time_p95"
     pass:             # pass if (relative change <= 10% AND absolute value is < 600ms)
       - criteria:
           - "<=+10%"  # relative values require a prefixed sign (plus or minus)
