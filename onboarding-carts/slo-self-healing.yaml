@@ -1,10 +1,11 @@
 ---
 spec_version: "0.1.1"
 comparison:
+  aggregate_function: "avg"
   compare_with: "single_result"
   include_result_with_score: "pass"
-  aggregate_function: "avg"
   number_of_comparison_results: 1
+filter:
 objectives:
   - sli: "response_time_p90"
     key_sli: false
@@ -15,6 +16,7 @@ objectives:
     warning:          # if the response time is below 1200ms, the result should be a warning
       - criteria:
           - "<=1200"
+    weight: 1
 total_score:
   pass: "90%"
   warning: "40%"
