@@ -1,0 +1,28 @@
+replicaCount: 1
+
+image:
+  repository: docker.io/keptnexamples/carts
+  tag: 0.10.1
+  pullPolicy: Always
+
+service:
+  type: LoadBalancer
+  port: 80
+
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  path: /
+  hosts:
+    - chart-example.local
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+keptn:
+  project: sockshop
+  stage: production
+  service: carts
