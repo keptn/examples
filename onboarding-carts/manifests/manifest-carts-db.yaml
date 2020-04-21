@@ -1,0 +1,55 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: carts-db-mongodata
+  namespace: sockshop-hardening
+spec:
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+status: {}
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: carts-db
+  namespace: sockshop-hardening
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        name: carts-db
+    spec:
+      containers:
+      - image: mongo
+        name: carts-db
+        ports:
+        - containerPort: 27017
+        resources: {}
+        volumeMounts:
+        - mountPath: /data/db
+          name: carts-db-mongodata
+      restartPolicy: Always
+      volumes:
+      - name: carts-db-mongodata
+        persistentVolumeClaim:
+          claimName: carts-db-mongodata
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: carts-db
+  namespace: sockshop-hardening
+spec:
+  ports:
+  - name: "27017"
+    port: 27017
+    targetPort: 27017
+  selector:
+    name: carts-db
