@@ -8,8 +8,8 @@ echo $stages
 
 # Declare variables
 contentType="Content-Type: application/json"
-dtHeaderGet="x-dynatrace-test: LSN=generate_traffic.sh;LTN=Traffic generation;TSN=Get Items in cart;"
-dtHeaderAdd="x-dynatrace-test: LSN=generate_traffic.sh;LTN=Traffic generation;TSN=Get Items in cart;"
+dtHeaderGet="x-dynatrace-test: LSN=generate_traffic.sh;LTN=Traffic generation;TSN=Get Items from cart;"
+dtHeaderAdd="x-dynatrace-test: LSN=generate_traffic.sh;LTN=Traffic generation;TSN=Add Item to cart;"
 dtHeaderDelete="x-dynatrace-test: LSN=generate_traffic.sh;LTN=Traffic generation;TSN=Empty Cart;"
 jsonPayload="{\"id\":\"$CARTS_ID\", \"itemId\":\"$ITEM_ID\", \"price\":\"99.90\"}"
 cartNr=1
