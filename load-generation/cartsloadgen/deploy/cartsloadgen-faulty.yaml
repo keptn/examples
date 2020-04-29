@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: cartsloadgen
-        image: docker.io/jetzlstorfer/cartsloadgenerator:0.1
+        image: docker.io/keptnexamples/cartsloadgenerator:0.1
         imagePullPolicy: Always
         env:
           - name: KEPTN_DOMAIN
