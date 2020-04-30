@@ -13,6 +13,7 @@ in this directory, and what examples should contain. -->
 
 |Name | Version | Description | 
 ------------- | ------------- | ------------ |
+| **onboard-carts** | [0.6.2](https://github.com/keptn/examples/tree/release-0.6.2) | This example allows to demonstrate the [keptn usecases](https://keptn.sh/docs/0.6.0/usecases/). |
 | **onboard-carts** | [0.6.1](https://github.com/keptn/examples/tree/release-0.6.1) | This example allows to demonstrate the [keptn usecases](https://keptn.sh/docs/0.6.0/usecases/). |
 | **onboard-carts** | [0.6.0](https://github.com/keptn/examples/tree/release-0.6.0) | This example allows to demonstrate the [keptn usecases](https://keptn.sh/docs/0.6.0/usecases/). |
 | **onboard-carts** | [0.5.0](https://github.com/keptn/examples/tree/release-0.5.0) | This example allows to demonstrate the [keptn usecases](https://keptn.sh/docs/0.5.0/usecases/). |
@@ -21,6 +22,24 @@ in this directory, and what examples should contain. -->
 | **onboard-carts** | [0.2.0, 0.2.1, 0.2.2](https://github.com/keptn/examples/tree/release-0.2.0) | This example allows to demonstrate the [keptn usecases](https://keptn.sh/docs/0.2.2/usecases/). |
 
 You can find the source code of the carts microservice at https://github.com/keptn-sockshop/carts
+
+#### Load Generator for Carts
+
+The following commands will set up a basic load generator for the carts microservice that generates traffic in **all three stages**:
+
+* Keptn 0.6.2
+  * Basic (Background traffic)
+    ```console
+    kubectl apply -f https://raw.githubusercontent.com/keptn/examples/release-0.6.2/load-generation/cartsloadgen/deploy/cartsloadgen-base.yaml
+    ```
+  * More traffic
+    ```console
+    kubectl apply -f https://raw.githubusercontent.com/keptn/examples/release-0.6.2/load-generation/cartsloadgen/deploy/cartsloadgen-fast.yaml
+    ```
+  * Faulty item in cart (generates cpu usage)
+    ```console
+    kubectl apply -f https://raw.githubusercontent.com/keptn/examples/release-0.6.2/load-generation/cartsloadgen/deploy/cartsloadgen-faulty.yaml
+    ```
 
 ### Unleash
 
