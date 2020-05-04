@@ -79,7 +79,7 @@ function createCalculatedTestMetric() {
             }
         ],
         "dimensionDefinition": {
-            "name": "TestStep",
+            "name": "Test Step",
             "dimension": "{RequestAttribute:TSN}",
             "placeholders": [],
             "topX": 10,

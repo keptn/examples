@@ -16,7 +16,7 @@ objectives:
   - sli: throughput
     pass:
       - criteria:
-        - ">20000"
+        - ">4000"
   - sli: error_rate
     weight: 2
     pass:
