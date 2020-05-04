@@ -1,0 +1,9 @@
+registry: simplenodeservice
+stages:
+  - name: "staging"
+    deployment_strategy: "direct"
+    test_strategy: "performance"
+  - name: "prod"
+    deployment_strategy: "blue_green_service"
+    test_strategy: "performance"
+    remediation_strategy: "automated"
