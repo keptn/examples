@@ -16,7 +16,7 @@ fi
 
 if [[ -z "$KEPTN_PROJECT" || -z "$KEPTN_STAGE" || -z "$KEPTN_SERVICE" ]]; then
   echo "You have to either set KEPTN_PROJECT, KEPTN_STAGE & KEPTN_SERVICE or pass them as arguments"
-  echo "usage: ./add_resources.sh simplenodeproject staging simplenodeservice [basic|perftest]"
+  echo "usage: ./add_resources.sh simplenodeproject staging simplenode [basic|perftest]"
   exit 1
 fi
 
