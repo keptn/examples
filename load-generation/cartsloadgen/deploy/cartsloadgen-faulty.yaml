@@ -24,12 +24,12 @@ spec:
           - name: KEPTN_DOMAIN
             value: svc.cluster.local
           - name: CARTS_STAGES
-            value: "carts.sockshop-dev carts-primary.sockshop-staging carts-primary.sockshop-production"
+            value: "carts-primary.sockshop-production"
           - name: ITEM_ID
             value: "03fef6ac-1896-4ce8-bd69-b798f85c6e0f"
           - name: CARTS_ID
             value: "3395a43e-2d88-40de-b95f-e00e1502085b"
           - name: SLEEP_TIME
-            value: "0.2"
+            value: "0.0"
           - name: MAX_CARTS_ITEMS
             value: "20"
