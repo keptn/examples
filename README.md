@@ -30,6 +30,14 @@ You can find the source code of the carts microservice at https://github.com/kep
 
 You can find the source of the unleash service at https://github.com/keptn-sockshop/unleash-server
 
+### Simplenodeservice
+
+|Name | Version | Description | 
+------------- | ------------- | ------------ |
+| **simplenode** |  [0.6.x](https://github.com/keptn/examples/tree/release-0.6.x) | This example is used for some of the [Keptn tutorials](https://tutorials.keptn.sh) |
+
+More information about this simple node.js based example application can be found here: [Simplenodeservice README](./simplenodeservice/README.md)
+
 ## License
 
 See [LICENSE](LICENSE).
