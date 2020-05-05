@@ -1,0 +1,18 @@
+<html>
+        <style>
+                .leftColumn {position: absolute;top:0px;left: 0px;bottom: 0px;right: 50%;background-color: #33342D;}
+                .rightColumn {position: absolute;top:0px;right: 0px;bottom: 0px;left: 50%;background-color: #33342D;}
+        </style>
+        
+    <script>
+        window.setInterval(function() {
+            document.getElementById('iframe1').src = document.getElementById('iframe1').src;
+            document.getElementById('iframe2').src = document.getElementById('iframe2').src;
+        }, 3000);    
+    </script>
+
+    <body>
+        <div class="leftColumn"><iframe id="iframe1" height="100%" width="100%" src="http://simplenodeservice.staging-keptnsample.35.222.211.27.xip.io/"></iframe></div>
+        <div class="rightColumn"><iframe id="iframe2" height="100%" width="100%" src="http://simplenodeservice.prod-keptnsample.35.222.211.27.xip.io/"></iframe></div>
+    </body>
+</html>
