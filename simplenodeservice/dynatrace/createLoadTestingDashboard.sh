@@ -21,7 +21,8 @@ fi
 # TODO: Query Synthetic Test & Web Application
 
 echo "============================================================="
-echo "About to create $1 on Dynatrace Tenant: $DT_TENANT for Keptn Domain $KEPTN_DOMAIN"
+echo "About to create dashboard '$DASHBOARDNAME' "
+echo "  on Dynatrace Tenant: $DT_TENANT for Keptn Domain $KEPTN_DOMAIN"
 echo "============================================================="
 read -rsp $'Press ctrl-c to abort. Press any key to continue...\n' -n1 key
 
@@ -87,7 +88,8 @@ PAYLOAD='
               "sortColumn": true,
               "aggregationRate": "TOTAL"
             }
-          ]
+          ],
+          "resultMetadata": {}
         },
         "filtersPerEntityType": {}
       }
@@ -138,7 +140,8 @@ PAYLOAD='
               "sortColumn": true,
               "aggregationRate": "TOTAL"
             }
-          ]
+          ],
+          "resultMetadata": {}
         },
         "filtersPerEntityType": {}
       }
@@ -189,7 +192,8 @@ PAYLOAD='
               "sortColumn": true,
               "aggregationRate": "TOTAL"
             }
-          ]
+          ],
+          "resultMetadata": {}
         },
         "filtersPerEntityType": {}
       }
@@ -240,7 +244,8 @@ PAYLOAD='
               "sortColumn": true,
               "aggregationRate": "TOTAL"
             }
-          ]
+          ],
+          "resultMetadata": {}
         },
         "filtersPerEntityType": {}
       }
@@ -291,7 +296,8 @@ PAYLOAD='
               "sortColumn": true,
               "aggregationRate": "TOTAL"
             }
-          ]
+          ],
+          "resultMetadata": {}
         },
         "filtersPerEntityType": {}
       }
@@ -342,7 +348,8 @@ PAYLOAD='
               "sortColumn": true,
               "aggregationRate": "TOTAL"
             }
-          ]
+          ],
+          "resultMetadata": {}
         },
         "filtersPerEntityType": {}
       }
@@ -393,7 +400,8 @@ PAYLOAD='
               "sortColumn": true,
               "aggregationRate": "TOTAL"
             }
-          ]
+          ],
+          "resultMetadata": {}
         },
         "filtersPerEntityType": {}
       }
@@ -444,7 +452,8 @@ PAYLOAD='
               "sortColumn": true,
               "aggregationRate": "TOTAL"
             }
-          ]
+          ],
+          "resultMetadata": {}
         },
         "filtersPerEntityType": {}
       }
