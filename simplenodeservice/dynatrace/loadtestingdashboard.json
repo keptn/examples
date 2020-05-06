@@ -1,0 +1,1015 @@
+{
+"dashboardMetadata": {
+    "name": "Keptn Performance As a Self-Service Insights Dashboard",
+    "shared": false,
+    "owner": "",
+    "sharingDetails": {
+      "linkShared": true,
+      "published": false
+    },
+    "dashboardFilter": {
+      "timeframe": "",
+      "managementZone": null
+    }
+  },
+  "tiles": [
+    {
+      "name": "Custom chart",
+      "tileType": "CUSTOM_CHARTING",
+      "configured": true,
+      "bounds": {
+        "top": 532,
+        "left": 988,
+        "width": 342,
+        "height": 304
+      },
+      "tileFilter": {
+        "timeframe": null,
+        "managementZone": null
+      },
+      "filterConfig": {
+        "type": "MIXED",
+        "customName": "Top CPU Consuming Test Step",
+        "defaultName": "Custom chart",
+        "chartConfig": {
+          "legendShown": true,
+          "type": "TOP_LIST",
+          "series": [
+            {
+              "metric": "calc:service.teststepcpu",
+              "aggregation": "AVG",
+              "percentile": null,
+              "type": "LINE",
+              "entityType": "SERVICE",
+              "dimensions": [
+                {
+                  "id": "0",
+                  "name": "dt.entity.service",
+                  "values": [],
+                  "entityDimension": true
+                },
+                {
+                  "id": "1",
+                  "name": "Test Step",
+                  "values": [],
+                  "entityDimension": false
+                }
+              ],
+              "sortAscending": false,
+              "sortColumn": true,
+              "aggregationRate": "TOTAL"
+            }
+          ],
+          "resultMetadata": {
+            "SERVICE-A8737F1ED40B8C8F¦SERVICE»SERVICE-A8737F1ED40B8C8F»true¦Test Step»homepage»falsecalc:service.teststepcpu|AVG|TOTAL|LINE|SERVICE": {
+              "lastModified": 1586280368368,
+              "customColor": "#c9a000"
+            },
+            "SERVICE-A8737F1ED40B8C8F¦SERVICE»SERVICE-A8737F1ED40B8C8F»true¦Test Step»version»falsecalc:service.teststepcpu|AVG|TOTAL|LINE|SERVICE": {
+              "lastModified": 1586280371366,
+              "customColor": "#7c38a1"
+            },
+            "SERVICE-A8737F1ED40B8C8F¦SERVICE»SERVICE-A8737F1ED40B8C8F»true¦Test Step»echo»falsecalc:service.teststepcpu|AVG|TOTAL|LINE|SERVICE": {
+              "lastModified": 1586280370094,
+              "customColor": "#00a1b2"
+            },
+            "SERVICE-A8737F1ED40B8C8F¦SERVICE»SERVICE-A8737F1ED40B8C8F»true¦Test Step»invoke»falsecalc:service.teststepcpu|AVG|TOTAL|LINE|SERVICE": {
+              "lastModified": 1586280365972,
+              "customColor": "#ef651f"
+            }
+          }
+        },
+        "filtersPerEntityType": {}
+      }
+    },
+    {
+      "name": "",
+      "tileType": "CUSTOM_CHARTING",
+      "configured": true,
+      "bounds": {
+        "top": 532,
+        "left": 646,
+        "width": 342,
+        "height": 304
+      },
+      "tileFilter": {
+        "timeframe": null,
+        "managementZone": null
+      },
+      "filterConfig": {
+        "type": "MIXED",
+        "customName": "Top Backend Service calls per Test Case",
+        "defaultName": "Custom chart",
+        "chartConfig": {
+          "legendShown": true,
+          "type": "TOP_LIST",
+          "series": [
+            {
+              "metric": "calc:service.teststepservicecalls",
+              "aggregation": "NONE",
+              "percentile": null,
+              "type": "LINE",
+              "entityType": "SERVICE",
+              "dimensions": [
+                {
+                  "id": "0",
+                  "name": "dt.entity.service",
+                  "values": [],
+                  "entityDimension": true
+                },
+                {
+                  "id": "1",
+                  "name": "Test Step",
+                  "values": [],
+                  "entityDimension": false
+                }
+              ],
+              "sortAscending": false,
+              "sortColumn": true,
+              "aggregationRate": "TOTAL"
+            }
+          ],
+          "resultMetadata": {
+            "SERVICE-A8737F1ED40B8C8F¦SERVICE»SERVICE-A8737F1ED40B8C8F»true¦Test Step»echo»falsecalc:service.teststepservicecalls|NONE|TOTAL|LINE|SERVICE": {
+              "lastModified": 1586280385334,
+              "customColor": "#00a1b2"
+            },
+            "SERVICE-A8737F1ED40B8C8F¦SERVICE»SERVICE-A8737F1ED40B8C8F»true¦Test Step»version»falsecalc:service.teststepservicecalls|NONE|TOTAL|LINE|SERVICE": {
+              "lastModified": 1586280387071,
+              "customColor": "#7c38a1"
+            },
+            "SERVICE-A8737F1ED40B8C8F¦SERVICE»SERVICE-A8737F1ED40B8C8F»true¦Test Step»invoke»falsecalc:service.teststepservicecalls|NONE|TOTAL|LINE|SERVICE": {
+              "lastModified": 1586280381959,
+              "customColor": "#ef651f"
+            },
+            "SERVICE-A8737F1ED40B8C8F¦SERVICE»SERVICE-A8737F1ED40B8C8F»true¦Test Step»homepage»falsecalc:service.teststepservicecalls|NONE|TOTAL|LINE|SERVICE": {
+              "lastModified": 1586280383559,
+              "customColor": "#c9a000"
+            }
+          }
+        },
+        "filtersPerEntityType": {}
+      }
+    },
+    {
+      "name": "Custom chart",
+      "tileType": "CUSTOM_CHARTING",
+      "configured": true,
+      "bounds": {
+        "top": 532,
+        "left": 0,
+        "width": 304,
+        "height": 304
+      },
+      "tileFilter": {
+        "timeframe": null,
+        "managementZone": null
+      },
+      "filterConfig": {
+        "type": "MIXED",
+        "customName": "Slowest Test Steps",
+        "defaultName": "Custom chart",
+        "chartConfig": {
+          "legendShown": true,
+          "type": "TOP_LIST",
+          "series": [
+            {
+              "metric": "calc:service.teststepresponsetime",
+              "aggregation": "AVG",
+              "percentile": null,
+              "type": "LINE",
+              "entityType": "SERVICE",
+              "dimensions": [
+                {
+                  "id": "0",
+                  "name": "dt.entity.service",
+                  "values": [],
+                  "entityDimension": true
+                },
+                {
+                  "id": "1",
+                  "name": "Test Step",
+                  "values": [],
+                  "entityDimension": false
+                }
+              ],
+              "sortAscending": false,
+              "sortColumn": true,
+              "aggregationRate": "TOTAL"
+            }
+          ],
+          "resultMetadata": {
+            "SERVICE-A8737F1ED40B8C8F¦SERVICE»SERVICE-A8737F1ED40B8C8F»true¦Test Step»invoke»falsecalc:service.teststepresponsetime|AVG|TOTAL|LINE|SERVICE": {
+              "lastModified": 1586280397868,
+              "customColor": "#ef651f"
+            },
+            "SERVICE-A8737F1ED40B8C8F¦SERVICE»SERVICE-A8737F1ED40B8C8F»true¦Test Step»echo»falsecalc:service.teststepresponsetime|AVG|TOTAL|LINE|SERVICE": {
+              "lastModified": 1586280402089,
+              "customColor": "#00a1b2"
+            },
+            "SERVICE-A8737F1ED40B8C8F¦SERVICE»SERVICE-A8737F1ED40B8C8F»true¦Test Step»homepage»falsecalc:service.teststepresponsetime|AVG|TOTAL|LINE|SERVICE": {
+              "lastModified": 1586280400023,
+              "customColor": "#c9a000"
+            },
+            "SERVICE-A8737F1ED40B8C8F¦SERVICE»SERVICE-A8737F1ED40B8C8F»true¦Test Step»version»falsecalc:service.teststepresponsetime|AVG|TOTAL|LINE|SERVICE": {
+              "lastModified": 1586280403744,
+              "customColor": "#7c38a1"
+            }
+          }
+        },
+        "filtersPerEntityType": {}
+      }
+    },
+    {
+      "name": "",
+      "tileType": "CUSTOM_CHARTING",
+      "configured": true,
+      "bounds": {
+        "top": 532,
+        "left": 304,
+        "width": 342,
+        "height": 304
+      },
+      "tileFilter": {
+        "timeframe": null,
+        "managementZone": null
+      },
+      "filterConfig": {
+        "type": "MIXED",
+        "customName": "Top Failing Test Steps",
+        "defaultName": "Custom chart",
+        "chartConfig": {
+          "legendShown": true,
+          "type": "TOP_LIST",
+          "series": [
+            {
+              "metric": "calc:service.teststepfailurerate",
+              "aggregation": "OF_INTEREST_RATIO",
+              "percentile": null,
+              "type": "LINE",
+              "entityType": "SERVICE",
+              "dimensions": [
+                {
+                  "id": "0",
+                  "name": "dt.entity.service",
+                  "values": [],
+                  "entityDimension": true
+                },
+                {
+                  "id": "1",
+                  "name": "Test Step",
+                  "values": [],
+                  "entityDimension": false
+                }
+              ],
+              "sortAscending": false,
+              "sortColumn": true,
+              "aggregationRate": "TOTAL"
+            }
+          ],
+          "resultMetadata": {
+            "SERVICE-A8737F1ED40B8C8F¦SERVICE»SERVICE-A8737F1ED40B8C8F»true¦Test Step»homepage»falsecalc:service.teststepfailurerate|OF_INTEREST_RATIO|TOTAL|LINE|SERVICE": {
+              "lastModified": 1586280416333,
+              "customColor": "#c9a000"
+            },
+            "SERVICE-A8737F1ED40B8C8F¦SERVICE»SERVICE-A8737F1ED40B8C8F»true¦Test Step»echo»falsecalc:service.teststepfailurerate|OF_INTEREST_RATIO|TOTAL|LINE|SERVICE": {
+              "lastModified": 1586280418208,
+              "customColor": "#00a1b2"
+            },
+            "SERVICE-A8737F1ED40B8C8F¦SERVICE»SERVICE-A8737F1ED40B8C8F»true¦Test Step»version»falsecalc:service.teststepfailurerate|OF_INTEREST_RATIO|TOTAL|LINE|SERVICE": {
+              "lastModified": 1586280419811,
+              "customColor": "#7c38a1"
+            },
+            "SERVICE-A8737F1ED40B8C8F¦SERVICE»SERVICE-A8737F1ED40B8C8F»true¦Test Step»invoke»falsecalc:service.teststepfailurerate|OF_INTEREST_RATIO|TOTAL|LINE|SERVICE": {
+              "lastModified": 1586280414391,
+              "customColor": "#ef651f"
+            }
+          }
+        },
+        "filtersPerEntityType": {}
+      }
+    },
+    {
+      "name": "Custom chart",
+      "tileType": "CUSTOM_CHARTING",
+      "configured": true,
+      "bounds": {
+        "top": 76,
+        "left": 0,
+        "width": 304,
+        "height": 152
+      },
+      "tileFilter": {
+        "timeframe": null,
+        "managementZone": null
+      },
+      "filterConfig": {
+        "type": "MIXED",
+        "customName": "HTTP Response Codes",
+        "defaultName": "Custom chart",
+        "chartConfig": {
+          "legendShown": true,
+          "type": "PIE",
+          "series": [
+            {
+              "metric": "calc:service.testrequestsbyhttpstatus",
+              "aggregation": "NONE",
+              "percentile": null,
+              "type": "LINE",
+              "entityType": "SERVICE",
+              "dimensions": [
+                {
+                  "id": "0",
+                  "name": "dt.entity.service",
+                  "values": [],
+                  "entityDimension": true
+                },
+                {
+                  "id": "1",
+                  "name": "HttpStatusClass",
+                  "values": [],
+                  "entityDimension": false
+                }
+              ],
+              "sortAscending": false,
+              "sortColumn": true,
+              "aggregationRate": "TOTAL"
+            }
+          ],
+          "resultMetadata": {
+            "SERVICE-A8737F1ED40B8C8F¦SERVICE»SERVICE-A8737F1ED40B8C8F»true¦HttpStatusClass»2xx»falsecalc:service.testrequestsbyhttpstatus|NONE|TOTAL|LINE|SERVICE": {
+              "lastModified": 1586271693870,
+              "customColor": "#008000"
+            }
+          }
+        },
+        "filtersPerEntityType": {}
+      }
+    },
+    {
+      "name": "Custom chart",
+      "tileType": "CUSTOM_CHARTING",
+      "configured": true,
+      "bounds": {
+        "top": 76,
+        "left": 304,
+        "width": 684,
+        "height": 152
+      },
+      "tileFilter": {
+        "timeframe": null,
+        "managementZone": null
+      },
+      "filterConfig": {
+        "type": "MIXED",
+        "customName": "HTTP Response Codes over time",
+        "defaultName": "Custom chart",
+        "chartConfig": {
+          "legendShown": true,
+          "type": "TIMESERIES",
+          "series": [
+            {
+              "metric": "calc:service.testrequestsbyhttpstatus",
+              "aggregation": "NONE",
+              "percentile": null,
+              "type": "AREA",
+              "entityType": "SERVICE",
+              "dimensions": [
+                {
+                  "id": "0",
+                  "name": "dt.entity.service",
+                  "values": [],
+                  "entityDimension": true
+                },
+                {
+                  "id": "1",
+                  "name": "HttpStatusClass",
+                  "values": [],
+                  "entityDimension": false
+                }
+              ],
+              "sortAscending": false,
+              "sortColumn": true,
+              "aggregationRate": "TOTAL"
+            }
+          ],
+          "resultMetadata": {
+            "SERVICE-A8737F1ED40B8C8F¦SERVICE»SERVICE-A8737F1ED40B8C8F»true¦HttpStatusClass»2xx»falsecalc:service.testrequestsbyhttpstatus|NONE|TOTAL|AREA|SERVICE": {
+              "lastModified": 1586271751137,
+              "customColor": "#008000"
+            },
+            "SERVICE-A8737F1ED40B8C8F¦SERVICE»SERVICE-A8737F1ED40B8C8F»true¦HttpStatusClass»2xx»falsecalc:service.testrequestsbyhttpstatus|NONE|TOTAL|LINE|SERVICE": {
+              "lastModified": 1586271693870,
+              "customColor": "#008000"
+            }
+          }
+        },
+        "filtersPerEntityType": {}
+      }
+    },
+    {
+      "name": "Custom chart",
+      "tileType": "CUSTOM_CHARTING",
+      "configured": true,
+      "bounds": {
+        "top": 380,
+        "left": 304,
+        "width": 684,
+        "height": 152
+      },
+      "tileFilter": {
+        "timeframe": null,
+        "managementZone": null
+      },
+      "filterConfig": {
+        "type": "MIXED",
+        "customName": "Test Step Response Time",
+        "defaultName": "Custom chart",
+        "chartConfig": {
+          "legendShown": false,
+          "type": "TIMESERIES",
+          "series": [
+            {
+              "metric": "calc:service.teststepresponsetime",
+              "aggregation": "AVG",
+              "percentile": null,
+              "type": "LINE",
+              "entityType": "SERVICE",
+              "dimensions": [
+                {
+                  "id": "0",
+                  "name": "dt.entity.service",
+                  "values": [],
+                  "entityDimension": true
+                },
+                {
+                  "id": "1",
+                  "name": "Test Step",
+                  "values": [],
+                  "entityDimension": false
+                }
+              ],
+              "sortAscending": false,
+              "sortColumn": true,
+              "aggregationRate": "TOTAL"
+            }
+          ],
+          "resultMetadata": {
+            "SERVICE-A8737F1ED40B8C8F¦SERVICE»SERVICE-A8737F1ED40B8C8F»true¦Test Step»invoke»falsecalc:service.teststepresponsetime|AVG|TOTAL|LINE|SERVICE": {
+              "lastModified": 1586280341215,
+              "customColor": "#ef651f"
+            },
+            "SERVICE-A8737F1ED40B8C8F¦SERVICE»SERVICE-A8737F1ED40B8C8F»true¦Test Step»echo»falsecalc:service.teststepresponsetime|AVG|TOTAL|LINE|SERVICE": {
+              "lastModified": 1586280342880,
+              "customColor": "#c9a000"
+            },
+            "SERVICE-A8737F1ED40B8C8F¦SERVICE»SERVICE-A8737F1ED40B8C8F»true¦Test Step»homepage»falsecalc:service.teststepresponsetime|AVG|TOTAL|LINE|SERVICE": {
+              "lastModified": 1586280344703,
+              "customColor": "#00a1b2"
+            },
+            "SERVICE-A8737F1ED40B8C8F¦SERVICE»SERVICE-A8737F1ED40B8C8F»true¦Test Step»version»falsecalc:service.teststepresponsetime|AVG|TOTAL|LINE|SERVICE": {
+              "lastModified": 1586280346426,
+              "customColor": "#7c38a1"
+            }
+          }
+        },
+        "filtersPerEntityType": {}
+      }
+    },
+    {
+      "name": "Custom chart",
+      "tileType": "CUSTOM_CHARTING",
+      "configured": true,
+      "bounds": {
+        "top": 228,
+        "left": 304,
+        "width": 684,
+        "height": 152
+      },
+      "tileFilter": {
+        "timeframe": null,
+        "managementZone": null
+      },
+      "filterConfig": {
+        "type": "MIXED",
+        "customName": "Load Distribution by Test Step",
+        "defaultName": "Custom chart",
+        "chartConfig": {
+          "legendShown": false,
+          "type": "TIMESERIES",
+          "series": [
+            {
+              "metric": "calc:service.teststepresponsetime",
+              "aggregation": "COUNT",
+              "percentile": null,
+              "type": "AREA",
+              "entityType": "SERVICE",
+              "dimensions": [
+                {
+                  "id": "0",
+                  "name": "dt.entity.service",
+                  "values": [],
+                  "entityDimension": true
+                },
+                {
+                  "id": "1",
+                  "name": "Test Step",
+                  "values": [],
+                  "entityDimension": false
+                }
+              ],
+              "sortAscending": false,
+              "sortColumn": true,
+              "aggregationRate": "TOTAL"
+            }
+          ],
+          "resultMetadata": {
+            "SERVICE-A8737F1ED40B8C8F¦SERVICE»SERVICE-A8737F1ED40B8C8F»true¦Test Step»homepage»falsecalc:service.teststepresponsetime|COUNT|TOTAL|AREA|SERVICE": {
+              "lastModified": 1586280314332,
+              "customColor": "#c9a000"
+            },
+            "SERVICE-A8737F1ED40B8C8F¦SERVICE»SERVICE-A8737F1ED40B8C8F»true¦Test Step»echo»falsecalc:service.teststepresponsetime|COUNT|TOTAL|AREA|SERVICE": {
+              "lastModified": 1586280316647,
+              "customColor": "#00a1b2"
+            },
+            "SERVICE-A8737F1ED40B8C8F¦SERVICE»SERVICE-A8737F1ED40B8C8F»true¦Test Step»version»falsecalc:service.teststepresponsetime|COUNT|TOTAL|AREA|SERVICE": {
+              "lastModified": 1586280319601,
+              "customColor": "#7c38a1"
+            },
+            "SERVICE-A8737F1ED40B8C8F¦SERVICE»SERVICE-A8737F1ED40B8C8F»true¦Test Step»invoke»falsecalc:service.teststepresponsetime|COUNT|TOTAL|AREA|SERVICE": {
+              "lastModified": 1586280312179,
+              "customColor": "#ef651f"
+            }
+          }
+        },
+        "filtersPerEntityType": {}
+      }
+    },
+    {
+      "name": "Custom chart",
+      "tileType": "CUSTOM_CHARTING",
+      "configured": true,
+      "bounds": {
+        "top": 228,
+        "left": 0,
+        "width": 304,
+        "height": 152
+      },
+      "tileFilter": {
+        "timeframe": null,
+        "managementZone": null
+      },
+      "filterConfig": {
+        "type": "MIXED",
+        "customName": "Load Testing Overall Request Count",
+        "defaultName": "Custom chart",
+        "chartConfig": {
+          "legendShown": true,
+          "type": "SINGLE_VALUE",
+          "series": [
+            {
+              "metric": "calc:service.teststepresponsetime",
+              "aggregation": "COUNT",
+              "percentile": null,
+              "type": "AREA",
+              "entityType": "SERVICE",
+              "dimensions": [
+                {
+                  "id": "0",
+                  "name": "dt.entity.service",
+                  "values": [],
+                  "entityDimension": true
+                }
+              ],
+              "sortAscending": false,
+              "sortColumn": true,
+              "aggregationRate": "TOTAL"
+            }
+          ],
+          "resultMetadata": {}
+        },
+        "filtersPerEntityType": {}
+      }
+    },
+    {
+      "name": "Custom chart",
+      "tileType": "CUSTOM_CHARTING",
+      "configured": true,
+      "bounds": {
+        "top": 380,
+        "left": 0,
+        "width": 304,
+        "height": 152
+      },
+      "tileFilter": {
+        "timeframe": null,
+        "managementZone": null
+      },
+      "filterConfig": {
+        "type": "MIXED",
+        "customName": "Load Testing Request Throughput",
+        "defaultName": "Custom chart",
+        "chartConfig": {
+          "legendShown": true,
+          "type": "SINGLE_VALUE",
+          "series": [
+            {
+              "metric": "calc:service.teststepresponsetime",
+              "aggregation": "COUNT",
+              "percentile": null,
+              "type": "AREA",
+              "entityType": "SERVICE",
+              "dimensions": [
+                {
+                  "id": "0",
+                  "name": "dt.entity.service",
+                  "values": [],
+                  "entityDimension": true
+                }
+              ],
+              "sortAscending": false,
+              "sortColumn": true,
+              "aggregationRate": "MINUTE"
+            }
+          ],
+          "resultMetadata": {}
+        },
+        "filtersPerEntityType": {}
+      }
+    },
+    {
+      "name": "System Insights",
+      "tileType": "HEADER",
+      "configured": true,
+      "bounds": {
+        "top": 0,
+        "left": 1330,
+        "width": 342,
+        "height": 38
+      },
+      "tileFilter": {
+        "timeframe": null,
+        "managementZone": null
+      }
+    },
+    {
+      "name": "Host health",
+      "tileType": "HOSTS",
+      "configured": true,
+      "bounds": {
+        "top": 76,
+        "left": 1330,
+        "width": 342,
+        "height": 152
+      },
+      "tileFilter": {
+        "timeframe": null,
+        "managementZone": null
+      },
+      "filterConfig": null,
+      "chartVisible": true
+    },
+    {
+      "name": "Custom chart",
+      "tileType": "CUSTOM_CHARTING",
+      "configured": true,
+      "bounds": {
+        "top": 228,
+        "left": 988,
+        "width": 342,
+        "height": 152
+      },
+      "tileFilter": {
+        "timeframe": null,
+        "managementZone": null
+      },
+      "filterConfig": {
+        "type": "MIXED",
+        "customName": "Node.js GC heap used",
+        "defaultName": "Custom chart",
+        "chartConfig": {
+          "legendShown": false,
+          "type": "TIMESERIES",
+          "series": [
+            {
+              "metric": "builtin:tech.nodejs.v8heap.gcHeapUsed",
+              "aggregation": "AVG",
+              "percentile": null,
+              "type": "BAR",
+              "entityType": "PROCESS_GROUP_INSTANCE",
+              "dimensions": [
+                {
+                  "id": "0",
+                  "name": "dt.entity.process_group_instance",
+                  "values": [],
+                  "entityDimension": true
+                }
+              ],
+              "sortAscending": false,
+              "sortColumn": true,
+              "aggregationRate": "TOTAL"
+            }
+          ],
+          "resultMetadata": {}
+        },
+        "filtersPerEntityType": {}
+      }
+    },
+    {
+      "name": "Custom chart",
+      "tileType": "CUSTOM_CHARTING",
+      "configured": true,
+      "bounds": {
+        "top": 380,
+        "left": 988,
+        "width": 342,
+        "height": 152
+      },
+      "tileFilter": {
+        "timeframe": null,
+        "managementZone": null
+      },
+      "filterConfig": {
+        "type": "MIXED",
+        "customName": "Node.js Active handles",
+        "defaultName": "Custom chart",
+        "chartConfig": {
+          "legendShown": false,
+          "type": "TIMESERIES",
+          "series": [
+            {
+              "metric": "builtin:tech.nodejs.uvLoop.activeHandles",
+              "aggregation": "AVG",
+              "percentile": null,
+              "type": "LINE",
+              "entityType": "PROCESS_GROUP_INSTANCE",
+              "dimensions": [
+                {
+                  "id": "0",
+                  "name": "dt.entity.process_group_instance",
+                  "values": [],
+                  "entityDimension": true
+                }
+              ],
+              "sortAscending": false,
+              "sortColumn": true,
+              "aggregationRate": "TOTAL"
+            }
+          ],
+          "resultMetadata": {}
+        },
+        "filtersPerEntityType": {}
+      }
+    },
+    {
+      "name": "Custom chart",
+      "tileType": "CUSTOM_CHARTING",
+      "configured": true,
+      "bounds": {
+        "top": 228,
+        "left": 1330,
+        "width": 342,
+        "height": 152
+      },
+      "tileFilter": {
+        "timeframe": null,
+        "managementZone": null
+      },
+      "filterConfig": {
+        "type": "MIXED",
+        "customName": "Traffic in",
+        "defaultName": "Custom chart",
+        "chartConfig": {
+          "legendShown": false,
+          "type": "TIMESERIES",
+          "series": [
+            {
+              "metric": "builtin:host.net.nic.trafficIn",
+              "aggregation": "AVG",
+              "percentile": null,
+              "type": "LINE",
+              "entityType": "HOST",
+              "dimensions": [
+                {
+                  "id": "0",
+                  "name": "dt.entity.host",
+                  "values": [],
+                  "entityDimension": true
+                },
+                {
+                  "id": "1",
+                  "name": "dt.entity.network_interface",
+                  "values": [],
+                  "entityDimension": true
+                }
+              ],
+              "sortAscending": false,
+              "sortColumn": true,
+              "aggregationRate": "TOTAL"
+            }
+          ],
+          "resultMetadata": {}
+        },
+        "filtersPerEntityType": {}
+      }
+    },
+    {
+      "name": "Custom chart",
+      "tileType": "CUSTOM_CHARTING",
+      "configured": true,
+      "bounds": {
+        "top": 380,
+        "left": 1330,
+        "width": 342,
+        "height": 152
+      },
+      "tileFilter": {
+        "timeframe": null,
+        "managementZone": null
+      },
+      "filterConfig": {
+        "type": "MIXED",
+        "customName": "Traffic out",
+        "defaultName": "Custom chart",
+        "chartConfig": {
+          "legendShown": true,
+          "type": "TIMESERIES",
+          "series": [
+            {
+              "metric": "builtin:host.net.nic.trafficOut",
+              "aggregation": "AVG",
+              "percentile": null,
+              "type": "LINE",
+              "entityType": "HOST",
+              "dimensions": [
+                {
+                  "id": "0",
+                  "name": "dt.entity.host",
+                  "values": [],
+                  "entityDimension": true
+                },
+                {
+                  "id": "1",
+                  "name": "dt.entity.network_interface",
+                  "values": [],
+                  "entityDimension": true
+                }
+              ],
+              "sortAscending": false,
+              "sortColumn": true,
+              "aggregationRate": "TOTAL"
+            }
+          ],
+          "resultMetadata": {}
+        },
+        "filtersPerEntityType": {}
+      }
+    },
+    {
+      "name": "Service Insights",
+      "tileType": "HEADER",
+      "configured": true,
+      "bounds": {
+        "top": 0,
+        "left": 988,
+        "width": 342,
+        "height": 38
+      },
+      "tileFilter": {
+        "timeframe": null,
+        "managementZone": null
+      }
+    },
+    {
+      "name": "Service health",
+      "tileType": "SERVICES",
+      "configured": true,
+      "bounds": {
+        "top": 76,
+        "left": 988,
+        "width": 342,
+        "height": 152
+      },
+      "tileFilter": {
+        "timeframe": null,
+        "managementZone": null
+      },
+      "filterConfig": null,
+      "chartVisible": true
+    },
+    {
+      "name": "Custom chart",
+      "tileType": "CUSTOM_CHARTING",
+      "configured": true,
+      "bounds": {
+        "top": 532,
+        "left": 1330,
+        "width": 342,
+        "height": 152
+      },
+      "tileFilter": {
+        "timeframe": null,
+        "managementZone": null
+      },
+      "filterConfig": {
+        "type": "MIXED",
+        "customName": "Memory used %",
+        "defaultName": "Custom chart",
+        "chartConfig": {
+          "legendShown": true,
+          "type": "TIMESERIES",
+          "series": [
+            {
+              "metric": "builtin:host.mem.usage",
+              "aggregation": "AVG",
+              "percentile": null,
+              "type": "LINE",
+              "entityType": "HOST",
+              "dimensions": [
+                {
+                  "id": "0",
+                  "name": "dt.entity.host",
+                  "values": [],
+                  "entityDimension": true
+                }
+              ],
+              "sortAscending": false,
+              "sortColumn": true,
+              "aggregationRate": "TOTAL"
+            }
+          ],
+          "resultMetadata": {}
+        },
+        "filtersPerEntityType": {}
+      }
+    },
+    {
+      "name": "Custom chart",
+      "tileType": "CUSTOM_CHARTING",
+      "configured": true,
+      "bounds": {
+        "top": 684,
+        "left": 1330,
+        "width": 342,
+        "height": 152
+      },
+      "tileFilter": {
+        "timeframe": null,
+        "managementZone": null
+      },
+      "filterConfig": {
+        "type": "MIXED",
+        "customName": "Disk used %",
+        "defaultName": "Custom chart",
+        "chartConfig": {
+          "legendShown": true,
+          "type": "TIMESERIES",
+          "series": [
+            {
+              "metric": "builtin:host.disk.usedPct",
+              "aggregation": "AVG",
+              "percentile": null,
+              "type": "LINE",
+              "entityType": "HOST",
+              "dimensions": [
+                {
+                  "id": "0",
+                  "name": "dt.entity.host",
+                  "values": [],
+                  "entityDimension": true
+                },
+                {
+                  "id": "1",
+                  "name": "dt.entity.disk",
+                  "values": [],
+                  "entityDimension": true
+                }
+              ],
+              "sortAscending": false,
+              "sortColumn": true,
+              "aggregationRate": "TOTAL"
+            }
+          ],
+          "resultMetadata": {}
+        },
+        "filtersPerEntityType": {}
+      }
+    },
+    {
+      "name": "Markdown",
+      "tileType": "MARKDOWN",
+      "configured": true,
+      "bounds": {
+        "top": 0,
+        "left": 0,
+        "width": 988,
+        "height": 76
+      },
+      "tileFilter": {
+        "timeframe": null,
+        "managementZone": null
+      },
+      "markdown": "## Application Under Test Insights\n\n[Diagnostics of Test Steps](https://hci34192.live.dynatrace.com/ui/diagnostictools/mda?gtf=l_2_HOURS&gf=all&metric=RESPONSE_TIME&dimension=%7BRequestAttribute:TSN%7D&aggregation=AVERAGE&chart=LINE&servicefilter=0%1E15%11ad4a5402-f253-4d84-ae93-debf5904e8d6)\n- [Service Flow](https://hci34192.live.dynatrace.com/#serviceflow;sci=SERVICE-A8737F1ED40B8C8F) - [Top Web Requests](https://hci34192.live.dynatrace.com/#topglobalwebrequests;sci=SERVICE-A8737F1ED40B8C8F) - [Method Hotspot Analysis](https://hci34192.live.dynatrace.com/#responsetimeanalysis;sci=SERVICE-A8737F1ED40B8C8F) - [Outlier Analysis](https://hci34192.live.dynatrace.com/#responsetimedistribution;sci=SERVICE-A8737F1ED40B8C8F) - [PurePaths](https://hci34192.live.dynatrace.com/#servicecalls;sci=SERVICE-A8737F1ED40B8C8F)"
+    }
+  ]
+}
