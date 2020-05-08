@@ -1,14 +1,7 @@
 #!/bin/bash
 
 # Usage:
-# ./createTestStepCalculatedMetrics.sh CONTEXTLESS keptn-project simpleproject
-
-if [[ -z "$DT_TENANT" ]]; then
-  DT_TENANT=$(cat ~/dynatrace-service/deploy/scripts/creds_dt.json | jq -r '.dynatraceTenant')
-fi
-if [[ -z "$DT_API_TOKEN" ]]; then
-  DT_API_TOKEN=$(cat ~/dynatrace-service/deploy/scripts/creds_dt.json | jq -r '.dynatraceApiToken')
-fi
+# ./createTestStepCalculatedMetrics.sh CONTEXTLESS keptn_project simpleproject
 if [[ -z "$DT_TENANT" || -z "$DT_API_TOKEN" ]]; then
   echo "DT_TENANT & DT_API_TOKEN MUST BE SET!!"
   exit 1
@@ -19,20 +12,22 @@ CONDITION_VALUE=$3
 
 if [[ -z "$CONDITION_KEY" && -z "$CONDITION_VALUE" ]]; then
   echo "You have to at least specify a Tag Key or Value as a filter:"
-  echo "Usage: ./createTestStepCalculatedMetrics.sh CONTEXTLESS keptn_project simpleproject"
+  echo "Usage: ./createTestStepCalculatedMetrics.sh TAGCONTEXT TAGKEY [TAGVALUE]"
+  echo "Example: ./createTestStepCalculatedMetrics.sh CONTEXTLESS keptn_project"
   exit 1
 fi
 
 echo "============================================================="
-echo "About to create 1 service metrics for Test Integrations [$1]$2:$3 on Dynatrace Tenant: $DT_TENANT!"
+echo "About to create 7 calculated service metrics for Test Tool Integrations on Dynatrace Tenant: $DT_TENANT!"
+echo "These metrics will filter on service tag [$1]$2:$3 and Request Attribute TSN exists"
 echo "============================================================="
 echo "Usage: ./createTestStepCalculatedMetrics CONTEXT KEY VALUE"
 read -rsp $'Press ctrl-c to abort. Press any key to continue...\n' -n1 key
 
 ####################################################################################################################
-## createCalculatedTestMetric(METRICKEY, METRICNAME, BASEMETRIC, METRICUNIT)
+## createCalculatedTestMetric(METRICKEY, METRICNAME, BASEMETRIC, METRICUNIT, DIMENSION_NAME, DIMENSION_PATTERN, DIMENSION_AGGREGATE)
 ####################################################################################################################
-# Example: createCalculatedTestMetric "calc:service.teststepresponsetime", "Test Step Response Time", "RESPONSE_TIME", "MICRO_SECOND", "CONTEXTLESS", "keptn_project", "simpleproject")
+# Example: createCalculatedTestMetric "calc:service.teststepresponsetime" "Test Step Response Time" "RESPONSE_TIME" "MICRO_SECOND" "Test Step" "{RequestAttribute:TSN}" "SUM"
 # Full List of possible BASEMETRICS: CPU_TIME, DATABASE_CHILD_CALL_COUNT, DATABASE_CHILD_CALL_TIME, EXCEPTION_COUNT, FAILED_REQUEST_COUNT, FAILED_REQUEST_COUNT_CLIENT, FAILURE_RATE, FAILURE_RATE_CLIENT, HTTP_4XX_ERROR_COUNT, HTTP_4XX_ERROR_COUNT_CLIENT, HTTP_5XX_ERROR_COUNT, HTTP_5XX_ERROR_COUNT_CLIENT, IO_TIME, LOCK_TIME, NON_DATABASE_CHILD_CALL_COUNT, NON_DATABASE_CHILD_CALL_TIME, REQUEST_ATTRIBUTE, REQUEST_COUNT, RESPONSE_TIME, RESPONSE_TIME_CLIENT, SUCCESSFUL_REQUEST_COUNT, SUCCESSFUL_REQUEST_COUNT_CLIENT, TOTAL_PROCESSING_TIME, WAIT_TIME
 # Possible METRICUNIT values: MILLI_SECOND, MICRO_SECOND, COUNT, PERCENT 
 # Possible DIMENSION_AGGREGATE: AVERAGE, COUNT, MAX, MIN, OF_INTEREST_RATIO, OTHER_RATIO, SINGLE_VALUE, SUM
@@ -41,7 +36,9 @@ function createCalculatedTestMetric() {
     METRICNAME=$2
     BASEMETRIC=$3
     METRICUNIT=$4
-    DIMENSION_AGGREGATE=$5
+    DIMENSION_NAME=$5
+    DIMENSION_PATTERN=$6
+    DIMENSION_AGGREGATE=$7
     PAYLOAD='{
         "tsmMetricKey": "'$METRICKEY'",
         "name": "'$METRICNAME'",
@@ -79,8 +76,8 @@ function createCalculatedTestMetric() {
             }
         ],
         "dimensionDefinition": {
-            "name": "Test Step",
-            "dimension": "{RequestAttribute:TSN}",
+            "name": "'$DIMENSION_NAME'",
+            "dimension": "'$DIMENSION_PATTERN'",
             "placeholders": [],
             "topX": 10,
             "topXDirection": "DESCENDING",
@@ -106,21 +103,36 @@ function createCalculatedTestMetric() {
 
 
 ###########################################################################
-# First we create Test Step Response Time
+# 1: we create Test Step Response Time
 ###########################################################################
-createCalculatedTestMetric "calc:service.teststepresponsetime" "Test Step Response Time" "RESPONSE_TIME" "MICRO_SECOND" "SUM"
+createCalculatedTestMetric "calc:service.teststepresponsetime" "Test Step Response Time" "RESPONSE_TIME" "MICRO_SECOND" "Test Step" "{RequestAttribute:TSN}" "SUM"
 
 ###########################################################################
-# Second we create Test Step Service Calls
+# 2: we create Test Step Service Calls
 ###########################################################################
-createCalculatedTestMetric "calc:service.teststepservicecalls" "Test Step Service Calls" "NON_DATABASE_CHILD_CALL_COUNT" "COUNT" "SINGLE_VALUE"
+createCalculatedTestMetric "calc:service.teststepservicecalls" "Test Step Service Calls" "NON_DATABASE_CHILD_CALL_COUNT" "COUNT" "Test Step" "{RequestAttribute:TSN}" "SINGLE_VALUE"
 
 ###########################################################################
-# Third we create Test Step Database Calls
+# 3: we create Test Step Database Calls
 ###########################################################################
-createCalculatedTestMetric "calc:service.teststepdbcalls" "Test Step DB Calls" "DATABASE_CHILD_CALL_COUNT" "COUNT" "SINGLE_VALUE"
+createCalculatedTestMetric "calc:service.teststepdbcalls" "Test Step DB Calls" "DATABASE_CHILD_CALL_COUNT" "COUNT" "Test Step" "{RequestAttribute:TSN}" "SINGLE_VALUE"
 
 ###########################################################################
-# Fourth we create Test Step Failurerate
+# 4: we create Test Step Failurerate
 ###########################################################################
-createCalculatedTestMetric "calc:service.teststepfailurerate" "Test Step Failure Rate" "FAILURE_RATE" "PERCENT" "OF_INTEREST_RATIO"
+createCalculatedTestMetric "calc:service.teststepfailurerate" "Test Step Failure Rate" "FAILURE_RATE" "PERCENT" "Test Step" "{RequestAttribute:TSN}" "OF_INTEREST_RATIO"
+
+###########################################################################
+# 5: we create Test Step by HTTP Status
+###########################################################################
+createCalculatedTestMetric "calc:service.testrequestsbyhttpstatus" "Test Requests by HTTP Status" "REQUEST_COUNT" "COUNT" "HttpStatusClass" "{HTTP-StatusClass}" "SINGLE_VALUE"
+
+###########################################################################
+# 6: we create Test Step CPU Time
+###########################################################################
+createCalculatedTestMetric "calc:service.teststepcpu" "Test Step CPU" "CPU_TIME" "MICRO_SECOND" "Test Step" "{RequestAttribute:TSN}" "SUM"
+
+###########################################################################
+# 7: we create Test Step by HTTP Status
+###########################################################################
+createCalculatedTestMetric "calc:service.teststepdbcalls" "Test Step DB Calls" "DATABASE_CHILD_CALL_COUNT" "COUNT" "Test Step" "{RequestAttribute:TSN}" "SINGLE_VALUE"
