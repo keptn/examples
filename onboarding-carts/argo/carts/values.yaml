@@ -2,7 +2,7 @@ replicaCount: 1
 
 image:
   repository: docker.io/keptnexamples/carts
-  tag: 0.10.1
+  tag: 0.11.1
   pullPolicy: Always
 
 service:
