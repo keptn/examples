@@ -23,7 +23,7 @@ data:
   POSTGRES_USER: postgres
   POSTGRES_PASSWORD: somepassword
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: unleash-db
