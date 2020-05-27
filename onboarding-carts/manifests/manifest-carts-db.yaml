@@ -19,12 +19,15 @@ metadata:
   namespace: sockshop-hardening
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: carts-db
   strategy:
     type: Recreate
   template:
     metadata:
       labels:
-        name: carts-db
+        app: carts-db
     spec:
       containers:
       - image: mongo

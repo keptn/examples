@@ -6,6 +6,9 @@ metadata:
   namespace: sockshop-hardening
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: carts
   template:
     metadata:
       labels:
