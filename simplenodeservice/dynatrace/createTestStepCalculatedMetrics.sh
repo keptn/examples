@@ -111,12 +111,12 @@ createCalculatedTestMetric "calc:service.teststepresponsetime" "Test Step Respon
 ###########################################################################
 # 2: we create Test Step Service Calls
 ###########################################################################
-createCalculatedTestMetric "calc:service.teststepservicecalls" "Test Step Service Calls" "NON_DATABASE_CHILD_CALL_COUNT" "COUNT" "Test Step" "{RequestAttribute:TSN}" "SINGLE_VALUE"
+createCalculatedTestMetric "calc:service.teststepservicecalls" "Test Step Service Calls" "NON_DATABASE_CHILD_CALL_COUNT" "COUNT" "Test Step" "{RequestAttribute:TSN}" "SUM"
 
 ###########################################################################
 # 3: we create Test Step Database Calls
 ###########################################################################
-createCalculatedTestMetric "calc:service.teststepdbcalls" "Test Step DB Calls" "DATABASE_CHILD_CALL_COUNT" "COUNT" "Test Step" "{RequestAttribute:TSN}" "SINGLE_VALUE"
+createCalculatedTestMetric "calc:service.teststepdbcalls" "Test Step DB Calls" "DATABASE_CHILD_CALL_COUNT" "COUNT" "Test Step" "{RequestAttribute:TSN}" "SUM"
 
 ###########################################################################
 # 4: we create Test Step Failurerate

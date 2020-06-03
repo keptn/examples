@@ -9,7 +9,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="SERVER_URL" elementType="Argument">
             <stringProp name="Argument.name">SERVER_URL</stringProp>
-            <stringProp name="Argument.value">ec2-34-229-208-191.compute-1.amazonaws.com</stringProp>
+            <stringProp name="Argument.value">ec2-54-164-164-121.compute-1.amazonaws.com</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="DefaultThinkTime" elementType="Argument">
@@ -19,7 +19,7 @@
           </elementProp>
           <elementProp name="DT_LTN" elementType="Argument">
             <stringProp name="Argument.name">DT_LTN</stringProp>
-            <stringProp name="Argument.value">TestMay18</stringProp>
+            <stringProp name="Argument.value">TestJune03</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="SERVER_PORT" elementType="Argument">
