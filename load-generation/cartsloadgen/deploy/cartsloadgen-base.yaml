@@ -11,6 +11,9 @@ metadata:
   namespace: loadgen
 spec:
   replicas: 1
+  selector:
+    matchLabels:
+      app: cartsloadgen
   template:
     metadata:
       labels:
