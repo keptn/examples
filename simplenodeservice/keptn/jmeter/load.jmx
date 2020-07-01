@@ -9,17 +9,17 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="SERVER_URL" elementType="Argument">
             <stringProp name="Argument.name">SERVER_URL</stringProp>
-            <stringProp name="Argument.value">simplenode.simpleproject-staging.keptn06-agrabner.demo.keptn.sh</stringProp>
+            <stringProp name="Argument.value">ec2-54-164-164-121.compute-1.amazonaws.com</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="DefaultThinkTime" elementType="Argument">
             <stringProp name="Argument.name">DefaultThinkTime</stringProp>
-            <stringProp name="Argument.value">0</stringProp>
+            <stringProp name="Argument.value">250</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="DT_LTN" elementType="Argument">
             <stringProp name="Argument.name">DT_LTN</stringProp>
-            <stringProp name="Argument.value">Default</stringProp>
+            <stringProp name="Argument.value">TestJune03</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="SERVER_PORT" elementType="Argument">
@@ -29,7 +29,7 @@
           </elementProp>
           <elementProp name="LoopCount" elementType="Argument">
             <stringProp name="Argument.name">LoopCount</stringProp>
-            <stringProp name="Argument.value">10</stringProp>
+            <stringProp name="Argument.value">1000</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="CHECK_PATH" elementType="Argument">
@@ -44,7 +44,7 @@
           </elementProp>
           <elementProp name="VUCount" elementType="Argument">
             <stringProp name="Argument.name">VUCount</stringProp>
-            <stringProp name="Argument.value">50</stringProp>
+            <stringProp name="Argument.value">10</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -91,7 +91,7 @@
         <hashTree/>
         <BeanShellPreProcessor guiclass="TestBeanGUI" testclass="BeanShellPreProcessor" testname="Set Dynatrace Headers" enabled="true">
           <stringProp name="filename"></stringProp>
-          <stringProp name="parameters"></stringProp>
+          <stringProp name="parameters">load.jmx</stringProp>
           <boolProp name="resetInterpreter">false</boolProp>
           <stringProp name="script">
 

@@ -13,12 +13,13 @@ CONDITION_VALUE=$3
 if [[ -z "$CONDITION_KEY" && -z "$CONDITION_VALUE" ]]; then
   echo "You have to at least specify a Tag Key or Value as a filter:"
   echo "Usage: ./createTestStepCalculatedMetrics.sh TAGCONTEXT TAGKEY [TAGVALUE]"
-  echo "Example: ./createTestStepCalculatedMetrics.sh CONTEXTLESS keptn_project"
+  echo "Example #1 for Keptn projects: ./createTestStepCalculatedMetrics.sh CONTEXTLESS keptn_project"
+  echo "Example #2 for Env-Tags: ./createTestStepCalculatedMetrics.sh ENVIRONMENT AppUnderTest"
   exit 1
 fi
 
 echo "============================================================="
-echo "About to create 7 calculated service metrics for Test Tool Integrations on Dynatrace Tenant: $DT_TENANT!"
+echo "About to create 6 calculated service metrics for Test Tool Integrations on Dynatrace Tenant: $DT_TENANT!"
 echo "These metrics will filter on service tag [$1]$2:$3 and Request Attribute TSN exists"
 echo "============================================================="
 echo "Usage: ./createTestStepCalculatedMetrics CONTEXT KEY VALUE"
@@ -110,12 +111,12 @@ createCalculatedTestMetric "calc:service.teststepresponsetime" "Test Step Respon
 ###########################################################################
 # 2: we create Test Step Service Calls
 ###########################################################################
-createCalculatedTestMetric "calc:service.teststepservicecalls" "Test Step Service Calls" "NON_DATABASE_CHILD_CALL_COUNT" "COUNT" "Test Step" "{RequestAttribute:TSN}" "SINGLE_VALUE"
+createCalculatedTestMetric "calc:service.teststepservicecalls" "Test Step Service Calls" "NON_DATABASE_CHILD_CALL_COUNT" "COUNT" "Test Step" "{RequestAttribute:TSN}" "SUM"
 
 ###########################################################################
 # 3: we create Test Step Database Calls
 ###########################################################################
-createCalculatedTestMetric "calc:service.teststepdbcalls" "Test Step DB Calls" "DATABASE_CHILD_CALL_COUNT" "COUNT" "Test Step" "{RequestAttribute:TSN}" "SINGLE_VALUE"
+createCalculatedTestMetric "calc:service.teststepdbcalls" "Test Step DB Calls" "DATABASE_CHILD_CALL_COUNT" "COUNT" "Test Step" "{RequestAttribute:TSN}" "SUM"
 
 ###########################################################################
 # 4: we create Test Step Failurerate
@@ -131,8 +132,3 @@ createCalculatedTestMetric "calc:service.testrequestsbyhttpstatus" "Test Request
 # 6: we create Test Step CPU Time
 ###########################################################################
 createCalculatedTestMetric "calc:service.teststepcpu" "Test Step CPU" "CPU_TIME" "MICRO_SECOND" "Test Step" "{RequestAttribute:TSN}" "SUM"
-
-###########################################################################
-# 7: we create Test Step by HTTP Status
-###########################################################################
-createCalculatedTestMetric "calc:service.teststepdbcalls" "Test Step DB Calls" "DATABASE_CHILD_CALL_COUNT" "COUNT" "Test Step" "{RequestAttribute:TSN}" "SINGLE_VALUE"
