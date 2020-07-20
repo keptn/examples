@@ -1,5 +1,5 @@
 ---
-spec_version: "0.1.1"
+spec_version: "1.0"
 comparison:
   aggregate_function: "avg"
   compare_with: "single_result"
