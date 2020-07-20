@@ -10,11 +10,11 @@ spec:
           name: Toogle feature flag
           description: Toogle feature flag EnableItemCache to ON
           value: 
-            EnableItemCache: on
+            EnableItemCache: "on"
     - problemType: Failure rate increase
       actionsOnOpen:
         - action: toggle-feature
           name: Toogle feature flag
           description: Toogle feature flag EnablePromotion to OFF
           value: 
-            EnablePromotion: off
+            EnablePromotion: "off"
