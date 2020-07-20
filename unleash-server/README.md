@@ -24,7 +24,7 @@ For the purpose of just hosting the unleash server, we use a single stage (dev) 
    ```
 4. Get the url (`unleash.unelash-dev.KEPTN_DOMAIN`):
    ```console
-   echo http://unleash.unleash-dev.$(kubectl get cm keptn-domain -n keptn -o=jsonpath='{.data.app_domain}')
+   echo http://unleash.unleash-dev.$(kubectl get cm -n keptn ingress-config -o=jsonpath='{.data.ingress_hostname_suffix}')
    ```
 5. Open the url in your browser and log in using the following credentials:
    * username: keptn
