@@ -1,6 +1,11 @@
 #!/bin/bash
 
 echo ""
+echo "STARTING WITH KEPTN 0.7 THIS IS NO LONGER RELEVANT!!!"
+echo "With Keptn 0.7 simply use 'keptn configure bridge'"
+echo ""
+echo ""
+echo "Continue for Keptn 0.6.x!"
 echo "============================================================="
 echo "About to create a VirtualService to the Keptn Bridge service"
 echo "============================================================="

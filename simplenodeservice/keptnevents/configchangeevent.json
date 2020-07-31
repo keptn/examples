@@ -1,0 +1,18 @@
+{
+    "type": "sh.keptn.event.configuration.change",
+    "contenttype": "application/json",
+    "specversion": "0.2",
+    "source": "example-event",
+    "data": {
+      "project": "keptn07project",
+      "stage": "dev",
+      "service": "simplenode",
+      "valuesCanary": {
+        "image": "docker.io/grabnerandi/simplenodeservice:3.0.0"
+      },
+      "labels": {
+        "BuildId": "Build103",
+        "runby": "Demo User"
+      }
+    }
+  }

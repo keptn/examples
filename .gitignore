@@ -1,3 +1,4 @@
 .vscode
 .idea
 simplenodeservice/dynatrace/curloutput.txt
+simplenodeservice/keptn/remediation.yaml
