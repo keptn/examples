@@ -1,0 +1,18 @@
+registry: simplenodeservice
+stages:
+  - name: "dev"
+    deployment_strategy: "direct"
+    test_strategy: "functional"
+    approval_strategy:
+      pass: "automatic"
+      warning: "automatic"
+  - name: "staging"
+    deployment_strategy: "direct"
+    test_strategy: "performance_peak"
+    approval_strategy:
+      pass: "automatic"
+      warning: "manual"
+  - name: "prod"
+    deployment_strategy: "blue_green_service"
+    test_strategy: "performance"
+    remediation_strategy: "automated"

@@ -73,3 +73,56 @@ Here two examples to launch that script:
 ```
 
 Once the script runs you can either abort it or you can create an empty file with the name endloadtest.txt. Once this file exists the script will also stop running!
+
+
+## Using it with Keptn 0.7+
+
+Here are the instructions on how to use Keptn to deploy and manage this application
+
+### Tips for setting up Dynatrace Integration
+
+kubectl -n keptn create secret generic dynatrace --from-literal="DT_TENANT=$DT_TENANT" --from-literal="DT_API_TOKEN=$DT_API_TOKEN"  --from-literal="DT_PAAS_TOKEN=$DT_PAAS_TOKEN" --from-literal="KEPTN_API_URL=http://$(kubectl -n keptn get ingress api-keptn-ingress -ojsonpath={.spec.rules[0].host})/api" --from-literal="KEPTN_API_TOKEN=$(kubectl get secret keptn-api-token -n keptn -ojsonpath={.data.keptn-api-token} | base64 --decode)" --from-literal="KEPTN_BRIDGE_URL=http://$(kubectl -n keptn get ingress api-keptn-ingress -ojsonpath={.spec.rules[0].host})/bridge"
+
+### 1: Create Project & Upload Files
+
+The Keptn folder contains a lot of supporting resource files such as the Helm Charts, SLIs, SLOs or test scripts. Please navigate into that directory before executing these commands:
+
+```
+keptn create project keptn07project --shipyard=./shipyard_keptn07.yaml
+keptn onboard service simplenode --project=keptn07project --chart=./charts
+
+// define an empty SLO.yaml so that Keptn will look for a dashboard SLO
+keptn add-resource --project=keptn07project --stage=staging --service=simplenode --resource=slo_empty.yaml --resourceUri=slo.yaml
+keptn add-resource --project=keptn07project --stage=prod --service=simplenode --resource=slo_empty.yaml --resourceUri=slo.yaml
+
+// Upload Test Scripts for dev, staging & prod
+keptn add-resource --project=keptn07project --stage=dev --service=simplenode --resource=jmeter/basiccheck.jmx --resourceUri=jmeter/basiccheck.jmx
+keptn add-resource --project=keptn07project --stage=dev --service=simplenode --resource=jmeter/load.jmx --resourceUri=jmeter/load.jmx
+keptn add-resource --project=keptn07project --stage=dev --service=simplenode --resource=jmeter/jmeter.conf.yaml --resourceUri=jmeter/jmeter.conf.yaml
+
+keptn add-resource --project=keptn07project --stage=staging --service=simplenode --resource=jmeter/basiccheck.jmx --resourceUri=jmeter/basiccheck.jmx
+keptn add-resource --project=keptn07project --stage=staging --service=simplenode --resource=jmeter/load.jmx --resourceUri=jmeter/load.jmx
+keptn add-resource --project=keptn07project --stage=staging --service=simplenode --resource=jmeter/jmeter.conf.yaml --resourceUri=jmeter/jmeter.conf.yaml
+
+keptn add-resource --project=keptn07project --stage=prod --service=simplenode --resource=jmeter/basiccheck.jmx --resourceUri=jmeter/basiccheck.jmx
+keptn add-resource --project=keptn07project --stage=prod --service=simplenode --resource=jmeter/load.jmx --resourceUri=jmeter/load.jmx
+keptn add-resource --project=keptn07project --stage=prod --service=simplenode --resource=jmeter/jmeter.conf.yaml --resourceUri=jmeter/jmeter.conf.yaml
+
+```
+
+### 2: Deploy the app
+
+```
+keptn send event new-artifact --project=keptn07project --service=simplenode --image=docker.io/grabnerandi/simplenodeservice --tag=1.0.0
+keptn send event new-artifact --project=keptn07project --service=simplenode --image=docker.io/grabnerandi/simplenodeservice --tag=2.0.0
+keptn send event new-artifact --project=keptn07project --service=simplenode --image=docker.io/grabnerandi/simplenodeservice --tag=3.0.0
+keptn send event new-artifact --project=keptn07project --service=simplenode --image=docker.io/grabnerandi/simplenodeservice --tag=4.0.0
+```
+
+### 3: Deploy the app via events including labels
+
+To add labels to a new-artifact we can use keptn send event with the event details in the event.json. Before executing the following command make sure to edit your configchangeevent.json and change the version to 1.0.0, 2.0.0, 3.0.0 or 4.0.0. Also update the BuildId to reflect the BuildId from the CI tool e.g: Build101, Build102, Build103, Build104
+
+```
+keptn send event --file=configchangeevent.json
+```
