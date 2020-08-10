@@ -1,0 +1,38 @@
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: loadgen
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cartsloadgen
+  namespace: loadgen
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cartsloadgen
+  template:
+    metadata:
+      labels:
+        app: cartsloadgen
+    spec:
+      containers:
+      - name: cartsloadgen
+        image: docker.io/keptnexamples/cartsloadgenerator:0.1
+        imagePullPolicy: Always
+        env:
+          - name: KEPTN_DOMAIN
+            value: svc.cluster.local
+          - name: CARTS_STAGES
+            value: "carts-primary.sockshop-production"
+          - name: ITEM_ID
+            value: "03fef6ac-1896-4ce8-bd69-b798f85c6e0b"
+          - name: CARTS_ID
+            value: "3395a43e-2d88-40de-b95f-e00e1502085b"
+          - name: SLEEP_TIME
+            value: "0.3"
+          - name: MAX_CARTS_ITEMS
+            value: "20"
