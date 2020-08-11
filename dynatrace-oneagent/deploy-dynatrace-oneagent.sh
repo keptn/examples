@@ -18,7 +18,7 @@ fi
 function replace_value_in_yaml_file() {
   OLDVAL=$1; NEWVAL=$2; FILE=$3
 
-  sed -i "s#$OLDVAL#$NEWVAL#g" $FILE
+  sed -i'.bak' -e "s#$OLDVAL#$NEWVAL#g" $FILE
 }
 
 function wait_for_deployment_in_namespace() {
