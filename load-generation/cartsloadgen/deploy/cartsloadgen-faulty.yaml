@@ -35,4 +35,4 @@ spec:
           - name: SLEEP_TIME
             value: "0.0"
           - name: MAX_CARTS_ITEMS
-            value: "20"
+            value: "20000"
