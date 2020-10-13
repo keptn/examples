@@ -94,7 +94,7 @@ echo "Continuing now!"
 
 kubectl -n dynatrace create secret generic oneagent --from-literal="apiToken=$DT_API_TOKEN" --from-literal="paasToken=$DT_PAAS_TOKEN"
 
-curl -o cr.yaml https://raw.githubusercontent.com/Dynatrace/dynatrace-oneagent-operator/master/deploy/cr.yaml
+curl -o cr.yaml https://raw.githubusercontent.com/Dynatrace/dynatrace-oneagent-operator/release-0.8/deploy/cr.yaml
 
 URL=https://ENVIRONMENTID.live.dynatrace.com/api
 API_URL=https://${DT_TENANT}/api
