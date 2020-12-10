@@ -1,4 +1,17 @@
-stages:
-  - name: "dev"
-    deployment_strategy: "direct"
-    test_strategy: ""
+apiVersion: "spec.keptn.sh/0.2.0"
+kind: "Shipyard"
+metadata:
+  name: "shipyard-unleash-server"
+spec:
+  stages:
+    - name: "dev"
+      sequences:
+        - name: "artifact-delivery"
+          tasks:
+            - name: "deployment"
+              properties:
+                deploymentstrategy: "direct"
+            - name: "release"
+
+
+
