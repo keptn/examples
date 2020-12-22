@@ -1,0 +1,21 @@
+{
+  "type": "sh.keptn.event.configuration.change",
+  "specversion": "0.2",
+  "source": "https://github.com/keptn/keptn/helm-service",
+  "id": "f2b878d3-03c0-4e8f-bc3f-454bc1b3d79d",
+  "time": "2019-06-07T07:02:15.64489Z",
+  "contenttype": "application/json",
+  "data": {
+    "project": "musicshop",
+    "stage": "dev",
+    "service": "carts",
+    "valuesCanary": {
+      "image": "docker.io/keptnexamples/carts:0.11.1"
+    },
+    "labels": {
+      "testId": "4711",
+      "buildId": "build-16",
+      "owner": "JohnDoe"
+    }
+  }
+}
