@@ -1,4 +1,4 @@
-# Release Notes 0.8.0.alpha
+# Release Notes 0.8.0-alpha
 
 Note: Update of License file #151
 
