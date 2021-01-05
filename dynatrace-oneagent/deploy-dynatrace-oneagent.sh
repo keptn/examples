@@ -1,6 +1,19 @@
 #!/bin/bash
 set -e
 
+PLATFORM=$1
+if [ "$PLATFORM" = "KUBERNETES" ]; then
+  ONEAGENT_CRD="https://github.com/Dynatrace/dynatrace-oneagent-operator/releases/latest/download/kubernetes.yaml"
+elif [ "$PLATFORM" = "OPENSHIFT" ]; then
+  ONEAGENT_CRD="https://github.com/Dynatrace/dynatrace-oneagent-operator/releases/download/v0.8.2/openshift.yaml"
+else
+  echo "You need to pass the name of the platform as a first argument"
+  echo "Possible values: "
+  echo "* KUBERNETES"
+  echo "* OPENSHIFT"
+  exit 1
+fi
+
 if [ -z "$DT_TENANT" ]; then
  	echo "Please supply a value for the environment variable DT_TENANT"
 	exit 1
@@ -15,6 +28,17 @@ if [ -z "$DT_PAAS_TOKEN" ]; then
  	echo "Please supply a value for the environment variable DT_PAAS_TOKEN"
 	exit 1
 fi
+
+function apply_platform_specifics_to_yaml_file() {
+
+    PLATFORM=$1; FILE=$2
+    if [ "$PLATFORM" = "KUBERNETES" ]; then
+      echo "" >> $FILE
+      echo "  env:" >> $FILE
+      echo "    - name: ONEAGENT_ENABLE_VOLUME_STORAGE" >> $FILE
+      echo "      value: \"true\"" >> $FILE
+    fi
+}
 
 function replace_value_in_yaml_file() {
   OLDVAL=$1; NEWVAL=$2; FILE=$3
@@ -86,7 +110,7 @@ function wait_for_daemonset_in_namespace() {
 kubectl create namespace dynatrace
 sleep 5
 
-kubectl apply -f https://github.com/Dynatrace/dynatrace-oneagent-operator/releases/latest/download/kubernetes.yaml
+kubectl apply -f $ONEAGENT_CRD
 
 echo "Waiting a little bit before we continue..."
 sleep 10
@@ -99,6 +123,8 @@ curl -o cr.yaml https://raw.githubusercontent.com/Dynatrace/dynatrace-oneagent-o
 URL=https://ENVIRONMENTID.live.dynatrace.com/api
 API_URL=https://${DT_TENANT}/api
 replace_value_in_yaml_file $URL $API_URL cr.yaml
+
+apply_platform_specifics_to_yaml_file $PLATFORM cr.yaml
 
 kubectl apply -f cr.yaml
 
