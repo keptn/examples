@@ -12,6 +12,7 @@ Maintained examples are updated with every [Keptn release](https://github.com/ke
 
 |Name | Version | Description | 
 ------------- | ------------- | ------------ |
+| **onboard-carts** | [0.8.0](https://github.com/keptn/examples/tree/release-0.8.0) | This example allows to demonstrate the [Keptn tutorials](https://tutorials.keptn.sh). |
 | **onboard-carts** | [0.8.0-alpha](https://github.com/keptn/examples/tree/release-0.8.0-alpha) | Examples for Keptn 0.8.0-alpha, no tutorial available yet. |
 | **onboard-carts** | [0.7.3](https://github.com/keptn/examples/tree/release-0.7.3) | This example allows to demonstrate the [Keptn tutorials](https://tutorials.keptn.sh). |
 | **onboard-carts** | [0.7.2](https://github.com/keptn/examples/tree/release-0.7.2) | This example allows to demonstrate the [Keptn tutorials](https://tutorials.keptn.sh). |
@@ -28,7 +29,7 @@ You can find the source code of the carts microservice at https://github.com/kep
 
 The following commands will set up a basic load generator for the carts microservice that generates traffic in **all three stages**:
 
-* Keptn 0.7.0 - 0.7.3
+* Keptn 0.7.0 - 0.8.0
   * Basic (Background traffic)
     ```console
     kubectl apply -f https://raw.githubusercontent.com/keptn/examples/release-0.7.3/load-generation/cartsloadgen/deploy/cartsloadgen-base.yaml
@@ -46,6 +47,7 @@ The following commands will set up a basic load generator for the carts microser
 
 |Name | Version | Description | 
 ------------- | ------------- | ------------ |
+| **unleash-server** | [0.8.x](https://github.com/keptn/examples/tree/release-0.8.0) | This example allows to demonstrate the [Self-healing with Feature Flags tutorials](https://tutorials.keptn.sh). |
 | **unleash-server** | [0.7.x](https://github.com/keptn/examples/tree/release-0.7.3) | This example allows to demonstrate the [Self-healing with Feature Flags tutorials](https://tutorials.keptn.sh). |
 | **unleash-server** | [0.6.x](https://github.com/keptn/examples/tree/release-0.6.2) | This example allows to demonstrate the [Self-healing with Feature Flags usecase](https://keptn.sh/docs/0.6.0/usecases/self-healing-with-keptn/dynatrace-unleash/). |
 
