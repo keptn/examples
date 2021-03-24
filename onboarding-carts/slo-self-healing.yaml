@@ -8,6 +8,7 @@ comparison:
 filter:
 objectives:
   - sli: "response_time_p90"
+    displayName: "Response time P90"
     key_sli: false
     pass:             # pass if (relative change <= 10% AND absolute value is < 1000)
       - criteria:
