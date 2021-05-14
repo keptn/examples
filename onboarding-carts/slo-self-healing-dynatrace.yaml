@@ -1,0 +1,30 @@
+---
+spec_version: "1.0"
+comparison:
+  aggregate_function: "avg"
+  compare_with: "single_result"
+  include_result_with_score: "pass"
+  number_of_comparison_results: 1
+filter:
+objectives:
+  - sli: "response_time_p90"
+    displayName: "Response time P90"
+    key_sli: false
+    pass:             # pass if (relative change <= 10% AND absolute value is < 1000)
+      - criteria:
+          - "<=+10%"  # relative values require a prefixed sign (plus or minus)
+          - "<1000"   # absolute values only require a logical operator
+    warning:          # if the response time is below 1200ms, the result should be a warning
+      - criteria:
+          - "<=1200"
+    weight: 1
+  - sli: "problem_open"
+    displayName: "Problem open"
+    key_sli: true
+    pass:
+      - criteria:
+          - "=0"
+    weight: 1
+total_score:
+  pass: "90%"
+  warning: "40%"
