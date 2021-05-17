@@ -8,9 +8,14 @@ export INGRESS_IP=$(kubectl -n istio-system get svc istio-ingressgateway -o json
 
 # Check if IP-Address is not empty or pending
 if [ -z "$INGRESS_IP" ] || [ "$INGRESS_IP" = "Pending" ] ; then
- 	echo "INGRESS_IP is empty. Make sure that the Ingress gateway is ready"
+ 	echo "Could not determine the external IP address of istio-ingressgateway in namespace istio-system. Please make sure it is ready and has an external IP address:"
+ 	echo " - kubectl -n istio-system get svc istio-ingressgateway"
+ 	echo ""
+ 	echo "Please consult the istio docs for more information: https://istio.io/latest/docs/tasks/traffic-management/ingress/ingress-control/#determining-the-ingress-ip-and-ports"
 	exit 1
 fi
+
+echo "External IP for istio-ingressgateway is ${INGRESS_IP}, creating configmaps..."
 
 # Applying ingress-manifest
 kubectl apply -f - <<EOF
@@ -57,5 +62,9 @@ sleep 10
 # Creating Keptn ingress config map
 kubectl create configmap -n keptn ingress-config --from-literal=ingress_hostname_suffix=$(kubectl -n keptn get ingress api-keptn-ingress -ojsonpath='{.spec.rules[0].host}') --from-literal=ingress_port=80 --from-literal=ingress_protocol=http --from-literal=istio_gateway=public-gateway.istio-system -oyaml --dry-run=client | kubectl apply -f -
 
+echo "Restarting helm-service..."
+
 # Restart helm service
 kubectl delete pod -n keptn -lapp.kubernetes.io/name=helm-service
+
+echo "Done!"
