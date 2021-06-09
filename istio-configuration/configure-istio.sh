@@ -19,7 +19,7 @@ echo "External IP for istio-ingressgateway is ${INGRESS_IP}, creating configmaps
 
 # Applying ingress-manifest
 kubectl apply -f - <<EOF
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   annotations:
