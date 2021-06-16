@@ -1,3 +1,5 @@
 # Release Notes 0.8.4
 
-This release has been created to keep the version of the examples in sync with the Keptn release version.
+## Fixed Issues:
+
+- Updated Istio Ingress API Version from `networking.k8s.io/v1beta1` to `networking.k8s.io/v1`
