@@ -31,9 +31,13 @@ spec:
   - host: $INGRESS_IP.nip.io
     http:
       paths:
-      - backend:
-          serviceName: api-gateway-nginx
-          servicePort: 80
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: api-gateway-nginx
+            port:
+              number: 80
 EOF
 
 # Applying public gateway
