@@ -18,6 +18,9 @@ fi
 echo "External IP for istio-ingressgateway is ${INGRESS_IP}, creating configmaps..."
 
 # Applying ingress-manifest
+# NOTE: this will not work from K8S version 1.22+ on
+# The script needs to be enhanced to check the K8S version when executed
+# Work has already been started on this: https://github.com/keptn/examples/pull/180
 kubectl apply -f - <<EOF
 apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
