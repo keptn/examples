@@ -19,7 +19,7 @@ echo "External IP for istio-ingressgateway is ${INGRESS_IP}, creating configmaps
 
 # Applying ingress-manifest
 kubectl apply -f - <<EOF
-apiVersion: networking.k8s.io/v1
+apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   annotations:
@@ -31,13 +31,9 @@ spec:
   - host: $INGRESS_IP.nip.io
     http:
       paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: api-gateway-nginx
-            port:
-              number: 80
+      - backend:
+          serviceName: api-gateway-nginx
+          servicePort: 80
 EOF
 
 # Applying public gateway
