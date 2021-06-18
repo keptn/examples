@@ -17,7 +17,30 @@ fi
 
 echo "External IP for istio-ingressgateway is ${INGRESS_IP}, creating configmaps..."
 
-# Applying ingress-manifest
+K8S_VERSION=$(kubectl version -ojson)
+K8S_VERSION_MINOR=$(echo "$K8S_VERSION" | jq -r .serverVersion.minor)
+
+if [[ "$K8S_VERSION_MINOR" < "19" ]]
+then
+echo "Detected Kubernetes version < 1.19"
+kubectl apply -f - <<EOF
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: istio
+  name: api-keptn-ingress
+  namespace: keptn
+spec:
+  rules:
+  - host: $INGRESS_IP.nip.io
+    http:
+      paths:
+      - backend:
+          serviceName: api-gateway-nginx
+          servicePort: 80
+EOF
+else
 kubectl apply -f - <<EOF
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -39,6 +62,7 @@ spec:
             port:
               number: 80
 EOF
+fi
 
 # Applying public gateway
 kubectl apply -f - <<EOF
