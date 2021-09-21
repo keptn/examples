@@ -1,0 +1,82 @@
+name: Pre-Release
+on:
+  workflow_dispatch:
+env:
+  NODE_VERSION: 14
+  KEPTN_BOT_NAME: "Keptn Bot"
+  KEPTN_BOT_EMAIL: "keptn-bot <86361500+keptn-bot@users.noreply.github.com>"
+  RELEASE_NOTES_FILE: "RELEASE-BODY.md"
+  PRERELEASE_KEYWORD: "next"
+defaults:
+  run:
+    shell: bash
+jobs:
+  test:
+    strategy:
+      matrix:
+        go-version: [1.16.x]
+        platform: [ubuntu-latest]
+    runs-on: ${{ matrix.platform }}
+    env:
+      GO111MODULE: "on"
+      GOPROXY: "https://proxy.golang.org"
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v2.1.3
+        with:
+          go-version: ${{ matrix.go-version }}
+      - name: Checkout code
+        uses: actions/checkout@v2.3.4
+      - name: Test
+        run: go test -race -v ./...
+  pre-release:
+    name: Pre-Release
+    runs-on: ubuntu-20.04
+    needs: [test]
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Configure Git
+        env:
+          KEPTN_BOT_NAME: ${{ env.KEPTN_BOT_NAME }}
+          KEPTN_BOT_EMAIL: ${{ env.KEPTN_BOT_EMAIL }}
+        run: |
+          git config user.name "$KEPTN_BOT_NAME"
+          git config user.email "$KEPTN_BOT_EMAIL"
+
+      - name: Prepare GitHub Release Notes
+        run: |
+          npx standard-version@^9.3.1 --prerelease "${{ env.PRERELEASE_KEYWORD }}" -i "${{ env.RELEASE_NOTES_FILE }}" --skip.commit --skip.tag --header ""
+
+      - name: Enhance Release Notes with Build Metadata
+        run: |
+          echo "#### Build Information" >> "${{ env.RELEASE_NOTES_FILE }}"
+          echo "" >> "${{ env.RELEASE_NOTES_FILE }}"
+          echo "**GitHub Actions Run:** $GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" >> "${{ env.RELEASE_NOTES_FILE }}"
+
+      - name: Create pre-release package
+        id: create-release-package
+        env:
+          GITHUB_TOKEN: ${{ secrets.KEPTN_BOT_TOKEN }}
+        run: |
+          echo "🚀 Creating pre-release package now..."
+          npx standard-version@^9.3.1 --prerelease "${{ env.PRERELEASE_KEYWORD }}" --skip.commit --skip.changelog
+
+          echo "::set-output name=tag-name::$(git describe --tags --abbrev=0)"
+          echo "⚡️ Pushing changes to remote repository..."
+          git push --follow-tags
+
+      - name: Create GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.KEPTN_BOT_TOKEN }}
+          RELEASE_TAG: ${{ steps.create-release-package.outputs.tag-name }}
+        run: |
+          gh release create "$RELEASE_TAG" --prerelease --notes-file "${{ env.RELEASE_NOTES_FILE }}" --title "$RELEASE_TAG"
