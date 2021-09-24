@@ -12,6 +12,7 @@ Maintained examples are updated with every [Keptn release](https://github.com/ke
 
 |Name | Version | Description |
 ------------- | ------------- | ------------ |
+| **onboard-carts** | [0.9.1](https://github.com/keptn/examples/tree/release-0.9.1) | This example allows to demonstrate the [Keptn tutorials](https://tutorials.keptn.sh). |
 | **onboard-carts** | [0.9.0](https://github.com/keptn/examples/tree/release-0.9.0) | This example allows to demonstrate the [Keptn tutorials](https://tutorials.keptn.sh). |
 | **onboard-carts** | [0.8.4](https://github.com/keptn/examples/tree/release-0.8.4) | This example allows to demonstrate the [Keptn tutorials](https://tutorials.keptn.sh). |
 | **onboard-carts** | [0.8.3](https://github.com/keptn/examples/tree/release-0.8.3) | This example allows to demonstrate the [Keptn tutorials](https://tutorials.keptn.sh). |
