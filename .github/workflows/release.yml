@@ -1,0 +1,79 @@
+name: Release
+on:
+  workflow_dispatch:
+env:
+  NODE_VERSION: 14
+  KEPTN_BOT_NAME: "Keptn Bot"
+  KEPTN_BOT_EMAIL: "keptn-bot <86361500+keptn-bot@users.noreply.github.com>"
+  RELEASE_NOTES_FILE: "RELEASE-BODY.md"
+defaults:
+  run:
+    shell: bash
+jobs:
+  release:
+    name: "Release"
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Configure Git
+        env:
+          KEPTN_BOT_NAME: ${{ env.KEPTN_BOT_NAME }}
+          KEPTN_BOT_EMAIL: ${{ env.KEPTN_BOT_EMAIL }}
+        run: |
+          git config user.name "$KEPTN_BOT_NAME"
+          git config user.email "$KEPTN_BOT_EMAIL"
+
+      - name: Prepare GitHub Release Notes
+        run: |
+          # Delete pre-release tags to be able to generate a changelog from last 'real' release
+          # This is a workaround for a known limitation of standard-version
+          # Reference: https://github.com/conventional-changelog/standard-version/issues/203#issuecomment-872415140
+          git tag -l | grep -vE '^v(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$' | xargs git tag -d
+
+          npx standard-version@^9.3.1 -i "${{ env.RELEASE_NOTES_FILE }}" --skip.commit --skip.tag --header ""
+
+      - name: Temporarily disable "include administrators" branch protection
+        uses: benjefferies/branch-protection-bot@6d0ac2b2d9bfd39794b017f8241adb7da7f0ab98 # pin@1.0.7
+        with:
+          access_token: ${{ secrets.KEPTN_BOT_TOKEN }}
+          branch: ${{ github.event.repository.default_branch }}
+          enforce_admins: false
+
+      - name: Create release package
+        id: create-release-package
+        env:
+          GITHUB_TOKEN: ${{ secrets.KEPTN_BOT_TOKEN }}
+        run: |
+          echo "🚀 Creating release package now..."
+          npx standard-version@^9.3.1
+
+          echo "::set-output name=tag-name::$(git describe --tags --abbrev=0)"
+
+          echo "Fetching previously deleted old tags..."
+          git fetch origin --tags -f
+          echo "⚡️ Pushing changes to remote repository..."
+          git push --follow-tags
+
+      - name: Enable "include administrators" branch protection
+        uses: benjefferies/branch-protection-bot@6d0ac2b2d9bfd39794b017f8241adb7da7f0ab98 # pin@1.0.7
+        if: always() # Force to always run this step to ensure "include administrators" is always turned back on
+        with:
+          access_token: ${{ secrets.KEPTN_BOT_TOKEN }}
+          branch: ${{ github.event.repository.default_branch }}
+          enforce_admins: true
+
+      - name: Create GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.KEPTN_BOT_TOKEN }}
+          RELEASE_TAG: ${{ steps.create-release-package.outputs.tag-name }}
+        run: |
+          gh release create "$RELEASE_TAG" --draft --notes-file "${{ env.RELEASE_NOTES_FILE }}" --title "$RELEASE_TAG"
