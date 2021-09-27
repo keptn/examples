@@ -3,6 +3,7 @@
   "scripts": {
     "postchangelog": "./gh-actions-scripts/post-changelog-actions.sh"
   },
+  "tagPrefix": "",
   "types": [
     {
       "type": "feat",
