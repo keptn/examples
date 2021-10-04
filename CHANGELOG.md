@@ -1,5 +1,19 @@
 # Changelog
 
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [0.10.0](https://github.com/keptn/examples/compare/0.9.0...0.10.0) (2021-10-04)
+
+
+### Features
+
+* Update Dynatrace SLI definitions ([91b933a](https://github.com/keptn/examples/commit/91b933a5c5915790042f18f58381f4d2097e6666))
+
+
+### Bug Fixes
+
+* Remove v prefix in version tags for automated releases ([5a05bf0](https://github.com/keptn/examples/commit/5a05bf07524737af58c114c4fce5d057c70fdd6a))
+
 ## [0.9.0](https://github.com/keptn/examples/compare/0.8.4...0.9.0)
 
 This release has been created to keep the version of the examples in sync with the Keptn release version.
