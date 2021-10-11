@@ -98,8 +98,8 @@ verify_helm_installation
 print_headline "Downloading demo resources"
 echo "This will create a local folder ./examples"
 echo "git clone https://github.com/keptn/examples --single-branch"
-
-cd examples/quickstart
+#git clone https://github.com/keptn/examples --single-branch
+#cd examples/quickstart
 
 print_headline "Create a Keptn project"
 echo "keptn create project $PROJECT --shipyard=./demo/shipyard.yaml"
@@ -190,11 +190,6 @@ keptn trigger delivery --project=$PROJECT --service=$SERVICE --image=$IMAGE --ta
 verify_test_step $? "Trigger delivery for helloservice failed"
 
 
-
-# TODO
-# add remediation demo here
-
-
 echo "Following the multi stage delivery in Keptn Bridge while we are setting up Prometheus and configure quality gates"
 echo "Find the details here: http://$INGRESS_IP.nip.io:$INGRESS_PORT/bridge/project/$PROJECT/sequence"
 echo "Attempt to open Keptn Bridge in 5 seconds..."
@@ -213,8 +208,13 @@ print_headline "Have a look at the Keptn Bridge and explore the demo project"
 echo "You can run a new delivery sequence with the following command"
 echo "keptn trigger delivery --project=$PROJECT --service=$SERVICE --image=$IMAGE --tag=$VERSION"
 
-print_headline "Demo has been successfully set up"
+print_headline "Multi-stage delviery demo with SLO-based quality gates has been successfully set up"
 echo "If you want to connect the demo to a Git upstream to learn how Keptn manages the resources please execute"
 echo " keptn update project podtatohead --git-user=GIT_USER --git-token=GIT_TOKEN --git-remote-url=GIT_REMOTE_URL "
 echo "with your git user, token, and remote url."
 echo "Learn more at https://keptn.sh/docs/0.9.x/manage/git_upstream/ "
+
+echo "You can run a new delivery sequence with the following command"
+echo "keptn trigger delivery --project=$PROJECT --service=$SERVICE --image=$IMAGE --tag=$VERSION"
+echo "or by deploying a slow version that will not pass the quality gate"
+echo "keptn trigger delivery --project=$PROJECT --service=$SERVICE --image=$IMAGE --tag=$SLOW_VERSION"

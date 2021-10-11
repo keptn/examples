@@ -24,7 +24,7 @@ objectives:
     key_sli: true
     pass:
       - criteria:
-          - "<=60"
+          - "<=90"
   - sli: failing_request
     displayName: "Failing Requests"
     pass:
