@@ -49,7 +49,7 @@ spec:
             - name: ALWAYS_SEND_FINISHED_EVENT
               value: "false"
         - name: distributor
-          image: keptn/distributor:0.9.0
+          image: keptn/distributor:0.9.2
           livenessProbe:
             httpGet:
               path: /health
@@ -153,7 +153,7 @@ rules:
     verbs:
       - "*"
 ---
-# Role for accessing secrets in the namespace
+# Role for accessing pods in the podtatohead-production namespace
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
