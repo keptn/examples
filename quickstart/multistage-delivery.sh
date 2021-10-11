@@ -98,8 +98,8 @@ verify_helm_installation
 print_headline "Downloading demo resources"
 echo "This will create a local folder ./examples"
 echo "git clone https://github.com/keptn/examples --single-branch"
-#git clone https://github.com/keptn/examples --single-branch
-#cd examples/quickstart
+git clone https://github.com/keptn/examples --single-branch
+cd examples/quickstart
 
 print_headline "Create a Keptn project"
 echo "keptn create project $PROJECT --shipyard=./demo/shipyard.yaml"
