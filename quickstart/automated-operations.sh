@@ -49,6 +49,7 @@ PROJECT="podtatohead"
 SERVICE="helloservice"
 
 print_headline "Preparation of Auto-remediation in Production"
+cd examples/quickstart
 
 echo "Adding SLIs for Prometheus"
 keptn add-resource --project=$PROJECT --stage=production --service=$SERVICE --resource=./demo/prometheus/sli.yaml --resourceUri=prometheus/sli.yaml
