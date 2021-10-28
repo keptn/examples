@@ -9,7 +9,7 @@ objectives:
     displayName: "HTTP Respone Time"
     pass:
       - criteria:
-          - "<=0.2"
+          - "<=0.4"
     warning:
       - criteria:
           - "<=0.1"
