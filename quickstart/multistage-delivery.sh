@@ -114,7 +114,8 @@ print_headline "Add Helm chart for $SERVICE"
 keptn add-resource --project=$PROJECT --service=$SERVICE --all-stages --resource=./demo/helm/helloservice.tgz --resourceUri=helm/helloservice.tgz
 
 print_headline "Add endpoints file"
-keptn add-resource --project=$PROJECT --service=$SERVICE --stage=hardening --resource=./demo/helm/endpoints.yaml --resourceUri=helm/endpoints.yaml
+keptn add-resource --project=$PROJECT --service=$SERVICE --stage=hardening --resource=./demo/helm/hardening_endpoints.yaml --resourceUri=helm/endpoints.yaml
+keptn add-resource --project=$PROJECT --service=$SERVICE --stage=production --resource=./demo/helm/production_endpoints.yaml --resourceUri=helm/endpoints.yaml
 
 # adding quality gates
 print_headline "Installing Prometheus"
