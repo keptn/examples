@@ -6,7 +6,7 @@ comparison:
   aggregate_function: avg
 objectives:
   - sli: http_response_time_seconds_main_page_sum
-    displayName: "HTTP Respone Time"
+    displayName: "HTTP Response Time"
     pass:
       - criteria:
           - "<=0.4"
