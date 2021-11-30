@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.11.0](https://github.com/keptn/examples/compare/0.10.0...0.11.0) (2021-11-30)
+
+
+### Features
+
+* adding quickstart resources ([#196](https://github.com/keptn/examples/issues/196)) ([43ed263](https://github.com/keptn/examples/commit/43ed263da79693462501aff90c9222a0a7a118be))
+
+
+### Bug Fixes
+
+* change SLO values for new podtatohead image ([#199](https://github.com/keptn/examples/issues/199)) ([40fbc4f](https://github.com/keptn/examples/commit/40fbc4ff4979068fba2f0d9482d92f8ea81bba7b))
+* Set new release version of prometheus-service ([#198](https://github.com/keptn/examples/issues/198)) ([7e2106a](https://github.com/keptn/examples/commit/7e2106aa080d9a1867b4b20f76dff55d5b9550bf))
+* Use elevated token for checkout during (pre)release ([#200](https://github.com/keptn/examples/issues/200)) ([3ce97e3](https://github.com/keptn/examples/commit/3ce97e3b26026be44c6801dabf62900e047c75db))
+
 ## [0.10.0](https://github.com/keptn/examples/compare/0.9.0...0.10.0) (2021-10-04)
 
 
