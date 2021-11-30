@@ -90,7 +90,7 @@ jobs:
         run: |
           echo "🚀 Creating pre-release package now..."
 
-          if [[ -z "$SEMVER_TYPE" ]]; then
+          if [[ ! -z "$SEMVER_TYPE" ]]; then
             npx standard-version@^9.3.1 \
               --release-as "$SEMVER_TYPE" \
               --prerelease "${{ env.PRERELEASE_KEYWORD }}" \
