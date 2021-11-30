@@ -1,6 +1,10 @@
 name: Release
 on:
   workflow_dispatch:
+    inputs:
+      semver-type:
+        description: 'Can be one of [major,minor,patch]. CAUTION: This will enforce a new release with the specified semantic version type bumped.'
+        required: false
 env:
   NODE_VERSION: 14
   KEPTN_BOT_NAME: "Keptn Bot"
@@ -14,6 +18,23 @@ jobs:
     name: "Release"
     runs-on: ubuntu-20.04
     steps:
+      - name: Check SemVer input
+        env:
+          SEMVER_TYPE: ${{ github.event.inputs.semver-type }}
+        run: |
+          if [[ ! -z "$SEMVER_TYPE" ]]; then
+            echo "SemVer Type is defined. Checking for valid SemVer type..."
+            if [[ "$SEMVER_TYPE" == "major" ]] || [[ "$SEMVER_TYPE" == "minor" ]] || [[ "$SEMVER_TYPE" == "patch" ]]; then
+              echo "::notice::SemVer Type is correctly set to $SEMVER_TYPE! Continuing with this version bump..."
+            else
+              echo "::error::ERROR: Enforced SemVer does not match any of [major,minor,patch]!"
+              echo "Exiting..."
+              exit 1
+            fi
+          else
+            echo "::notice::No SemVer type defined, continuing with auto generated version number..."
+          fi
+
       - name: Checkout repo
         uses: actions/checkout@v2
         with:
@@ -34,13 +55,28 @@ jobs:
           git config user.email "$KEPTN_BOT_EMAIL"
 
       - name: Prepare GitHub Release Notes
+        env:
+          SEMVER_TYPE: ${{ github.event.inputs.semver-type }}
         run: |
           # Delete pre-release tags to be able to generate a changelog from last 'real' release
           # This is a workaround for a known limitation of standard-version
           # Reference: https://github.com/conventional-changelog/standard-version/issues/203#issuecomment-872415140
           git tag -l | grep -vE '^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)$' | xargs git tag -d
 
-          npx standard-version@^9.3.1 -i "${{ env.RELEASE_NOTES_FILE }}" --skip.commit --skip.tag --header ""
+          if [[ -z "$SEMVER_TYPE" ]]; then
+            npx standard-version@^9.3.1 \
+              -i "${{ env.RELEASE_NOTES_FILE }}" \
+              --skip.commit \
+              --skip.tag \
+              --header "" \
+              --release-as "$SEMVER_TYPE"
+          else
+            npx standard-version@^9.3.1 \
+              -i "${{ env.RELEASE_NOTES_FILE }}" \
+              --skip.commit \
+              --skip.tag \
+              --header ""
+          fi
 
       - name: Temporarily disable "include administrators" branch protection
         uses: benjefferies/branch-protection-bot@6d0ac2b2d9bfd39794b017f8241adb7da7f0ab98 # pin@1.0.7
@@ -52,10 +88,17 @@ jobs:
       - name: Create release package
         id: create-release-package
         env:
+          SEMVER_TYPE: ${{ github.event.inputs.semver-type }}
           GITHUB_TOKEN: ${{ secrets.KEPTN_BOT_TOKEN }}
         run: |
           echo "🚀 Creating release package now..."
-          npx standard-version@^9.3.1
+
+          if [[ -z "$SEMVER_TYPE" ]]; then
+            npx standard-version@^9.3.1 \
+              --release-as "$SEMVER_TYPE"
+          else
+            npx standard-version@^9.3.1
+          fi
 
           echo "::set-output name=tag-name::$(git describe --tags --abbrev=0)"
 

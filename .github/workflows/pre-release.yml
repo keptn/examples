@@ -1,6 +1,10 @@
 name: Pre-Release
 on:
   workflow_dispatch:
+    inputs:
+      semver-type:
+        description: 'Can be one of [major,minor,patch]. CAUTION: This will enforce a new pre-release with the specified semantic version type bumped.'
+        required: false
 env:
   NODE_VERSION: 14
   KEPTN_BOT_NAME: "Keptn Bot"
@@ -15,6 +19,23 @@ jobs:
     name: Pre-Release
     runs-on: ubuntu-20.04
     steps:
+      - name: Check SemVer input
+        env:
+          SEMVER_TYPE: ${{ github.event.inputs.semver-type }}
+        run: |
+          if [[ ! -z "$SEMVER_TYPE" ]]; then
+            echo "SemVer Type is defined. Checking for valid SemVer type..."
+            if [[ "$SEMVER_TYPE" == "major" ]] || [[ "$SEMVER_TYPE" == "minor" ]] || [[ "$SEMVER_TYPE" == "patch" ]]; then
+              echo "::notice::SemVer Type is correctly set to $SEMVER_TYPE! Continuing with this version bump..."
+            else
+              echo "::error::ERROR: Enforced SemVer does not match any of [major,minor,patch]!"
+              echo "Exiting..."
+              exit 1
+            fi
+          else
+            echo "::notice::No SemVer type defined, continuing with auto generated version number..."
+          fi
+
       - name: Checkout repo
         uses: actions/checkout@v2
         with:
@@ -35,8 +56,25 @@ jobs:
           git config user.email "$KEPTN_BOT_EMAIL"
 
       - name: Prepare GitHub Release Notes
+        env:
+          SEMVER_TYPE: ${{ github.event.inputs.semver-type }}
         run: |
-          npx standard-version@^9.3.1 --prerelease "${{ env.PRERELEASE_KEYWORD }}" -i "${{ env.RELEASE_NOTES_FILE }}" --skip.commit --skip.tag --header ""
+          if [[ -z "$SEMVER_TYPE" ]]; then
+            npx standard-version@^9.3.1 \
+              --prerelease "${{ env.PRERELEASE_KEYWORD }}" \
+              -i "${{ env.RELEASE_NOTES_FILE }}" \
+              --skip.commit \
+              --skip.tag \
+              --header "" \
+              --release-as "$SEMVER_TYPE"
+          else
+            npx standard-version@^9.3.1 \
+              --prerelease "${{ env.PRERELEASE_KEYWORD }}" \
+              -i "${{ env.RELEASE_NOTES_FILE }}" \
+              --skip.commit \
+              --skip.tag \
+              --header ""
+          fi
 
       - name: Enhance Release Notes with Build Metadata
         run: |
@@ -47,10 +85,23 @@ jobs:
       - name: Create pre-release package
         id: create-release-package
         env:
+          SEMVER_TYPE: ${{ github.event.inputs.semver-type }}
           GITHUB_TOKEN: ${{ secrets.KEPTN_BOT_TOKEN }}
         run: |
           echo "🚀 Creating pre-release package now..."
-          npx standard-version@^9.3.1 --prerelease "${{ env.PRERELEASE_KEYWORD }}" --skip.commit --skip.changelog
+
+          if [[ -z "$SEMVER_TYPE" ]]; then
+            npx standard-version@^9.3.1 \
+              --release-as "$SEMVER_TYPE" \
+              --prerelease "${{ env.PRERELEASE_KEYWORD }}" \
+              --skip.commit \
+              --skip.changelog
+          else
+            npx standard-version@^9.3.1 \
+              --prerelease "${{ env.PRERELEASE_KEYWORD }}" \
+              --skip.commit \
+              --skip.changelog
+          fi
 
           echo "::set-output name=tag-name::$(git describe --tags --abbrev=0)"
           echo "⚡️ Pushing changes to remote repository..."
