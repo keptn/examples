@@ -66,7 +66,7 @@ keptn add-resource --project=$PROJECT --service=$SERVICE --stage=production --re
 wait_for_deployment_in_namespace "job-executor-service" "keptn"
 
 print_headline "Simulate Alert (Problem)"
-echo -e "{\"type\": \"sh.keptn.event.production.remediation.triggered\",\"specversion\":\"1.0\",\"source\":\"https:\/\/github.com\/keptn\/keptn\/prometheus-service\",\"id\": \"f2b878d3-03c0-4e8f-bc3f-454bc1b3d79d\",  \"time\": \"2019-06-07T07:02:15.64489Z\",  \"contenttype\": \"application\/json\", \"data\": {\"project\": \"podtatohead\",\"stage\": \"production\",\"service\": \"helloservice\",\"problem\": { \"problemTitle\": \"out_of_memory\",\"rootCause\": \"Response time degradation\"}}}" > remediation_trigger.json | keptn send event -f remediation_trigger.json
+echo -e "{\"type\": \"sh.keptn.event.production.remediation.triggered\",\"specversion\":\"1.0\",\"source\":\"https:\/\/github.com\/keptn-contrib\/prometheus-service\",\"id\": \"f2b878d3-03c0-4e8f-bc3f-454bc1b3d79d\",  \"time\": \"2019-06-07T07:02:15.64489Z\",  \"contenttype\": \"application\/json\", \"data\": {\"project\": \"podtatohead\",\"stage\": \"production\",\"service\": \"helloservice\",\"problem\": { \"problemTitle\": \"out_of_memory\",\"rootCause\": \"Response time degradation\"}}}" > remediation_trigger.json | keptn send event -f remediation_trigger.json
 
 print_headline "Have a look at the Keptn Bridge and explore the demo project"
 
