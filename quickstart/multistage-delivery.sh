@@ -3,9 +3,9 @@ set -e
 
 PROJECT="podtatohead"
 SERVICE="helloservice"
-IMAGE="docker.io/jetzlstorfer/helloserver"
-VERSION=0.1.1
-SLOW_VERSION=0.1.2
+IMAGE="ghcr.io/podtato-head/podtatoserver"
+VERSION=v0.1.1
+SLOW_VERSION=v0.1.2
 
 #source <(curl -s https://raw.githubusercontent.com/keptn/keptn/0.8.5/test/utils.sh)
 
@@ -123,6 +123,8 @@ kubectl create ns monitoring
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
 helm install prometheus prometheus-community/prometheus --namespace monitoring --wait
 
+verify_test_step $? "Install prometheus failed"
+
 kubectl apply -f - <<EOF
 apiVersion: networking.k8s.io/v1
 kind: Ingress
@@ -148,8 +150,8 @@ verify_test_step $? "Applying Ingress for Prometheus failed"
 echo "Prometheus is available at http://prometheus.$INGRESS_IP.nip.io:$INGRESS_PORT "
 
 print_headline "Setting up Prometheus integration"
-kubectl apply -f https://raw.githubusercontent.com/keptn-contrib/prometheus-service/release-0.7.0/deploy/role.yaml -n monitoring
-kubectl apply -f https://raw.githubusercontent.com/keptn-contrib/prometheus-service/release-0.7.0/deploy/service.yaml 
+kubectl apply -f https://raw.githubusercontent.com/keptn-contrib/prometheus-service/release-0.7.1/deploy/role.yaml -n monitoring
+kubectl apply -f https://raw.githubusercontent.com/keptn-contrib/prometheus-service/release-0.7.1/deploy/service.yaml
 
 promsecretdata="url: http://prometheus-server.monitoring.svc.cluster.local:80"
 echo "kubectl create secret generic -n keptn prometheus-credentials-$PROJECT --from-literal=prometheus-credentials=$promsecretdata"
