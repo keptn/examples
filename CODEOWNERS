@@ -13,6 +13,6 @@
 #
 
 # These owners will be the default owners for everything in the repo.
-* @AloisReitbauer @thisthat
-unleash-server/* @jetzlstorfer
-simplenodeservice/* @grabnerandi
+* @AloisReitbauer @thisthat @oleg-nenashev
+unleash-server/* @jetzlstorfer @oleg-nenashev
+simplenodeservice/* @grabnerandi @oleg-nenashev
