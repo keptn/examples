@@ -29,7 +29,7 @@ objectives:
     displayName: "Failing Requests"
     pass:
       - criteria:
-          - "< 10"
+          - "<10"
 total_score:
   pass: "90%"
   warning: "75%"
