@@ -199,11 +199,17 @@ echo "Attempt to open Keptn Bridge in 5 seconds..."
 echo "Demo setup will continue in the background while you can explore the Keptn Bridge..."
 sleep 5
 
-if ! command -v open &> /dev/null
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    OPEN=('xdg-open')
+else
+    OPEN=('open')
+fi
+
+if ! command -v "${OPEN[@]}" &> /dev/null
 then
   echo http://$INGRESS_IP.nip.io:$INGRESS_PORT/bridge/project/podtatohead/sequence
 else
-  open http://$INGRESS_IP.nip.io:$INGRESS_PORT/bridge/project/podtatohead/sequence
+  "${OPEN[@]}" http://$INGRESS_IP.nip.io:$INGRESS_PORT/bridge/project/podtatohead/sequence
 fi
 
 
