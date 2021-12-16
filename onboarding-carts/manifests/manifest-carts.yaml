@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: carts
-        image: docker.io/keptnexamples/carts:0.11.1
+        image: docker.io/keptnexamples/carts:0.13.1
         env:
         - name: JAVA_OPTS
           value: -Xms128m -Xmx512m -XX:PermSize=128m -XX:MaxPermSize=128m -XX:+UseG1GC -Djava.security.egd=file:/dev/urandom
@@ -35,7 +35,7 @@ spec:
             fieldRef:
               fieldPath: "metadata.labels['deployment']"
         - name: CONTAINER_IMAGE
-          value: docker.io/keptnexamples/carts:0.11.1
+          value: docker.io/keptnexamples/carts:0.13.1
         - name: DT_CUSTOM_PROP
           value: "keptn_stage=hardening keptn_project=sockshop keptn_service=carts"
         resources:
