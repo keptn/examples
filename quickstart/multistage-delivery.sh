@@ -150,13 +150,11 @@ verify_test_step $? "Applying Ingress for Prometheus failed"
 echo "Prometheus is available at http://prometheus.$INGRESS_IP.nip.io:$INGRESS_PORT "
 
 print_headline "Setting up Prometheus integration"
-kubectl apply -f https://raw.githubusercontent.com/keptn-contrib/prometheus-service/release-0.7.1/deploy/role.yaml -n monitoring
-kubectl apply -f https://raw.githubusercontent.com/keptn-contrib/prometheus-service/release-0.7.1/deploy/service.yaml
 
-promsecretdata="url: http://prometheus-server.monitoring.svc.cluster.local:80"
-echo "kubectl create secret generic -n keptn prometheus-credentials-$PROJECT --from-literal=prometheus-credentials=$promsecretdata"
+PROMETHEUS_SERVICE_VERSION=0.7.2
 
-kubectl create secret generic -n keptn prometheus-credentials-$PROJECT --from-literal=prometheus-credentials="$promsecretdata"
+helm install -n keptn prometheus-service https://github.com/keptn-contrib/prometheus-service/releases/download/${PROMETHEUS_SERVICE_VERSION}/prometheus-service-${PROMETHEUS_SERVICE_VERSION}.tgz --wait
+kubectl apply -f https://raw.githubusercontent.com/keptn-contrib/prometheus-service/${PROMETHEUS_SERVICE_VERSION}/deploy/role.yaml -n monitoring
 
 echo "Adding SLIs for Prometheus"
 keptn add-resource --project=$PROJECT --stage=hardening --service=$SERVICE --resource=./demo/prometheus/sli.yaml --resourceUri=prometheus/sli.yaml
