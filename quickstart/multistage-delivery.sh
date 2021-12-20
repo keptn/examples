@@ -98,7 +98,18 @@ verify_helm_installation
 print_headline "Downloading demo resources"
 echo "This will create a local folder ./examples"
 echo "git clone https://github.com/keptn/examples --single-branch"
-git clone https://github.com/keptn/examples --single-branch
+
+DIR="./examples"
+BOLD='\033[1m'
+NORMAL='\033[0m'
+if [ -d "$DIR" ]; then
+  # Example directory already exists
+  echo -e "\n${BOLD}Example directory already exists in folder. Skipping download!${NORMAL}"
+else
+  # Example Directory does not exist
+  git clone https://github.com/keptn/examples --single-branch
+fi
+
 cd examples/quickstart
 
 print_headline "Create a Keptn project"
