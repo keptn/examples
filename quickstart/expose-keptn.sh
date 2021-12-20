@@ -121,13 +121,20 @@ do
   # echo "retries:  $retries / $MAX_RETRIES" 
   if [ ${http_code} -eq 200 ]; then
     echo "Attempting to open Keptn bridge on http://$INGRESS_IP.nip.io:$INGRESS_PORT/bridge"
-    if ! command -v open &> /dev/null
+
+     if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+      OPEN=('xdg-open')
+    else
+        OPEN=('open')
+    fi
+
+    if ! command -v "${OPEN[@]}" &> /dev/null
     then
       echo "Open command not found. Printing connection details instead"
+      echo http://$INGRESS_IP.nip.io:$INGRESS_PORT/bridge
       break
     else
-      open http://$INGRESS_IP.nip.io:$INGRESS_PORT/bridge
-      break
+      "${OPEN[@]}" http://$INGRESS_IP.nip.io:$INGRESS_PORT/bridge
     fi
   fi
   echo "Keptn bridge not yet available, waiting $SLEEP_TIME seconds and then trying again"
