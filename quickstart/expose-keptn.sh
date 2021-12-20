@@ -44,9 +44,9 @@ function wait_for_deployment_in_namespace() {
         echo "Found deployment ${DEPLOYMENT} in namespace ${NAMESPACE}: ${DEPLOYMENT_LIST}"
         break
       else
-          RETRY=$((RETRY+1))
-          echo "Retry: ${RETRY}/${RETRY_MAX} - Unsufficient replicas for deployment - waiting 15s for deployment ${DEPLOYMENT} in namespace ${NAMESPACE}"
-          sleep 15
+        RETRY=$((RETRY+1))
+        echo "Retry: ${RETRY}/${RETRY_MAX} - Unsufficient replicas for deployment - waiting 15s for deployment ${DEPLOYMENT} in namespace ${NAMESPACE}"
+        sleep 15
       fi
     fi
   done
@@ -122,10 +122,10 @@ do
   if [ ${http_code} -eq 200 ]; then
     echo "Attempting to open Keptn bridge on http://$INGRESS_IP.nip.io:$INGRESS_PORT/bridge"
 
-     if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
       OPEN=('xdg-open')
     else
-        OPEN=('open')
+      OPEN=('open')
     fi
 
     if ! command -v "${OPEN[@]}" &> /dev/null
@@ -135,6 +135,7 @@ do
       break
     else
       "${OPEN[@]}" http://$INGRESS_IP.nip.io:$INGRESS_PORT/bridge
+      break
     fi
   fi
   echo "Keptn bridge not yet available, waiting $SLEEP_TIME seconds and then trying again"
