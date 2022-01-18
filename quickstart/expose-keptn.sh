@@ -72,6 +72,30 @@ SLEEP_TIME=5
 
 print_headline "Configuring Ingress for your local installation"
 
+K8S_VERSION=$(kubectl version -ojson)
+K8S_VERSION_MINOR=$(echo "$K8S_VERSION" | jq -r .serverVersion.minor)
+
+if [[ "$K8S_VERSION_MINOR" < "19" ]]
+then
+echo "Detected Kubernetes version < 1.19"
+# Applying ingress-manifest
+kubectl apply -f - <<EOF
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: api-keptn-ingress
+  namespace: keptn
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  rules:
+  - http:
+      paths:
+      - backend:
+          serviceName: api-gateway-nginx
+          servicePort: 80
+EOF
+else
 # Applying ingress-manifest
 kubectl apply -f - <<EOF
 apiVersion: networking.k8s.io/v1
@@ -93,6 +117,7 @@ spec:
             port:
               number: 80
 EOF
+fi
 
 verify_test_step $? "Applying public gateway failed"
 
