@@ -137,7 +137,7 @@ helm install prometheus prometheus-community/prometheus --namespace monitoring -
 verify_test_step $? "Install prometheus failed"
 
 K8S_VERSION=$(kubectl version -ojson)
-K8S_VERSION_MINOR=$(echo "$K8S_VERSION" | jq -r .serverVersion.minor)
+K8S_VERSION_MINOR=$(echo "$K8S_VERSION" | grep 'minor' | tail -1 | sed 's/^.*: //' | sed 's/^"\(.*\)".*/\1/')
 
 if [[ "$K8S_VERSION_MINOR" < "19" ]]
 then
