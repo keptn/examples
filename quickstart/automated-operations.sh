@@ -58,14 +58,9 @@ keptn add-resource --project=$PROJECT --stage=production --service=$SERVICE --re
 echo "Adding Remediation Configuration"
 keptn add-resource --project=$PROJECT --stage=production --service=$SERVICE --resource=./demo/remediation.yaml --resourceUri=remediation.yaml
 
-jes_is_installed=$(kubectl -n keptn get deployment job-executor-service --ignore-not-found)
-if [[ $jes_is_installed == "" ]]; then
-  print_headline "Deploy Job Executor"
-  kubectl apply -f ./demo/job/job-executor.yaml
-else
-  print_headline "Job Executor Already Deployed. Skipping Deployment. Will Add Config."
-fi
+print_headline "Deploy Job Executor"
 
+kubectl apply -f ./demo/job/job-executor.yaml
 keptn add-resource --project=$PROJECT --service=$SERVICE --stage=production --resource=./demo/job/config.yaml --resourceUri=job/config.yaml
 
 wait_for_deployment_in_namespace "job-executor-service" "keptn"

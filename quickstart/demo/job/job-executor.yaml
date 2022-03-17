@@ -8,21 +8,18 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app.kubernetes.io/name: distributor
-      app.kubernetes.io/instance: keptn
+      run: job-executor-service
   replicas: 1
   template:
     metadata:
       labels:
-        app.kubernetes.io/name: distributor
-        app.kubernetes.io/instance: keptn
-        app.kubernetes.io/part-of: keptn-keptn
-        app.kubernetes.io/component: control-plane
-        app.kubernetes.io/version: develop
+        run: job-executor-service
+        app.kubernetes.io/name: job-executor-service
+        app.kubernetes.io/version: 0.1.4
     spec:
       containers:
         - name: job-executor-service
-          image: keptncontrib/job-executor-service:0.1.7
+          image: jbraeuer/job-executor-service:0.1.4.1
           ports:
             - containerPort: 8080
           resources:
@@ -40,7 +37,7 @@ spec:
             - name: JOB_NAMESPACE
               value: 'keptn'
             - name: INIT_CONTAINER_IMAGE
-              value: 'keptncontrib/job-executor-service-initcontainer:0.1.7'
+              value: 'keptnsandbox/job-executor-service-initcontainer:0.1.4'
             - name: DEFAULT_RESOURCE_LIMITS_CPU
               value: "1"
             - name: DEFAULT_RESOURCE_LIMITS_MEMORY
@@ -52,7 +49,7 @@ spec:
             - name: ALWAYS_SEND_FINISHED_EVENT
               value: "false"
         - name: distributor
-          image: keptn/distributor:0.13.2
+          image: keptn/distributor:0.9.2
           livenessProbe:
             httpGet:
               path: /health
@@ -64,11 +61,11 @@ spec:
             - containerPort: 8080
           resources:
             requests:
-              memory: "16Mi"
-              cpu: "25m"
-            limits:
               memory: "32Mi"
-              cpu: "100m"
+              cpu: "50m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
           env:
             - name: PUBSUB_URL
               value: 'nats://keptn-nats-cluster'
@@ -81,10 +78,6 @@ spec:
                 fieldRef:
                   apiVersion: v1
                   fieldPath: 'metadata.labels[''app.kubernetes.io/version'']'
-            - name: LOCATION
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.labels['app.kubernetes.io/component']
             - name: K8S_DEPLOYMENT_NAME
               valueFrom:
                 fieldRef:
