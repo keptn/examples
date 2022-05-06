@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.15.0](https://github.com/keptn/examples/compare/0.14.0...0.15.0) (2022-05-06)
+
 ## [0.11.0](https://github.com/keptn/examples/compare/0.10.0...0.11.0) (2021-11-30)
 
 
