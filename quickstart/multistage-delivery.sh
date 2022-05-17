@@ -186,7 +186,7 @@ echo "Prometheus is available at http://prometheus.$INGRESS_IP.nip.io:$INGRESS_P
 
 print_headline "Setting up Prometheus integration"
 
-PROMETHEUS_SERVICE_VERSION=0.7.2
+PROMETHEUS_SERVICE_VERSION=0.8.0
 
 helm install -n keptn prometheus-service https://github.com/keptn-contrib/prometheus-service/releases/download/${PROMETHEUS_SERVICE_VERSION}/prometheus-service-${PROMETHEUS_SERVICE_VERSION}.tgz --wait
 kubectl apply -f https://raw.githubusercontent.com/keptn-contrib/prometheus-service/${PROMETHEUS_SERVICE_VERSION}/deploy/role.yaml -n monitoring
