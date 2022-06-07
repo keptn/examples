@@ -114,6 +114,7 @@ cd examples/quickstart
 
 print_headline "Create a Keptn project"
 echo "keptn create project $PROJECT --shipyard=./demo/shipyard.yaml"
+keptn delete project podtatohead &> /dev/null || true
 keptn create project $PROJECT --shipyard=./demo/shipyard.yaml
 verify_test_step $? "keptn create project command failed."
 
@@ -130,9 +131,9 @@ keptn add-resource --project=$PROJECT --service=$SERVICE --stage=production --re
 
 # adding quality gates
 print_headline "Installing Prometheus"
-kubectl create ns monitoring
+kubectl create ns monitoring --dry-run=client -o yaml | kubectl apply -f -
 helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-helm install prometheus prometheus-community/prometheus --namespace monitoring --wait
+helm upgrade -i prometheus prometheus-community/prometheus --namespace monitoring --wait
 
 verify_test_step $? "Install prometheus failed"
 
@@ -188,7 +189,7 @@ print_headline "Setting up Prometheus integration"
 
 PROMETHEUS_SERVICE_VERSION=0.8.0
 
-helm install -n keptn prometheus-service https://github.com/keptn-contrib/prometheus-service/releases/download/${PROMETHEUS_SERVICE_VERSION}/prometheus-service-${PROMETHEUS_SERVICE_VERSION}.tgz --wait
+helm upgrade -i -n keptn prometheus-service https://github.com/keptn-contrib/prometheus-service/releases/download/${PROMETHEUS_SERVICE_VERSION}/prometheus-service-${PROMETHEUS_SERVICE_VERSION}.tgz --wait
 kubectl apply -f https://raw.githubusercontent.com/keptn-contrib/prometheus-service/${PROMETHEUS_SERVICE_VERSION}/deploy/role.yaml -n monitoring
 
 echo "Adding SLIs for Prometheus"
@@ -216,13 +217,13 @@ wait_for_deployment_in_namespace "prometheus-service" "keptn"
 wait_for_deployment_in_namespace "prometheus-server" "monitoring"
 
 print_headline "Trigger the delivery sequence with Keptn"
-echo "keptn trigger delivery --project=$PROJECT --service=$SERVICE --image=$IMAGE --tag=$VERSION"
-keptn trigger delivery --project=$PROJECT --service=$SERVICE --image=$IMAGE --tag=$VERSION
+echo "keptn trigger delivery --project=$PROJECT --service=$SERVICE --image=$IMAGE:$VERSION"
+keptn trigger delivery --project=$PROJECT --service=$SERVICE --image=$IMAGE:$VERSION
 verify_test_step $? "Trigger delivery for helloservice failed"
 
 print_headline "Trigger a new delivery sequence with Keptn"
-echo "keptn trigger delivery --project=$PROJECT --service=$SERVICE --image=$IMAGE --tag=$SLOW_VERSION"
-keptn trigger delivery --project=$PROJECT --service=$SERVICE --image=$IMAGE --tag=$SLOW_VERSION
+echo "keptn trigger delivery --project=$PROJECT --service=$SERVICE --image=$IMAGE:$SLOW_VERSION"
+keptn trigger delivery --project=$PROJECT --service=$SERVICE --image=$IMAGE:$SLOW_VERSION
 verify_test_step $? "Trigger delivery for helloservice failed"
 
 
@@ -248,7 +249,7 @@ fi
 
 print_headline "Have a look at the Keptn Bridge and explore the demo project"
 echo "You can run a new delivery sequence with the following command"
-echo "keptn trigger delivery --project=$PROJECT --service=$SERVICE --image=$IMAGE --tag=$VERSION"
+echo "keptn trigger delivery --project=$PROJECT --service=$SERVICE --image=$IMAGE:$VERSION"
 
 print_headline "Multi-stage delviery demo with SLO-based quality gates has been successfully set up"
 echo "If you want to connect the demo to a Git upstream to learn how Keptn manages the resources please execute"
@@ -257,6 +258,6 @@ echo "with your git user, token, and remote url."
 echo "Learn more at https://keptn.sh/docs/0.9.x/manage/git_upstream/ "
 
 echo "You can run a new delivery sequence with the following command"
-echo "keptn trigger delivery --project=$PROJECT --service=$SERVICE --image=$IMAGE --tag=$VERSION"
+echo "keptn trigger delivery --project=$PROJECT --service=$SERVICE --image=$IMAGE:$VERSION"
 echo "or by deploying a slow version that will not pass the quality gate"
-echo "keptn trigger delivery --project=$PROJECT --service=$SERVICE --image=$IMAGE --tag=$SLOW_VERSION"
+echo "keptn trigger delivery --project=$PROJECT --service=$SERVICE --image=$IMAGE:$SLOW_VERSION"
