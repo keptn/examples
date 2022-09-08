@@ -1,0 +1,6 @@
+image: mongo
+service:
+    externalPort: 27017
+    internalPort: 27017
+    name: carts-db
+replicaCount: 1
