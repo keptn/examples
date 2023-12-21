@@ -1,5 +1,7 @@
 # Keptn Examples
 
+## Keptn V1 has reached end of life on December 22nd, 2023 and has been [replaced](https://github.com/keptn/lifecycle-toolkit).
+
 This directory contains and refers to examples in order to explore the functionality of Keptn. Please visit [keptn.sh](https://keptn.sh) for more information about Keptn.
 
 ## Maintained Examples
